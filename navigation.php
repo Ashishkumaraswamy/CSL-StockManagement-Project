@@ -128,5 +128,5 @@
     </div>
     <script type="text/javascript">
     var date=new Date();
-    document.getElementById("date").innerHTML="Date: "+date.getDate()+"-"+date.getMonth()+"-"+date.getFullYear();
+    document.getElementById("date").innerHTML="Date: "+date.getDate()+"-"+(date.getMonth()+1)+"-"+date.getFullYear();
 </script>
