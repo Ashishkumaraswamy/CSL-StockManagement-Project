@@ -3,7 +3,7 @@
 ?>
 <center><h2>NEW PURCHASE ENTRY</h2></center>
 
-<center><form action="" class="form-horizontal" method="post" name="myForm" id="formpurchase">	  
+<center><form action="" class="form-horizontal" method="post" name="myForm" id="formpurchase">
 <br>
 <div class="form-group pt-2">
             <label for="inputEmail3" class="col-md-5 control-label">Invoice Number</label>
@@ -29,7 +29,7 @@
 					      		$output ="";
 					      		while($category=mysqli_fetch_assoc($categorysql))
 					      		{
-					      			$output.='<option value="addNew">'.$category['category'].'</option>
+					      			$output.='<option value="'.$category['category'].'">'.$category['category'].'</option>
 ';
 					      		}
 					      		echo $output;
@@ -42,13 +42,13 @@
 	        		<input type="text" class="form-control" id="brand" name="brand" placeholder="Brand">
 	        	</div>
 	        	<div class="col-md-2">
-	        		<input type="text" class="form-control" id="p1" name="type" placeholder="Type">
+	        		<input type="text" class="form-control" id="type" name="type" placeholder="Type">
 	        	</div>
 	        	<div class="col-md-2">
-	        		<input type="text" class="form-control" id="p1" name="compdesc" placeholder="Description">
+	        		<input type="text" class="form-control" id="compdesc" name="compdesc" placeholder="Description">
 	        	</div>
 	        	<div class="col-md-1">
-	        		<input type="text" class="form-control" id="p1" name="compquant" placeholder="Quantity">
+	        		<input type="text" class="form-control" id="compquant" name="compquant" placeholder="Quantity">
 	        	</div>
 	        	<div class="col-md-1">
 	        		<button type="submit" class="btn btn-primary" id="addcomponent" name="add">Add to List</button>
@@ -110,23 +110,26 @@
 	continueBtn2=form.querySelector("#addcpu");
 	// errorText = form.querySelector(".error-text");
 
-	continueBtn1.onclick = ()=>{
+
+	continueBtn1.onclick = (e)=>{
+
+	e.preventDefault();
+	console.log(document.getElementById("compcat").value);
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/addcomponent.php", true);
-    alert('Here');
+    console.log(xhr.response);
     xhr.onload = ()=>{
-    	alert('Here');
       if(xhr.readyState === XMLHttpRequest.DONE){
           if(xhr.status === 200){
           	alert('Here');
               let data = xhr.response;
               console.log(data);
               alert('Here');
-              if(data === "success")
-              {
-
-              }else{
-              }
+             document.getElementById("brand").value="";
+             document.getElementById("type").value="";
+             document.getElementById("compdesc").value="";
+             document.getElementById("type").value="";
+             document.getElementById("compquant").value="";
           }
       }
     }
@@ -142,14 +145,7 @@
       if(xhr.readyState === XMLHttpRequest.DONE){
           if(xhr.status === 200){
               let data = xhr.response;
-              if(data === "success"){
-
-              }else{
-
-                errorText.textContent = data;
-                errorText.style.height = "45px";
-                
-              }
+              document.getElementById()
           }
       }
     }
