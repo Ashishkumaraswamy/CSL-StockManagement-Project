@@ -104,10 +104,11 @@
                     <div class="dropdown-content text-left">
                         <?php
                            if($user['user_name']=="VSK")
+                           {
                             echo '
                                 <a href="addpurchase.php">Add new Purchase</a>
-                                <a href="">Add New Category</a>';
-                            
+                                <a href="addcategory.php">Add Category</a>';
+                           }
                         ?>
                         <a href="">View Log</a>
                         <a href="">Add location</a>
