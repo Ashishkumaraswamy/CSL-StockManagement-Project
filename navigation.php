@@ -101,6 +101,7 @@
                     <button class="dropbtn"> Actions <i class="fa fa-caret-down fa-lg"></i></button>
                     <div class="dropdown-content text-left">
                         <a href="addpurchase.php">Add new Purchase</a>
+                        <a href="addcategory.php">Add Category</a>
                         <a href="viewentry.php">Assign Components</a>
                         <a href="">View Log</a>
                         <a href="">Add location</a>
