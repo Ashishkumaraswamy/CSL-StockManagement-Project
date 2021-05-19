@@ -19,7 +19,7 @@
 	        		<input type="text" class="form-control" id="cat" name="cat" placeholder="Category">
 	        	</div>
 	        	<div class="col-md-3">
-	        		<input type="text" class="form-control" id="catcode" name="catcode" placeholder="Category Code">
+	        		<input type="text" class="form-control" id="catcode" name="catcode" placeholder="Category Code: Eg. cpu">
 	        	</div>
 	        	<div class="col-md-1">
 	        		<button type="submit" class="btn btn-primary" id="addcomponent" name="add">Add to Category</button>
@@ -52,6 +52,8 @@
               console.log(data);
 			  if(data === "success"){
 					alert("New Category has been added Successfully!!");
+					document.getElementById("cat").value="";
+					document.getElementById("catcode").value="";
 			  }
 			  else{
 					alert(data);

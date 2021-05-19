@@ -5,17 +5,20 @@
 
 <center><form action="" class="form-horizontal" method="post" name="myForm" id="formpurchase">
 <br>
+ <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="systemcheck" value="Add System">
+    <input type="text" value="uncheck" id="check" hidden>
+    <label class="form-check-label" for="exampleCheck1">Add System</label>
+  </div>
+  <br>
 <div class="form-group pt-2">
             <label for="inputEmail3" class="col-md-5 control-label">Invoice Number</label>
             <div class="col-md-2">
-              <input type="text" class="form-control" id="p1" name="invoice" placeholder="Invoice Number" required>
+              <input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required>
             </div>
           </div>
-          <div class="form-group">
-            <label for="inputPassword3" class="col-md-5 control-label">Purchase Details</label>
-            <div class="col-md-3" style="margin:black">
-          	
-            </div>
+          <div class="form-group" id="inputcompcheck">
+            
           </div>
           <div class="form-group">
           	<h4 class="text-center"> Add Components</h4>
@@ -80,7 +83,7 @@
 	        		<input type="text" class="form-control" id="procseries" name="procseries" placeholder="Processor Series">
 	        	</div>
 	        	<div class="col-md-1">
-	        		<input type="text" class="form-control" id="storage" name="storage" placeholder="Storage">
+	        		<input type="text" class="form-control" id="storage" name="storage" placeholder="Storage(GB): Example 1000">
 	        	</div>
 	        	<div class="col-md-2">
 	        		<input type="text" class="form-control" id="cpudesc" name="cpudesc" placeholder="Description">
@@ -92,14 +95,17 @@
 	        		<button type="submit" class="btn btn-primary" id="addcpu" name="addcpu">Add to List</button>
 	        	</div>
             </div>
-          </div>
-          <br>
-          <br>
-          <div class="form-group">
-            <div class="col-sm-offset-2 col-md-9 text-center">
-              <button type="submit" class="btn btn-primary pt-5" id="add" name="add">Add Purchase</button>
+            <div class="row" id="assemblesystemdiv">
+
             </div>
+            <div class="row">
+            	<div class="col-sm-offset-2 col-md-9 text-center" id="assemblesystem">
+
+            	</div>
+           	</div>
           </div>
+          <br>
+          <br>
 
 			</form></center><br><br><br>
 
@@ -110,8 +116,26 @@
 	const form=document.querySelector("#formpurchase"),
 	continueBtn1=form.querySelector("#addcomponent"),
 	continueBtn2=form.querySelector("#addcpu");
+	var count=0;
+	var comp=["cpu","mon","mou","key"];
 	// errorText = form.querySelector(".error-text");
 
+	document.getElementById("systemcheck").onclick=()=>{
+		if(document.getElementById("check").value=="uncheck")
+		{
+			document.getElementById("check").value="check";
+			if(count==0)
+			{
+				document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Info!</strong> Component 1: Enter Mouse details of the Systems Puchased.</div>';
+				document.getElementById("compcat").value="Mouse";
+				$("#addcpu").attr("hidden",true);
+			}
+		}
+		else{
+			document.getElementById("check").value="uncheck";
+			count=0;
+		}
+	}
 
 	continueBtn1.onclick = (e)=>{
 
@@ -123,15 +147,44 @@
     xhr.onload = ()=>{
       if(xhr.readyState === XMLHttpRequest.DONE){
           if(xhr.status === 200){
-          	alert('Here');
               let data = xhr.response;
               console.log(data);
-              alert('Here');
-             document.getElementById("brand").value="";
-             document.getElementById("type").value="";
-             document.getElementById("compdesc").value="";
-             document.getElementById("type").value="";
-             document.getElementById("compquant").value="";
+            if(data=="Success")
+            {
+               document.getElementById("brand").value="";
+               document.getElementById("type").value="";
+               document.getElementById("compdesc").value="";
+               document.getElementById("type").value="";
+               if(document.getElementById("check").value!="check")
+               {
+               	alert("Here");
+               	document.getElementById("compquant").value="";
+               }
+               else
+               {
+                 	count=count+1;
+                 	if(count==1)
+                 	{
+                 		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Info!</strong> Component 2: Enter Monitor details of the Systems Puchased.</div>';
+                 		document.getElementById("compcat").value="Monitor";
+                 	}
+                 	else if(count==2)
+                 	{
+                 		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Info!</strong> Component 3: Enter KeyBoard details of the Systems Puchased.</div>';
+                 		document.getElementById("compcat").value="Keyboard";
+                 	}
+                 	else if(count==3)
+                 	{
+                 		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Info!</strong> Component 4: Enter CPU details of the Systems Puchased.</div>';
+                 		document.getElementById("cpucat").value="CPU";
+                 		document.getElementById("cpuquant").value=document.getElementById("compquant").value;
+                 	}
+                }
+             }
+             else
+             {
+                alert(data);
+             }
           }
       }
     }
@@ -140,27 +193,58 @@
 }
     continueBtn2.onclick = (e)=>{
     e.preventDefault();
-    alert("Here");
     console.log(document.getElementById("cpucat").value);
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/addcpu.php", true);
     xhr.onload = ()=>{
       if(xhr.readyState === XMLHttpRequest.DONE){
-          alert('Here');
           if(xhr.status === 200){
               let data = xhr.response;
               console.log(data);
+              alert('Item Added');
+              count=count+1;
               document.getElementById("ram").value="";
               document.getElementById("procseries").value="";
               document.getElementById("storage").value="";
               document.getElementById("cpudesc").value="";
               document.getElementById("cpuquant").value="";
+              if(count==4)
+              {
+              	   document.getElementById("compquant").value="";
+              	   document.getElementById("assemblesystem").innerHTML='<br><button type="submit" class="btn btn-primary" id="assignsystem" name="assignsystem">Assemble System</button>';
+              }
           }
       }
     }
     let formData = new FormData(form);
     xhr.send(formData);
 }
+
+let continuebtn3=document.getElementById("assignsystem");
+continuebtn3.onclick = (e)=>{
+  e.preventDefault();
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "php/assemblesystem.php", true);
+    xhr.onload = ()=>{
+      if(xhr.readyState === XMLHttpRequest.DONE){
+          if(xhr.status === 200){
+              let data = xhr.response;
+              if(data=="success")
+              {
+                  document.getElementById("assemblesystemdiv").innerHTML=data;
+              }
+              else
+              {
+                console.log(data);
+              }
+          }
+      }
+    }
+    let formData = new FormData();
+    formData.append("invoice_id",document.getElementById("invoice").value);
+    xhr.send(formData);
+}
+
 </script>	
 </body>
 </html>
