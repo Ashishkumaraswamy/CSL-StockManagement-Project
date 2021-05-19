@@ -56,6 +56,8 @@
     .dropdown:hover .dropbtn {
         background-color: #143049;
     }
+    
+}
 </style>
 </head>
 <body>
@@ -100,10 +102,16 @@
                 <div class="dropdown">
                     <button class="dropbtn"> Actions <i class="fa fa-caret-down fa-lg"></i></button>
                     <div class="dropdown-content text-left">
-                        <a href="addpurchase.php">Add new Purchase</a>
-                        <a href="viewentry.php">Assign Components</a>
+                        <?php
+                           if($user['user_name']=="VSK")
+                            echo '
+                                <a href="addpurchase.php">Add new Purchase</a>
+                                <a href="">Add New Category</a>';
+                            
+                        ?>
                         <a href="">View Log</a>
                         <a href="">Add location</a>
+                        <a href="viewentry.php">Assign Components</a>
                         <a href="">Add New Category</a>
                     </div>
                 </div>
