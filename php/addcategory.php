@@ -18,8 +18,4 @@
                      VALUES ( '{$cat}','{$catcode}' )");
 		echo "success";
 	}
-
-
-
-    
 ?>
