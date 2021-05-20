@@ -11,10 +11,16 @@
     <label class="form-check-label" for="exampleCheck1">Add System</label>
   </div>
   <br>
-<div class="form-group pt-2">
+          <div class="form-group pt-2">
             <label for="inputEmail3" class="col-md-5 control-label">Invoice Number</label>
             <div class="col-md-2">
               <input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required>
+            </div>
+          </div>
+          <div class="form-group pt-2">
+            <label for="inputEmail3" class="col-md-5 control-label">Invoice Date</label>
+            <div class="col-md-2">
+              <input type="date" class="form-control" id="date" name="date" placeholder="Invoice Date" required>
             </div>
           </div>
           <div class="form-group" id="inputcompcheck">
@@ -27,7 +33,7 @@
           		<div class="col-md-2">
       						<select id="compcat" class="dropdown" name="compcat" style="width:130px;height:30px">
       					      <?php
-      					      		$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category NOT IN ('CPU','SERVER','LAPTOP')");
+      					      		$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category NOT IN ('cpu','server','laptop','mac-desktop')");
       					      		$output ="";
       					      		while($category=mysqli_fetch_assoc($categorysql))
       					      		{
@@ -65,7 +71,7 @@
           		<div class="col-md-2">
 	            	<select id="cpucat" name="cpucat" class="dropdown" style="width:130px;height:30px">
 					      <?php
-					      		$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category IN ('CPU','SERVER','LAPTOP')");
+					      		$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category IN ('cpu','server','laptop','mac-desktop')");
 					      		$output ="";
 					      		while($category=mysqli_fetch_assoc($categorysql))
 					      		{
@@ -116,6 +122,7 @@
 	const form=document.querySelector("#formpurchase"),
 	continueBtn1=form.querySelector("#addcomponent"),
 	continueBtn2=form.querySelector("#addcpu");
+  continuebtn3=form.querySelector("#assignsystem");
 	var count=0;
 	var comp=["cpu","mon","mou","key"];
 	// errorText = form.querySelector(".error-text");
@@ -126,12 +133,14 @@
 			document.getElementById("check").value="check";
 			if(count==0)
 			{
-				document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Info!</strong> Component 1: Enter Mouse details of the Systems Puchased.</div>';
-				document.getElementById("compcat").value="Mouse";
+				document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 1: Enter Mouse details of the Systems Puchased.</strong></div>';
+				document.getElementById("compcat").value="mouse";
+        document.getElementById("cpucat").value="";
 				$("#addcpu").attr("hidden",true);
 			}
 		}
 		else{
+      document.getElementById("inputcompcheck").innerHTML='';
 			document.getElementById("check").value="uncheck";
 			count=0;
 		}
@@ -147,44 +156,36 @@
     xhr.onload = ()=>{
       if(xhr.readyState === XMLHttpRequest.DONE){
           if(xhr.status === 200){
-              let data = xhr.response;
-              console.log(data);
-            if(data=="Success")
-            {
-               document.getElementById("brand").value="";
-               document.getElementById("type").value="";
-               document.getElementById("compdesc").value="";
-               document.getElementById("type").value="";
-               if(document.getElementById("check").value!="check")
-               {
-               	alert("Here");
-               	document.getElementById("compquant").value="";
-               }
-               else
-               {
-                 	count=count+1;
-                 	if(count==1)
-                 	{
-                 		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Info!</strong> Component 2: Enter Monitor details of the Systems Puchased.</div>';
-                 		document.getElementById("compcat").value="Monitor";
-                 	}
-                 	else if(count==2)
-                 	{
-                 		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Info!</strong> Component 3: Enter KeyBoard details of the Systems Puchased.</div>';
-                 		document.getElementById("compcat").value="Keyboard";
-                 	}
-                 	else if(count==3)
-                 	{
-                 		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Info!</strong> Component 4: Enter CPU details of the Systems Puchased.</div>';
-                 		document.getElementById("cpucat").value="CPU";
-                 		document.getElementById("cpuquant").value=document.getElementById("compquant").value;
-                 	}
-                }
+            let data = xhr.response;
+             alert(data);
+             document.getElementById("brand").value="";
+             document.getElementById("type").value="";
+             document.getElementById("compdesc").value="";
+             document.getElementById("type").value="";
+             if(document.getElementById("check").value!="check")
+             {
+             	document.getElementById("compquant").value="";
              }
              else
              {
-                alert(data);
-             }
+               	count=count+1;
+               	if(count==1)
+               	{
+               		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 2: Enter Monitor details of the Systems Puchased.</strong></div>';
+               		document.getElementById("compcat").value="monitor";
+               	}
+               	else if(count==2)
+               	{
+               		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 3: Enter KeyBoard details of the Systems Puchased.</strong></div>';
+               		document.getElementById("compcat").value="keyboard";
+               	}
+               	else if(count==3)
+               	{
+               		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 4: Enter CPU details of the Systems Puchased.</strong></div>';
+               		document.getElementById("cpucat").value="cpu";
+               		document.getElementById("cpuquant").value=document.getElementById("compquant").value;
+               	}
+              }
           }
       }
     }
@@ -200,17 +201,16 @@
       if(xhr.readyState === XMLHttpRequest.DONE){
           if(xhr.status === 200){
               let data = xhr.response;
-              console.log(data);
-              alert('Item Added');
+              alert(data);
               count=count+1;
               document.getElementById("ram").value="";
               document.getElementById("procseries").value="";
               document.getElementById("storage").value="";
               document.getElementById("cpudesc").value="";
-              document.getElementById("cpuquant").value="";
               if(count==4)
               {
               	   document.getElementById("compquant").value="";
+                   document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Great All Details of System submitted. Click Assemble System to Assign Components.</strong></div>';
               	   document.getElementById("assemblesystem").innerHTML='<br><button type="submit" class="btn btn-primary" id="assignsystem" name="assignsystem">Assemble System</button>';
               }
           }
@@ -220,8 +220,8 @@
     xhr.send(formData);
 }
 
-let continuebtn3=document.getElementById("assignsystem");
-continuebtn3.onclick = (e)=>{
+
+$(document).on('click','#assignsystem',function(e){
   e.preventDefault();
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/assemblesystem.php", true);
@@ -229,22 +229,20 @@ continuebtn3.onclick = (e)=>{
       if(xhr.readyState === XMLHttpRequest.DONE){
           if(xhr.status === 200){
               let data = xhr.response;
-              if(data=="success")
-              {
-                  document.getElementById("assemblesystemdiv").innerHTML=data;
-              }
-              else
-              {
-                console.log(data);
-              }
+              document.getElementById("assemblesystemdiv").innerHTML=data;
+              document.getElementById("assemblesystem").innerHTML='<br><button type="submit" class="btn btn-primary" id="okay" name="okay">Okay</button>';
           }
       }
     }
     let formData = new FormData();
     formData.append("invoice_id",document.getElementById("invoice").value);
+    formData.append("quantity",document.getElementById("cpuquant").value);
     xhr.send(formData);
-}
+});
 
+$(document).on('click','#okay',function(e){
+    location.href="addpurchase.php";
+});
 </script>	
 </body>
 </html>
