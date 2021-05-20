@@ -7,18 +7,18 @@
   		<input type="text" name="radiovalue" id="radiovalue" hidden>
           <div class="form-group pt-2">
             <div class="radio">
-			  <label style="font-size: 16px"><input type="radio" id="compradio" name="optradio">Assign Component Location</label>
+			  <label style="font-size: 16px"><input type="radio" id="compradio" name="optradio">Assign Location To Component</label>
 			</div>
 			<br>
 			<div class="radio">
-			  <label style="font-size: 16px"><input type="radio" name="optradio" id="systemtradio">Assign CPU Location    </label>
+			  <label style="font-size: 16px"><input type="radio" name="optradio" id="systemtradio">Assign Location To System    </label>
 			</div>
           </div>
           <div class="form-group" id="inputcompcheck">
             
           </div>
           <div class="form-group" id="assigncomponents" hidden>
-          	<center><h4 class="text-center"></h4>Assign Components</center>
+          	<center><h4 class="text-center"></h4>Assign Location To Component</center>
           	<br><br>
           	<div class="row">
           		<div class="col-md-4">
@@ -48,25 +48,25 @@
 	        <div class="row">
 	        	<div class="col-md-4"></div>
 	        	<div class="col-md-1">
-	        		<button type="submit" class="btn btn-primary" id="assigncomponentbtn" name="add">Assign Component</button>
+	        		<button type="submit" class="btn btn-primary" id="assigncomponentbtn" name="add">Assign Location</button>
 	        	</div>
             </div>
           </div>
           <br>
           <div class="form-group" id="assignsystem" hidden>
             <div class="row">
-          	<center><h4 class="text-center">Assign System</h4></center>
+          	<center><h4 class="text-center">Assign Location To System</h4></center>
             </div>
             <br>
             <br>
           	<div class="row">
-          		<div class="col-md-3">
-          		</div>
-          		<div class="col-md-3">
+          		<div class="col-md-4">
+              </div>
+          		<div class="col-md-2">
 	              <input type="text" class="form-control" id="assignsystem" name="assignsystem" placeholder="System ID" required>
 	            </div>
           		<div class="col-md-2">
-      						<select id="compcat" class="dropdown" name="compcat" style="width:130px;height:30px">
+      						<select id="compcat" class="dropdown" name="sysloc" style="width:130px;height:30px">
       					      <?php
       					      		$categorysql=mysqli_query($conn,"SELECT * FROM location");
       					      		$output ="";
@@ -86,8 +86,8 @@
           <br>
 	        <div class="row">
 	        	<div class="col-md-4"></div>
-	        	<div class="col-md-1" style="padding-left: 600px;">
-	        		<button type="submit" class="btn btn-primary" id="assignsystembtn" name="add">Assign System</button>
+	        	<div class="col-md-1">
+	        		<button type="submit" class="btn btn-primary" id="assignsystembtn" name="add">Assign Location</button>
 	        	</div>
             </div>
           </div>
@@ -115,15 +115,16 @@
 	}
 
 	document.getElementById("assignsystembtn").onclick=(e)=>{
+    alert("Here");
 		e.preventDefault();
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "php/assignlocation.php", true);
+    xhr.open("POST", "php/assignsystem.php", true);
     xhr.onload = ()=>{
       if(xhr.readyState === XMLHttpRequest.DONE){
           if(xhr.status === 200){
 	          let data = xhr.response;
-            console.log(data);
 	          alert(data);
+            location.href("assignlocation.php");
 	      	}
     	}
 	}
@@ -142,6 +143,7 @@
           if(xhr.status === 200){
 	          let data = xhr.response;
 	          alert(data);
+            location.href("assignlocation.php");
 	      	}
     	}
 	}
