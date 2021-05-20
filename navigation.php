@@ -113,7 +113,6 @@
                            }
                         ?>
                         <a href="">View Log</a>
-                        <a href="">Add location</a>
                         <a href="viewentry.php">Assign Components</a>
                     </div>
                 </div>
