@@ -57,7 +57,7 @@
         background-color: #143049;
     }
     
-}
+
 </style>
 </head>
 <body>
@@ -108,7 +108,8 @@
                             echo '
                                 <a href="addpurchase.php">Add new Purchase</a>
                                 <a href="addcategory.php">Add Category</a>
-                                <a href="assignlocation.php">Assign Location</a>';
+                                <a href="assignlocation.php">Assign Location</a>
+                                <a href="addnewlocation.php">Add New Location</a>';
                            }
                         ?>
                         <a href="">View Log</a>
