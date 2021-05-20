@@ -107,7 +107,8 @@
                            {
                             echo '
                                 <a href="addpurchase.php">Add new Purchase</a>
-                                <a href="addcategory.php">Add Category</a>';
+                                <a href="addcategory.php">Add Category</a>
+                                <a href="assignlocation.php">Assign Location</a>';
                            }
                         ?>
                         <a href="">View Log</a>

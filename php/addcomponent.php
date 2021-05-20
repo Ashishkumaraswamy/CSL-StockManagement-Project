@@ -29,7 +29,7 @@
 					while($i<=$compquant)
 					{
 						$compid=$compcat.(string)($count+$i);
-						$insertcomp=mysqli_query($conn,"INSERT INTO components VALUES('{$compid}',{$purchaseid['purchaseid']},'{$brand}','{$type}',0,'{$desc}')");
+						$insertcomp=mysqli_query($conn,"INSERT INTO components VALUES('{$compid}',{$purchaseid['purchaseid']},'{$brand}','{$type}',0,1,'{$desc}')");
 						$i=$i+1;
 					}
 					echo $cat." added to store. ID of the new items are from ".($count+1)." to ".($count+$i-1);
