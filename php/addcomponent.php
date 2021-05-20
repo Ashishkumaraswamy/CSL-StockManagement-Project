@@ -18,7 +18,7 @@
 			$purchaseinsert=mysqli_query($conn,"INSERT INTO purchase(invoice_id,purchase_date) VALUES('{$invoice_id}','{$date}')");
 			if($purchaseinsert)
 			{	
-				$purchaseidsql=mysqli_query($conn,"SELECT * FROM purchase ORDER BY purchase_date DESC LIMIT 1");
+				$purchaseidsql=mysqli_query($conn,"SELECT * FROM purchase ORDER BY purchaseid DESC LIMIT 1");
 				$purchaseid=mysqli_fetch_assoc($purchaseidsql);
 				$idsql=mysqli_query($conn,"SELECT count(*) as count FROM components WHERE componentid LIKE '$compcat%'");
 				$id=mysqli_fetch_assoc($idsql);
