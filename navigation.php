@@ -119,7 +119,7 @@
                 <div class="dropdown">
                     <button class="dropbtn"> Report <i class="fa fa-caret-down fa-lg"></i></button>
                     <div class="dropdown-content text-left">
-                    <a href="csltedtalk.php">Generate Report</a>
+                    <a href="generatereport.php">Generate Report</a>
                     </div>
                 </div>
             </div>
