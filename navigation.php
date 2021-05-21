@@ -93,8 +93,6 @@
                     <button class="dropbtn"> Profile <i class="fa fa-caret-down fa-lg"></i></button>
                     <div class="dropdown-content text-left">
                         <a href="change_password.php">Change Password</a>
-                        <a href="update_profile.php">Update Profile</a>
-                        <a href="view_profile.php">View Profile</a>
                     </div>
                 </div>
             </div>
