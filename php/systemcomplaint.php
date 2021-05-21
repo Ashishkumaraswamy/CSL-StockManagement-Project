@@ -39,7 +39,7 @@
 							if(mysqli_num_rows($syssql)>0)
 							{
 								$sys=mysqli_fetch_assoc($syssql);
-								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1 WHERE componentid='{$compid}'");
+								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
 								$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$repcom['componentid']} WHERE system_id={$sys['system_id']}");
 								$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$sys['location_id']} WHERE componentid='{$repcompid}'");
 								if($updatecomp and $updatesys and $updaterepcomp)
@@ -60,7 +60,7 @@
 							if(mysqli_num_rows($syssql)>0)
 							{
 								$sys=mysqli_fetch_assoc($syssql);
-								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1 WHERE componentid='{$compid}'");
+								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
 								if($updatecomp)
 								{
 									echo $compid." status updated and moved to store.";
@@ -78,7 +78,7 @@
 					}
 					else
 					{
-						$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1 WHERE componentid='{$compid}'");
+						$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
 							if($updatecomp)
 							{
 								echo "Updated Successfully and item moved to store";
@@ -109,7 +109,7 @@
 							if(mysqli_num_rows($syssql)>0)
 							{
 								$sys=mysqli_fetch_assoc($syssql);
-								$updatecpu=mysqli_query($conn,"UPDATE cpu SET status={$status['status_id']},location=1 WHERE cpu_id='{$compid}'");
+								$updatecpu=mysqli_query($conn,"UPDATE cpu SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE cpu_id='{$compid}'");
 								$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$repcom['componentid']} WHERE system_id={$sys['system_id']}");
 								$updaterepcomp=mysqli_query($conn,"UPDATE cpu SET location={$sys['location_id']} WHERE cpu_id='{$repcompid}'");
 								if($updatecomp and $updatesys and $updaterepcomp)
@@ -130,7 +130,7 @@
 							if(mysqli_num_rows($syssql)>0)
 							{
 								$sys=mysqli_fetch_assoc($syssql);
-								$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$status['status_id']},location=1 WHERE cpu_id='{$compid}'");
+								$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE cpu_id='{$compid}'");
 								if($updatecomp)
 								{
 									echo $compid." status updated and moved to store.";
@@ -148,7 +148,7 @@
 					}
 					else
 					{
-						$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']}, location=1 WHERE componentid='{$compid}'");
+						$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']}, location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
 							if($updatecomp)
 							{
 								echo "Updated Successfully and item moved to store";
