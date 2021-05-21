@@ -60,10 +60,13 @@
             <br>
             <br>
           	<div class="row">
-          		<div class="col-md-4">
+          		<div class="col-md-2">
+              </div>
+              <div class="col-md-2">
+                <input type="text" class="form-control" id="assignsystem" name="fromassignsystem" placeholder="From System ID" required>
               </div>
           		<div class="col-md-2">
-	              <input type="text" class="form-control" id="assignsystem" name="assignsystem" placeholder="System ID" required>
+	              <input type="text" class="form-control" id="assignsystem" name="toassignsystem" placeholder="To System ID" required>
 	            </div>
           		<div class="col-md-2">
       						<select id="compcat" class="dropdown" name="sysloc" style="width:130px;height:30px">
