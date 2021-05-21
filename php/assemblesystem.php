@@ -26,7 +26,7 @@
     		$monitorfetch=mysqli_fetch_assoc($monitorfetchsql);
     		$keyboardfetch=mysqli_fetch_assoc($keyboardfetchsql);
     		$cpufetch=mysqli_fetch_assoc($cpufetchsql);
-    		$systeminsert=mysqli_query($conn,"INSERT INTO `system`(`mouse_id`, `keyboard_id`, `monitor_id`, `cpu_id`, `location_id`, `status`, `description`) VALUES ('{$mousefetch['componentid']}','{$keyboardfetch['componentid']}','{$monitorfetch['componentid']}','{$cpufetch['cpu_id']}',0,0,'NA')");
+    		$systeminsert=mysqli_query($conn,"INSERT INTO `system`(`mouse_id`, `keyboard_id`, `monitor_id`, `cpu_id`, `location_id`, `status`, `description`) VALUES ('{$mousefetch['componentid']}','{$keyboardfetch['componentid']}','{$monitorfetch['componentid']}','{$cpufetch['cpu_id']}',1,1,'NA')");
     		if($systeminsert)
     		{
     			$systemidsql=mysqli_query($conn,"SELECT * FROM `system` ORDER BY system_id DESC LIMIT 1");

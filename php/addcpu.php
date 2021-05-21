@@ -28,7 +28,7 @@
 				while($i<=$cpuquant)
 				{
 					$cpuid=$cpucat.(string)($count+$i);
-					$insertcomp=mysqli_query($conn,"INSERT INTO cpu VALUES('{$cpuid}',{$purchaseid['purchaseid']},'{$ram}','{$procseries}',{$storage},0,1,'{$desc}')");
+					$insertcomp=mysqli_query($conn,"INSERT INTO cpu VALUES('{$cpuid}',{$purchaseid['purchaseid']},'{$ram}','{$procseries}',{$storage},1,1,'{$desc}')");
 					$i=$i+1;
 				}
 				echo $cat." added to store. ID of the new items are from ".($count+1)." to ".($count+$i-1);
