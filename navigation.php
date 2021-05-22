@@ -127,7 +127,7 @@
                <div class="dropdown">
                 <button class="dropbtn"> System Complaints <i class="fa fa-caret-down fa-lg"></i></button>
                     <div class="dropdown-content text-left">
-                    <a href="systemComplaints.php">Register Complaint</a>
+                    <a href="systemcomplaints.php">Register Complaint</a>
                     </div>
                 </div>
             </div>
