@@ -20,8 +20,9 @@
 			          		</div>
 			          		<h4>Location:'.$location['lab_name'].'</h4>
 			          	   </div>
+			          	   <br>
 			          	   <div class="row">
-			          		<div class="col-md-4">
+			          		<div class="col-md-3">
 			          		</div>
 			   				<h4>Number of Systems:'.$syslocation['labsyscount'].'</h4>
 			          	   </div>

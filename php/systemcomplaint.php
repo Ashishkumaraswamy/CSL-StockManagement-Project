@@ -12,6 +12,8 @@
 	$repcompcode=substr($repcompid, 0,3);
 	$status=mysqli_real_escape_string($conn,$_POST['compstat']);
 	$description=mysqli_real_escape_string($conn,$_POST['description']);
+	$date=date('Y-m-d');
+	echo $date;
 	if(!empty($category) and !empty($compid) and !empty($status) and !empty($description) and !empty($repcompid))
 	{
 		$statsql=mysqli_query($conn,"SELECT * FROM status WHERE status='{$status}'");
@@ -34,21 +36,53 @@
 					if($comp['location']!=1)
 					{
 						$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
-						if($repcompid=="none")
+						if($repcompid!="none")
 						{
 							if(mysqli_num_rows($syssql)>0)
 							{
 								$sys=mysqli_fetch_assoc($syssql);
-								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
-								$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$repcom['componentid']} WHERE system_id={$sys['system_id']}");
-								$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$sys['location_id']} WHERE componentid='{$repcompid}'");
-								if($updatecomp and $updatesys and $updaterepcomp)
+								if($status=="not working")
 								{
-									echo $compid." status updated and moved to store. Also its assigned system ".$sys['system_id']." was replaced with".$repcompid.".";
+									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
+									$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`='{$repcom['componentid']}' WHERE system_id={$sys['system_id']}");
+									$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$sys['location_id']} WHERE componentid='{$repcompid}'");
+									if($updatecomp and $updatesys and $updaterepcomp)
+									{
+										echo $compid." status updated and moved to store. Also its assigned system ".$sys['system_id']." was replaced with".$repcompid.".";
+									}
+									else
+									{
+										echo "update error";
+									}
+								}
+								else if($status=="working")
+								{
+									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
+									if($updatecomp)
+									{
+										echo $compid." status updated to Working.";
+									}
+									else
+									{
+										echo "update error";
+									}
 								}
 								else
 								{
-									echo "update error";
+									$locationsql=mysqli_query($conn,"SELECT * FROM location WHERE lab_name='disposed'");
+									$locationfetch=mysqli_fetch_assoc($locationsql);
+									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
+									$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`='{$repcom['componentid']}' WHERE system_id={$sys['system_id']}");
+									$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$sys['location_id']} WHERE componentid='{$repcompid}'");
+									$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
+									if($insertdispose)
+									{
+										echo $compid." status updated and disposed. Also its assigned system ".$sys['system_id']." was replaced with".$repcompid.".";
+									}
+									else
+									{
+										echo "update error Here";
+									}
 								}
 							}
 							else
@@ -104,7 +138,7 @@
 					if($comp['location']!=1)
 					{
 						$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
-						if($repcompid=="none")
+						if($repcompid!="none")
 						{
 							if(mysqli_num_rows($syssql)>0)
 							{
