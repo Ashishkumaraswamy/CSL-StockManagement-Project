@@ -153,7 +153,23 @@
 	}
 
         document.getElementById("working").onclick=(e)=>{
-            alert("working");
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "php/working.php", true);
+            xhr.onload = ()=>{
+            if(xhr.readyState === XMLHttpRequest.DONE){
+                if(xhr.status === 200){
+                    let data = xhr.response;
+                    console.log(data);
+                    document.getElementById("reportarea").innerHTML=data;
+                    if(data.length>200)
+                    {
+                            document.getElementById("okaybutton").style.display="block";
+                    }
+                    }
+                }
+            }
+            let formData = new FormData(form);
+            xhr.send(formData);
         }
 
         document.getElementById("notworking").onclick=(e)=>{
