@@ -22,40 +22,40 @@
             </div>
           <br>
           <br>
-                 <div class="form-group" id="reportarea">
-            
-          </div>
-
+                <input type="text" name="invoicecheck" id="invoicecheck" value="uncheck" hidden>
                 <div class="form-group" id="overallarea" hidden>
                         <center><h4 class="text-center"><b>Overall Report</b></h4></center>
                         <br><br>
+                        <div class="row">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="invoicechkbox" name="invoicechkbox" value="invoiceid">
+                                <label class="form-check-label" for="exampleCheck1">Generate Report By Invoice ID</label>
+                              </div>
+                        </div>
+                        <br><br><br>
+                        <div id="areabasedoncheck">
+                            <div class="col-md-3">
+                            </div>
+
+                            <div class="col-md-1">
+                                <label for="inputEmail3" class="col-md-5 control-label">From</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="date" class="form-control" id="from" name="from" placeholder="From Date" required>
+                            </div>
+                            
+                            <div class="col-md-1">
+                                <label for="inputEmail3" class="col-md-5 control-label">To</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input type="date" class="form-control" id="to" name="to" placeholder="To Date" required>
+                            </div>
+                        </div>
 
                         <div class="col-md-1">
-                        </div>
-                    
-                        <div class="col-md-3">
-                            <input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required>
-                        </div>
-
-                        <div class="col-md-1">
-                            <label for="inputEmail3" class="col-md-5 control-label">From</label>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="date" class="form-control" id="from" name="from" placeholder="From Date" required>
-                        </div>
-                        
-                        <div class="col-md-1">
-                            <label for="inputEmail3" class="col-md-5 control-label">To</label>
-                        </div>
-                        <div class="col-md-2">
-                            <input type="date" class="form-control" id="to" name="to" placeholder="To Date" required>
-                        </div>
-
-                        <div class="col-md-1">
-                            <button type="submit" class="btn btn-primary" id="go" name="go">GO</button>
+                            <button type="submit" class="btn btn-primary" id="invoicebtn" name="invoicebtn">GO</button>
                         </div>
                 </div>
-
 
                 <div class="form-group" id="statusarea" hidden>
                         <center><h4 class="text-center"><b>Status Report</b></h4></center>
@@ -87,7 +87,6 @@
                 <div class="form-group" id="labwisearea" hidden>
                         <center><h4 class="text-center"><b>Labwise Report</b></h4></center>
                         <br><br>
-                    
                         <div class="col-md-4">
                         </div> 
                         <div class="col-md-3">
@@ -110,6 +109,9 @@
                 
                 </div>
                 <div class="form-group" id="okaybutton" hidden>
+                    <div class="form-group" id="reportarea">
+                    
+                    </div>
                     <div class="col-md-5">
                     </div>
                     <div class="col-md-2">
@@ -130,6 +132,7 @@
 		// document.getElementById("status").style.display="none";
         document.getElementById("statusarea").style.display="none";
         document.getElementById("labwisearea").style.display="none";
+        document.getElementById("okaybutton").style.display="none";
         document.getElementById("overallarea").style.display="block";
 	}
 
@@ -137,12 +140,15 @@
         // document.getElementById("overall").style.display="none";
         document.getElementById("overallarea").style.display="none";
         document.getElementById("labwisearea").style.display="none";
+        document.getElementById("okaybutton").style.display="none";
         document.getElementById("statusarea").style.display="block";
+
 	}
     document.getElementById("labwise").onclick=(e)=>{
         //document.getElementById("radiovalue").value="labwise";
         document.getElementById("overallarea").style.display="none";
         document.getElementById("statusarea").style.display="none";
+        document.getElementById("okaybutton").style.display="none";
         document.getElementById("labwisearea").style.display="block";
 	}
 
@@ -156,7 +162,19 @@
             alert("disposed");
         }
     
-    
+     document.getElementById("invoicechkbox").onclick=()=>{
+        alert('Here');
+        if(document.getElementById("invoicecheck").value=="uncheck")
+        {
+            document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-5"></div><div class="col-md-2"><input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required></div>';
+            document.getElementById("invoicecheck").value="check";
+        }
+        else
+        {
+            document.getElementById("invoicecheck").value="uncheck";
+            document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-3"></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">From</label></div><div class="col-md-2"><input type="date" class="form-control" id="from" name="from" placeholder="From Date" required></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">To</label></div><div class="col-md-2"><input type="date" class="form-control" id="to" name="to" placeholder="To Date" required></div>';
+        }   
+    }
 
 	
 	document.getElementById("labreportbtn").onclick=(e)=>
@@ -181,7 +199,27 @@
     xhr.send(formData);
 	}
 
-    document.getElementById("")
+    document.getElementById("invoicebtn").onclick=(e)=>{
+        alert('here');
+        e.preventDefault();
+        let xhr=XMLHttpRequest();
+        xhr.open("POST","php/invoicereport.php",true);
+        xhr.onload=()=>{
+            if(xhr.readyState==XMLHttpRequest.DONE){
+                if(xhr.status===200)
+                {
+                    let data=xhr.response;
+                    document.getElementById("")
+                }
+            }
+        }
+    }
+
+    document.getElementById("okaybtn").onclick=()=>{
+        alert('Here');
+        location.href="generatereport.php";
+    }
+
 </script>
 </body>
 </html>
