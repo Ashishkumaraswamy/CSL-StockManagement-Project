@@ -42,7 +42,7 @@
                     // $output.='<caption><center><h4 class="text-center"><b>'.$row['category'].' working fine.</b></h4></center></caption>
                     // <br><br><br>';
                 }
-                
+
             }else{
                 $code = $row['category_code'];
                 $sql=mysqli_query($conn,"SELECT * FROM cpu where cpu_id like '$code%' and status = 2");
@@ -80,13 +80,13 @@
             }
 
         }
-        $output .='</div>';
-        echo $output;
     }
     else{
         echo '<div class="alert alert-info">
         <strong>Category sql failure</strong> 
         </div>';
     }
+    $output .='</div>';
+    echo $output;
 	
 ?>

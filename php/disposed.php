@@ -80,13 +80,14 @@
             }
 
         }
-        $output .='</div>';
-        echo $output;
+        
     }
     else{
         echo '<div class="alert alert-info">
         <strong>Category sql failure</strong> 
         </div>';
     }
+    $output .='</div>';
+    echo $output;
 	
 ?>
