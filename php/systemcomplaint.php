@@ -21,7 +21,7 @@
 			echo "failure";
 		$catsql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$category}'");
 		$cat=mysqli_fetch_assoc($catsql);
-		if($cat['category_code']==$compcode and $cat['category_code']==$repcompcode)
+		if($cat['category_code']==$compcode)
 		{
 			if($compcode!="cpu")
 			{	

@@ -175,7 +175,6 @@
             document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-3"></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">From</label></div><div class="col-md-2"><input type="date" class="form-control" id="from" name="from" placeholder="From Date" required></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">To</label></div><div class="col-md-2"><input type="date" class="form-control" id="to" name="to" placeholder="To Date" required></div>';
         }   
     }
-
 	
 	document.getElementById("labreportbtn").onclick=(e)=>
 	{
@@ -202,17 +201,20 @@
     document.getElementById("invoicebtn").onclick=(e)=>{
         alert('here');
         e.preventDefault();
-        let xhr=XMLHttpRequest();
+        let xhr=new XMLHttpRequest();
         xhr.open("POST","php/invoicereport.php",true);
         xhr.onload=()=>{
             if(xhr.readyState==XMLHttpRequest.DONE){
                 if(xhr.status===200)
                 {
                     let data=xhr.response;
-                    document.getElementById("")
+                    document.getElementById("reportarea").innerHTML=data;
+                    document.getElementById("okaybutton").style.display="block";
                 }
             }
         }
+        let formData = new FormData(form);
+        xhr.send(formData);
     }
 
     document.getElementById("okaybtn").onclick=()=>{
