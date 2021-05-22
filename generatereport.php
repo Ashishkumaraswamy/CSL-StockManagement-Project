@@ -238,7 +238,6 @@
 	          document.getElementById("reportarea").innerHTML=data;
               if(data.length>200)
               {
-                    document.getElementById("labwisearea").style.display="none";
                     document.getElementById("okaybutton").style.display="block";
               }
 	      	}

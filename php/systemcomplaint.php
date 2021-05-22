@@ -13,7 +13,6 @@
 	$status=mysqli_real_escape_string($conn,$_POST['compstat']);
 	$description=mysqli_real_escape_string($conn,$_POST['description']);
 	$date=date('Y-m-d');
-	echo $date;
 	if(!empty($category) and !empty($compid) and !empty($status) and !empty($description) and !empty($repcompid))
 	{
 		$statsql=mysqli_query($conn,"SELECT * FROM status WHERE status='{$status}'");
@@ -94,19 +93,45 @@
 							if(mysqli_num_rows($syssql)>0)
 							{
 								$sys=mysqli_fetch_assoc($syssql);
-								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
-								if($updatecomp)
+								if($status=="not working")
 								{
-									echo $compid." status updated and moved to store.";
+									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
+									if($updatecomp)
+									{
+										echo $compid." status updated and moved to store.";
+									}
+									else
+									{
+										echo "update error";
+									}
+								}
+								else if($status=="working")
+								{
+									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
+									if($updatecomp)
+									{
+										echo $compid." status updated to working.";
+									}
+									else
+									{
+										echo "update error";
+									}
 								}
 								else
 								{
-									echo "update error";
+									$locationsql=mysqli_query($conn,"SELECT * FROM location WHERE lab_name='disposed'");
+									$locationfetch=mysqli_fetch_assoc($locationsql);
+									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
+									$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
+									if($insertdispose)
+									{
+										echo $compid." status updated and disposed";
+									}
+									else
+									{
+										echo "update error Here";
+									}
 								}
-							}
-							else
-							{
-								"No system found";
 							}
 						}
 					}
