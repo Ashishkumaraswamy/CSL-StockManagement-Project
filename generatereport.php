@@ -141,6 +141,10 @@
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-primary" id="okaybtn" name="goo">Okay</button>
                     </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-primary" onclick="window.print()">Print this page</button>
+                    </div>
+                    
                 </div>
 
 			</form></center><br><br><br>
