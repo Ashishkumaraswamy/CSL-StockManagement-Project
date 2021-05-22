@@ -155,11 +155,45 @@
         document.getElementById("working").onclick=(e)=>{
             alert("working");
         }
+
         document.getElementById("notworking").onclick=(e)=>{
-            alert("notworking");
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "php/notworking.php", true);
+            xhr.onload = ()=>{
+            if(xhr.readyState === XMLHttpRequest.DONE){
+                if(xhr.status === 200){
+                    let data = xhr.response;
+                    console.log(data);
+                    document.getElementById("reportarea").innerHTML=data;
+                    if(data.length>200)
+                    {
+                            document.getElementById("okaybutton").style.display="block";
+                    }
+                    }
+                }
+            }
+            let formData = new FormData(form);
+            xhr.send(formData);
         }
+
         document.getElementById("disposed").onclick=(e)=>{
-            alert("disposed");
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "php/disposed.php", true);
+            xhr.onload = ()=>{
+            if(xhr.readyState === XMLHttpRequest.DONE){
+                if(xhr.status === 200){
+                    let data = xhr.response;
+                    console.log(data);
+                    document.getElementById("reportarea").innerHTML=data;
+                    if(data.length>200)
+                    {
+                            document.getElementById("okaybutton").style.display="block";
+                    }
+                    }
+                }
+            }
+            let formData = new FormData(form);
+            xhr.send(formData);
         }
     
      document.getElementById("invoicechkbox").onclick=()=>{
@@ -216,7 +250,6 @@
     }
 
     document.getElementById("okaybtn").onclick=()=>{
-        alert('Here');
         location.href="generatereport.php";
     }
 
