@@ -7,24 +7,24 @@
             </div>
             <div class="col-md-2">
             <div class="radio">
-			    <label style="font-size: 15px"><input type="radio" id="overall" name="overall">Overall  Report</label>
+			    <label style="font-size: 15px"><input type="radio" id="overall" name="reporttype">Overall  Report</label>
 			</div>
             </div>
             <div class="col-md-2">
 			<div class="radio">
-			  <label style="font-size: 15px"><input type="radio" name="status" id="status">Status Report</label>
+			  <label style="font-size: 15px"><input type="radio" name="reporttype" id="status">Status Report</label>
 			</div>
             </div>
             <div class="col-md-2">
 			<div class="radio">
-			  <label style="font-size: 15px"><input type="radio" name="labwise" id="labwise">Labwise Report</label>
+			  <label style="font-size: 15px"><input type="radio" name="reporttype" id="labwise">Labwise Report</label>
 			</div>
             </div>
-          
-          <div class="form-group" id="inputcompcheck">
+          <br>
+          <br>
+                 <div class="form-group" id="reportarea">
             
           </div>
-          <br>
 
                 <div class="form-group" id="overallarea" hidden>
                         <center><h4 class="text-center"><b>Overall Report</b></h4></center>
@@ -54,7 +54,6 @@
                         <div class="col-md-1">
                             <button type="submit" class="btn btn-primary" id="go" name="go">GO</button>
                         </div>
-                
                 </div>
 
 
@@ -67,17 +66,17 @@
 
                         <div class="col-md-2">
                         <div class="radio">
-                            <label style="font-size: 15px"><input type="radio" id="working" name="working">Working</label>
+                            <label style="font-size: 15px"><input type="radio" id="working" name="radiostatus">Working</label>
                         </div>
                         </div>
                         <div class="col-md-2">
                         <div class="radio">
-                            <label style="font-size: 15px"><input type="radio" name="notworking" id="notworking">Not Working</label>
+                            <label style="font-size: 15px"><input type="radio" name="radiostatus" id="notworking">Not Working</label>
                         </div>
                         </div>
                         <div class="col-md-2">
                         <div class="radio">
-                            <label style="font-size: 15px"><input type="radio" name="disposed" id="disposed">Disposed</label>
+                            <label style="font-size: 15px"><input type="radio" name="radiostatus" id="disposed">Disposed</label>
                         </div>
                         </div>
                 
@@ -92,25 +91,31 @@
                         <div class="col-md-4">
                         </div> 
                         <div class="col-md-3">
-                            <select id="cpucat" name="cpucat" class="dropdown" style="width:270px;height:30px">
+                            <select id="cpucat" name="labcat" class="dropdown" style="width:270px;height:30px">
                                 <?php
-                                        $categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category IN ('cpu','server','laptop','mac-desktop')");
+                                        $categorysql=mysqli_query($conn,"SELECT * FROM location");
                                         $output ="";
                                         while($category=mysqli_fetch_assoc($categorysql))
                                         {
-                                            $output.='<option value="'.$category['category'].'">'.$category['category'].'</option>';
+                                            $output.='<option value="'.$category['lab_name'].'">'.$category['lab_name'].'</option>';
                                         }
                                         echo $output;
                                 ?>
                             </select>
                         </div>
                         <div class="col-md-1">
-                        <button type="submit" class="btn btn-primary" id="goo" name="goo">Go</button>
+                        <button type="submit" class="btn btn-primary" id="labreportbtn" name="goo">Go</button>
                         </div>
 
                 
                 </div>
-
+                <div class="form-group" id="okaybutton" hidden>
+                    <div class="col-md-5">
+                    </div>
+                    <div class="col-md-2">
+                        <button type="submit" class="btn btn-primary" id="okaybtn" name="goo">Okay</button>
+                    </div>
+                </div>
 
 			</form></center><br><br><br>
 
@@ -154,24 +159,29 @@
     
 
 	
-	document.getElementById("assigncomponentbtn").onclick=(e)=>
+	document.getElementById("labreportbtn").onclick=(e)=>
 	{
-	alert('Here');
 	e.preventDefault();
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "php/assigncomponent.php", true);
+    xhr.open("POST", "php/labreport.php", true);
     xhr.onload = ()=>{
       if(xhr.readyState === XMLHttpRequest.DONE){
           if(xhr.status === 200){
 	          let data = xhr.response;
-	          alert(data);
-            location.href("assignlocation.php");
+	          document.getElementById("reportarea").innerHTML=data;
+              if(data.length>200)
+              {
+                    document.getElementById("labwisearea").style.display="none";
+                    document.getElementById("okaybutton").style.display="block";
+              }
 	      	}
     	}
 	}
     let formData = new FormData(form);
     xhr.send(formData);
 	}
+
+    document.getElementById("")
 </script>
 </body>
 </html>
