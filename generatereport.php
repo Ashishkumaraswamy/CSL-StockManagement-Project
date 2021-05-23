@@ -34,13 +34,29 @@
           <br>
                 <input type="text" name="invoicecheck" id="invoicecheck" value="uncheck" hidden>
                 <div class="form-group" id="overallarea" hidden>
-                        <center><h4 class="text-center"><b>Overall Report</b></h4></center>
+                        <center><h4 class="text-center"><b>Invoice Report</b></h4></center>
                         <br><br>
-                        <div class="row">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="invoicechkbox" name="invoicechkbox" value="invoiceid">
-                                <label class="form-check-label" for="exampleCheck1">Generate Report By Invoice ID</label>
-                              </div>
+                        
+                        <div class="form-check">
+                            <div class="col-md-2">
+            </div>
+            <div class="col-md-3">
+            <div class="radio">
+              <label style="font-size: 15px"><input type="radio" name="invrepttype" id="datewise">Datewise Report</label>
+            </div>
+            </div>
+            <div class="col-md-2">
+            <div class="radio">
+                <label style="font-size: 15px"><input type="radio" id="allreport" name="invrepttype">All Report</label>
+            </div>
+            </div>
+            <div class="col-md-3">
+            <div class="radio">
+              <label style="font-size: 15px"><input type="radio" name="invrepttype" id="invoiceidrept">Get Report With Invoice ID</label>
+            </div>
+            </div>
+            <div class="col-md-2">
+            </div>       
                         </div>
                         <br><br><br>
                         <div id="areabasedoncheck">
@@ -251,20 +267,58 @@
             xhr.send(formData);
         }
     
-     document.getElementById("invoicechkbox").onclick=()=>{
+    //  document.getElementById("invoicechkbox").onclick=()=>{
+    //     alert('Here');
+    //     if(document.getElementById("invoicecheck").value=="uncheck")
+    //     {
+    //         document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-5"></div><div class="col-md-2"><input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required></div>';
+    //         document.getElementById("invoicecheck").value="check";
+    //     }
+    //     else
+    //     {
+    //         document.getElementById("invoicecheck").value="uncheck";
+    //         document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-3"></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">From</label></div><div class="col-md-2"><input type="date" class="form-control" id="from" name="from" placeholder="From Date" required></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">To</label></div><div class="col-md-2"><input type="date" class="form-control" id="to" name="to" placeholder="To Date" required></div>';
+    //     }   
+    // }
+    document.getElementById("datewise").onchange=()=>{
         alert('Here');
-        if(document.getElementById("invoicecheck").value=="uncheck")
-        {
-            document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-5"></div><div class="col-md-2"><input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required></div>';
-            document.getElementById("invoicecheck").value="check";
-        }
-        else
-        {
-            document.getElementById("invoicecheck").value="uncheck";
-            document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-3"></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">From</label></div><div class="col-md-2"><input type="date" class="form-control" id="from" name="from" placeholder="From Date" required></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">To</label></div><div class="col-md-2"><input type="date" class="form-control" id="to" name="to" placeholder="To Date" required></div>';
-        }   
+        document.getElementById("invoicecheck").value="datewise";
+        document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-3"></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">From</label></div><div class="col-md-2"><input type="date" class="form-control" id="from" name="from" placeholder="From Date" required></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">To</label></div><div class="col-md-2"><input type="date" class="form-control" id="to" name="to" placeholder="To Date" required></div>';
     }
 	
+    document.getElementById("invoiceidrept").onchange=()=>{
+        alert('Here');
+        document.getElementById("invoicecheck").value="invoiceidrept";
+        document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-5"></div><div class="col-md-2"><input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required></div>';
+            document.getElementById("invoicecheck").value="check";
+    }
+
+    document.getElementById("allreport").onchange=(e)=>{
+        alert('Here');
+        document.getElementById("invoicecheck").value="invoiceidrept";
+        e.preventDefault();
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "php/invoicereport.php", true);
+        xhr.onload = ()=>{
+          if(xhr.readyState === XMLHttpRequest.DONE){
+              if(xhr.status === 200){
+                  let data = xhr.response;
+                  document.getElementById("reportarea").innerHTML=data;
+                  if(data.length>200)
+                  {
+                        document.getElementById("okaybutton").style.display="block";
+                  }
+                  else
+                  {
+                    alert(data);
+                  }
+                }
+            }
+        }
+        let formData = new FormData(form);
+        xhr.send(formData);
+    }
+
 	document.getElementById("labreportbtn").onclick=(e)=>
 	{
 	e.preventDefault();
