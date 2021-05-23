@@ -31,6 +31,7 @@
 						$compid=$compcat.(string)($count+$i);
 						$id=($count+$i);
 						$insertcomp=mysqli_query($conn,"INSERT INTO components VALUES('{$compid}',{$id},{$purchaseid['purchaseid']},'{$brand}','{$type}',1,1,'{$desc}','NA')");
+						$sql1 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Invoice ID - {$invoice_id} ,Purchase ID -{$purchaseid['purchaseid']} and Purchase date - {$date}.','New Components Added.')");
 						$i=$i+1;
 					}
 					echo $cat." added to store. ID of the new items are from ".($count+1)." to ".($count+$i-1);

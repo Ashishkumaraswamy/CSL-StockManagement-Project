@@ -30,6 +30,7 @@
 					$cpuid=$cpucat.(string)($count+$i);
 					$id=($count+$i);
 					$insertcomp=mysqli_query($conn,"INSERT INTO cpu VALUES('{$cpuid}',{$id},{$purchaseid['purchaseid']},'{$ram}','{$procseries}',{$storage},1,1,'{$desc}','NA')");
+					$sql7 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$cpuid}','Invoice ID - {$invoice_id} ,Purchase ID -{$purchaseid['purchaseid']} and Purchase date - {$date}.','New Components Added.')");
 					$i=$i+1;
 				}
 				echo $cat." added to store. ID of the new items are from ".($count+1)." to ".($count+$i-1);
