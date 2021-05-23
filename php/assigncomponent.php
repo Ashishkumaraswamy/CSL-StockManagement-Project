@@ -24,10 +24,11 @@
 				}	
 				else
 				{
-
 					$updatecpu=mysqli_query($conn,"UPDATE components SET location={$locationid['lab_id']} WHERE componentid='{$assignid}'");
 					echo $assignid." moved to ".$location;
 				}
+				
+				$sql5 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$assignid}','Loaction assigned is - {$location}','Assign location to components.')");
 			}
 			else
 			{

@@ -15,7 +15,13 @@
         if(mysqli_num_rows($checksql)>0){
             
             if($ids != "mac" and $ids != "cpu" and  $ids != "lap" and $ids != "ser"){
-                $output.='
+                
+                $sql = mysqli_query($conn,"SELECT * FROM components where componentid = '{$id}'");
+                
+
+                if(mysqli_num_rows($sql)>0)
+                {
+                    $output.='
                     <table class="table table-hover">
                     <caption><center><h4 class="text-center"><b>Search Results...</b></h4></center></caption>
                     <tr>
@@ -26,39 +32,66 @@
                     <th>Type</th>
                     <th>Description</th>
                     <th>Status</th>
+                    <th>System-ID</th>
                     <th>Loaction</th>
                     </tr>';
 
-                $sql = mysqli_query($conn,"SELECT * FROM components where componentid = '{$id}'");
-                $row = mysqli_fetch_assoc($sql);
-                
-                $sql1 = mysqli_query($conn,"SELECT * FROM purchase where purchaseid = '{$row['purchaseid']}' ");
-                $row1 = mysqli_fetch_assoc($sql1);
-                
-                $sql2 = mysqli_query($conn,"SELECT * FROM location where lab_id = {$row['location']}");
-                $row2 = mysqli_fetch_assoc($sql2);
-                
-                $sql3 = mysqli_query($conn,"SELECT * FROM status where status_id = {$row['status']}");
-                $row3 = mysqli_fetch_assoc($sql3);
-                
-                $output .='<tr>
-                            <td>'.$row['componentid'].'</td>
-                            <td>'.$row1['invoice_id'].'</td>
-                            <td>'.$row1['purchase_date'].'</td>
-                            <td>'.$row['brand'].'</td>
-                            <td>'.$row['type'].'</td>
-                            <td>'.$row['description'].'</td>
-                            <td>'.$row3['status'].'</td>
-                            <td>'.$row2['lab_name'].'</td>
-                        </tr>';
-                $output .='</table> <br><br><br>';
+                    $row = mysqli_fetch_assoc($sql);
+                    $sql1 = mysqli_query($conn,"SELECT * FROM purchase where purchaseid = '{$row['purchaseid']}' ");
+                    $row1 = mysqli_fetch_assoc($sql1);
+                    
+                    $sql2 = mysqli_query($conn,"SELECT * FROM location where lab_id = {$row['location']}");
+                    $row2 = mysqli_fetch_assoc($sql2);
+                    
+                    $sql3 = mysqli_query($conn,"SELECT * FROM status where status_id = {$row['status']}");
+                    $row3 = mysqli_fetch_assoc($sql3);
 
-                $sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['componentid']}','Loaction of the Component - {$row2['lab_name']}.','Searched a Component with ComponentID.')");
+                    $sql4 = mysqli_query($conn,"SELECT * FROM `system` where mouse_id = '{$id}' or keyboard_id = '{$id}' or monitor_id = '{$id}'");
+                    if(mysqli_num_rows($sql4)>0)
+                    {
+                        $row4 = mysqli_fetch_assoc($sql4);
+                    }
+                    else{
+
+                        $row4['system_id']='NA';
+
+                    }
+                    
+                    $output .='<tr>
+                                <td>'.$row['componentid'].'</td>
+                                <td>'.$row1['invoice_id'].'</td>
+                                <td>'.$row1['purchase_date'].'</td>
+                                <td>'.$row['brand'].'</td>
+                                <td>'.$row['type'].'</td>
+                                <td>'.$row['description'].'</td>
+                                <td>'.$row3['status'].'</td>
+                                <td>'.$row4['system_id'].'</td>
+                                <td>'.$row2['lab_name'].'</td>
+                            </tr>';
+                    $output .='</table> <br><br><br>';
+
+                    $sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['componentid']}','Loaction of the Component - {$row2['lab_name']}.','Searched a Component with ComponentID.')");
 
 
+                }
+                else{
+
+                    echo '<br><br>There is no such component with the component ID exits!!';
+
+                }
+
+
+                
+                
             }
             else{
-                $output.='
+               
+                $sql = mysqli_query($conn,"SELECT * FROM cpu where cpu_id = '{$id}'");
+                
+
+                if(mysqli_num_rows($sql)>0)
+                {
+                    $output.='
                     <table class="table table-hover">
                     <caption><center><h4 class="text-center"><b>Search Results...</b></h4></center></caption>
                     <tr>
@@ -70,35 +103,53 @@
                     <th>Storage</th>
                     <th>Description</th>
                     <th>Status</th>
+                    <th>System-ID</th>
                     <th>Loaction</th>
                     </tr>';
+                    $row = mysqli_fetch_assoc($sql);
+                    $sql1 = mysqli_query($conn,"SELECT * FROM purchase where purchaseid = '{$row['purchaseid']}' ");
+                    $row1 = mysqli_fetch_assoc($sql1);
+                    
+                    $sql2 = mysqli_query($conn,"SELECT * FROM location where lab_id = {$row['location']}");
+                    $row2 = mysqli_fetch_assoc($sql2);
+                    
+                    $sql3 = mysqli_query($conn,"SELECT * FROM status where status_id = {$row['status']}");
+                    $row3 = mysqli_fetch_assoc($sql3);
 
-                $sql = mysqli_query($conn,"SELECT * FROM cpu where cpu_id = '{$id}'");
-                $row = mysqli_fetch_assoc($sql);
-                
-                $sql1 = mysqli_query($conn,"SELECT * FROM purchase where purchaseid = '{$row['purchaseid']}' ");
-                $row1 = mysqli_fetch_assoc($sql1);
-                
-                $sql2 = mysqli_query($conn,"SELECT * FROM location where lab_id = {$row['location']}");
-                $row2 = mysqli_fetch_assoc($sql2);
-                
-                $sql3 = mysqli_query($conn,"SELECT * FROM status where status_id = {$row['status']}");
-                $row3 = mysqli_fetch_assoc($sql3);
-                
-                $output .='<tr>
-                            <td>'.$row['cpu_id'].'</td>
-                            <td>'.$row1['invoice_id'].'</td>
-                            <td>'.$row1['purchase_date'].'</td>
-                            <td>'.$row['RAM'].'</td>
-                            <td>'.$row['processor_series'].'</td>
-                            <td>'.$row['storage'].'</td>
-                            <td>'.$row['description'].'</td>
-                            <td>'.$row3['status'].'</td>
-                            <td>'.$row2['lab_name'].'</td>
-                        </tr>';
-                $output .='</table> <br><br><br>';
+                    $sql4 = mysqli_query($conn,"SELECT * FROM `system` where cpu_id = '{$id}'");
+                    if(mysqli_num_rows($sql4)>0)
+                    {
+                        $row4 = mysqli_fetch_assoc($sql4);
+                    }
+                    else{
 
-                $sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['cpu_id']}','Loaction of the system - {$row2['lab_name']}.','Searched a System with SystemID.')");
+                        $row4['system_id']='NA';
+
+                    }
+                    
+                    $output .='<tr>
+                                <td>'.$row['cpu_id'].'</td>
+                                <td>'.$row1['invoice_id'].'</td>
+                                <td>'.$row1['purchase_date'].'</td>
+                                <td>'.$row['RAM'].'</td>
+                                <td>'.$row['processor_series'].'</td>
+                                <td>'.$row['storage'].'</td>
+                                <td>'.$row['description'].'</td>
+                                <td>'.$row3['status'].'</td>
+                                <td>'.$row4['system_id'].'</td>
+                                <td>'.$row2['lab_name'].'</td>
+                            </tr>';
+                    $output .='</table> <br><br><br>';
+
+                    $sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['cpu_id']}','Loaction of the system - {$row2['lab_name']}.','Searched a System with SystemID.')");
+
+                }
+                else{
+
+                    echo '<br><br>There is no such component with the component ID exits!!';
+
+                }
+
 
             }
             
