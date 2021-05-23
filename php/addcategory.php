@@ -16,6 +16,9 @@
 
 		$insert_query = mysqli_query($conn, "INSERT INTO category (category, category_code)
                      VALUES ( '{$cat}','{$catcode}' )");
+		
+		$sql1 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'NA','Category Name - {$cat} And Category Code - {$catcode}.','New Category Added.')");
+
 		echo "success";
 	}
 ?>

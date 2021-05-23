@@ -74,7 +74,7 @@
                         <div class="col-md-4">
                         </div>
                         <div class="col-md-3">
-	        		    <input type="text" class="form-control" id="searchname" name="searchname" placeholder="Componentid">
+	        		    <input type="text" class="form-control" id="searchname" name="searchname" placeholder="ComponentID/SystemID">
 	        	        </div>
 
 
@@ -154,7 +154,7 @@
     include_once("footer.php");
 ?>
 <script>
-	const form= document.querySelector("#formassign")
+	const form= document.querySelector("#formassign");
 
 	document.getElementById("overall").onclick=(e)=>{
 		// document.getElementById("status").style.display="none";
