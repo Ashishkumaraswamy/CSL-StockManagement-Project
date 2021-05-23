@@ -127,20 +127,12 @@
 			$invoicelistsql=mysqli_query($conn,"SELECT DISTINCT(invoice_id),purchase_date FROM purchase WHERE purchase_date BETWEEN '{$fromdate}' AND '{$todate}'");
 			if(mysqli_num_rows($invoicelistsql)>0)
 			{	
-				while($invoicefetch=mysqli_fetch_assoc($invoicelistsql))
-				{
-				$itemlistsql=mysqli_query($conn,"SELECT DISTINCT(category) FROM purchase WHERE invoice_id='{$invoiceid}'");
-				echo mysqli_num_rows($itemlistsql);
-				$categorysql=mysqli_query($conn,"SELECT * FROM category");
-				if($categorysql)
-				{
-					$output.='
+				$output .='
 			          		<div class="col-sm-offset-2 col-md-9 text-center">
-			    			<center><h4>Invoice ID:'.$invoicefetch['invoice_id'].'</h4></center><br>
-			    			<center><h4>Number of Systems:'.$invoicefetch['purchase_date'].'</h4></center>
-			    			<table class="table table-hover">
-							  <tr>
-							  	<th>Invoice ID
+			    			<table class="table table-hover" border="1">
+			    			<tr>
+							  	<th>Invoice ID</th>
+							  	<th>Inovice Date</th>
 							    <th>Category</th>
 							    <th>Product Description</th>
 							    <th>ID range</th>
@@ -149,6 +141,19 @@
 							    <th>Disposed</th>
 							    <th>Total Count</th>
 							  </tr>';
+				while($invoicefetch=mysqli_fetch_assoc($invoicelistsql))
+				{
+				$itemlistsql=mysqli_query($conn,"SELECT DISTINCT(category) FROM purchase WHERE invoice_id='{$invoicefetch['invoice_id']}'");
+				$span=mysqli_num_rows($itemlistsql);
+				echo $span;
+				$categorysql=mysqli_query($conn,"SELECT * FROM category");
+				if($categorysql)
+				{
+					$output.='
+							  <tr>
+							  <th rowspan="'.($span+1).'">'.$invoicefetch['invoice_id'].'</th>
+							  <th rowspan="'.($span+1).'">'.$invoicefetch['purchase_date'].'</th>
+							  ';
 					while($category=mysqli_fetch_assoc($categorysql))
 					{
 						$category_code=$category['category_code'];
@@ -172,7 +177,7 @@
 									$categorylastsql=mysqli_query($conn,"SELECT * FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.cpu_id LIKE '$category_code%' ORDER BY id DESC LIMIT 1");
 									$categorylast=mysqli_fetch_assoc($categorylastsql);
 									$categorydesc=$categorydescfetch['RAM'].' GB,'.$categorydescfetch['processor_series'].','.$categorydescfetch['storage'].' GB storage.';
-									$output .='<tr>
+									$output .='
 										    <td>'.$category['category'].'</td>
 										    <td>'.$categorydesc.'</td>
 										    <td>'.$categorydescfetch['cpu_id'].'-'.$categorylast['cpu_id'].'</td>
@@ -180,7 +185,8 @@
 										    <td>'.$category_not_working['categorynotworkcnt'].'</td>
 										    <td>'.($categorycnt['categorycnt']-$category_not_working['categorynotworkcnt']-$category_working['categoryworkcnt']).'</td>
 										     <td>'.$categorycnt['categorycnt'].'</td>
-										  </tr>';
+										  </tr>
+										  <tr>';
 								}
 							}
 							else{
@@ -224,7 +230,7 @@
 							}	
 						}
 					}
-					$output .='</table></div><br><br><br>';
+					$output .='</tr></div><br><br><br>';
 				}
 				else
 				{
@@ -233,7 +239,7 @@
 					</div>';
 				}
 				}
-				$output.="</div></div>";
+				$output.="</table></div></div>";
 				echo $output;
 			}
 
