@@ -33,8 +33,10 @@
       					      		$output ="";
       					      		while($category=mysqli_fetch_assoc($categorysql))
       					      		{
-      					      			$output.='<option value="'.$category['lab_name'].'">'.$category['lab_name'].'</option>
-      ';
+                            if($category['lab_name']!="store" and $category['lab_name']!="disposed")
+                            { 
+      					      			  $output.='<option value="'.$category['lab_name'].'">'.$category['lab_name'].'</option>';
+                            }
       					      		}
       					      		echo $output;
       					      ?>
@@ -75,8 +77,10 @@
       					      		$output ="";
       					      		while($category=mysqli_fetch_assoc($categorysql))
       					      		{
-      					      			$output.='<option value="'.$category['lab_name'].'">'.$category['lab_name'].'</option>
-      ';
+      					      			if($category['lab_name']!="store" and $category['lab_name']!="disposed")
+                            { 
+                              $output.='<option value="'.$category['lab_name'].'">'.$category['lab_name'].'</option>';
+                            }
       					      		}
       					      		echo $output;
       					      ?>
