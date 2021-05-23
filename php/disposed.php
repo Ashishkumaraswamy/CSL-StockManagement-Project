@@ -5,7 +5,7 @@
 
     $locationsql=mysqli_query($conn,"SELECT * FROM category");
     $output="";
-    if($locationsql){
+    if(mysqli_num_rows($locationsql) > 0){
         $output.='  <div class="row">
                         <div class="col-sm-offset-2 col-md-9 text-center">';
         
@@ -91,6 +91,8 @@
             }
 
         }
+        $sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'NA','NA','Generated a report for disposed components and systems.')");
+
     }
     else{
         echo '<div class="alert alert-info">

@@ -110,7 +110,7 @@
                                 <a href="addnewlocation.php">Add New Location</a>';
                            }
                         ?>
-                        <a href="">View Log</a>
+                        <a href="log.php">View Log</a>
                         <a href="viewentry.php">Assign Components</a>
                     </div>
                 </div>
