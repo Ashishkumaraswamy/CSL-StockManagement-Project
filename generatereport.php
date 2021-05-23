@@ -74,7 +74,7 @@
                         <div class="col-md-4">
                         </div>
                         <div class="col-md-3">
-	        		    <input type="text" class="form-control" id="searchname" name="searchname" placeholder="ComponentID/SystemID">
+	        		    <input type="text" class="form-control" id="searchname" name="searchname" placeholder="ComponentID/CPU-ID">
 	        	        </div>
 
 
