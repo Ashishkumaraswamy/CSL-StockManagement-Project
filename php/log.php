@@ -5,7 +5,7 @@
 	$sql = mysqli_query($conn,"select * from log");
     $output="";
     $output.='  <div class="row">
-                        <div class="col-sm-offset-2 col-md-9 text-center">';
+                        <div class="col-sm-offset-1 col-md-10 text-center">';
 	if(mysqli_num_rows($sql) > 0){  
 
 
@@ -45,6 +45,6 @@
 
 		$output .="<br<br><center><h3>Log empty!!</h3></center>";
 	}
-    $output .='</div>';
+    $output .='</div></div>';
     echo $output;
 ?>
