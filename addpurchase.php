@@ -236,6 +236,7 @@ $(document).on('click','#assignsystem',function(e){
     }
     let formData = new FormData();
     formData.append("invoice_id",document.getElementById("invoice").value);
+	formData.append("date",document.getElementById("date").value);
     formData.append("quantity",document.getElementById("cpuquant").value);
     xhr.send(formData);
 });
