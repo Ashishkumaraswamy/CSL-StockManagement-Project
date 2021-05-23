@@ -3,7 +3,12 @@
 ?>
 <center><form action="" class="form-horizontal" method="post" name="myForm" id="formassign">
 <br><br>
-            <div class="col-md-3">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-2">
+			<div class="radio">
+			  <label style="font-size: 15px"><input type="radio" name="reporttype" id="Search">Searchwise Report</label>
+			</div>
             </div>
             <div class="col-md-2">
             <div class="radio">
@@ -20,6 +25,11 @@
 			  <label style="font-size: 15px"><input type="radio" name="reporttype" id="labwise">Labwise Report</label>
 			</div>
             </div>
+            
+
+          <br>
+          <br>
+          <br>
           <br>
           <br>
                 <input type="text" name="invoicecheck" id="invoicecheck" value="uncheck" hidden>
@@ -57,6 +67,22 @@
                         </div>
                 </div>
 
+                <div class="form-group" id="Searcharea" hidden>
+                        <center><h4 class="text-center"><b>Searchwise Report</b></h4></center>
+                        <br><br>
+
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-3">
+	        		    <input type="text" class="form-control" id="searchname" name="searchname" placeholder="Componentid">
+	        	        </div>
+
+
+                        <div class="col-md-1">
+                        <button type="submit" class="btn btn-primary" id="searchareabtn" name="goo">Search </button>
+                        </div>
+                </div>
+
                 <div class="form-group" id="statusarea" hidden>
                         <center><h4 class="text-center"><b>Status Report</b></h4></center>
                         <br><br>
@@ -81,8 +107,6 @@
                         </div>
                 
                 </div>
-
-
 
                 <div class="form-group" id="labwisearea" hidden>
                         <center><h4 class="text-center"><b>Labwise Report</b></h4></center>
@@ -117,6 +141,10 @@
                     <div class="col-md-2">
                         <button type="submit" class="btn btn-primary" id="okaybtn" name="goo">Okay</button>
                     </div>
+                    <div class="col-md-1">
+                        <button type="submit" class="btn btn-primary" onclick="window.print()">Print this page</button>
+                    </div>
+                    
                 </div>
 
 			</form></center><br><br><br>
@@ -133,6 +161,7 @@
         document.getElementById("statusarea").style.display="none";
         document.getElementById("labwisearea").style.display="none";
         document.getElementById("okaybutton").style.display="none";
+        document.getElementById("Searcharea").style.display="none";
         document.getElementById("overallarea").style.display="block";
 	}
 
@@ -141,6 +170,7 @@
         document.getElementById("overallarea").style.display="none";
         document.getElementById("labwisearea").style.display="none";
         document.getElementById("okaybutton").style.display="none";
+        document.getElementById("Searcharea").style.display="none";
         document.getElementById("statusarea").style.display="block";
 
 	}
@@ -149,7 +179,16 @@
         document.getElementById("overallarea").style.display="none";
         document.getElementById("statusarea").style.display="none";
         document.getElementById("okaybutton").style.display="none";
+        document.getElementById("Searcharea").style.display="none";
         document.getElementById("labwisearea").style.display="block";
+	}
+    document.getElementById("Search").onclick=(e)=>{
+        //document.getElementById("radiovalue").value="labwise";
+        document.getElementById("overallarea").style.display="none";
+        document.getElementById("statusarea").style.display="none";
+        document.getElementById("okaybutton").style.display="none";
+        document.getElementById("labwisearea").style.display="none";
+        document.getElementById("Searcharea").style.display="block";
 	}
 
         document.getElementById("working").onclick=(e)=>{
@@ -269,6 +308,27 @@
         let formData = new FormData(form);
         xhr.send(formData);
     }
+
+    document.getElementById("searchareabtn").onclick=(e)=>
+	{
+	e.preventDefault();
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "php/search.php", true);
+    xhr.onload = ()=>{
+      if(xhr.readyState === XMLHttpRequest.DONE){
+        if(xhr.status===200)
+            {
+                let data=xhr.response;
+                console.log(data);
+                document.getElementById("reportarea").innerHTML=data;
+                document.getElementById("okaybutton").style.display="block";
+            }
+    	}
+	}
+    let formData = new FormData(form);
+    xhr.send(formData);
+	}
+
 
     document.getElementById("okaybtn").onclick=()=>{
         location.href="generatereport.php";

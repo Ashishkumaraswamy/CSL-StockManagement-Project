@@ -54,7 +54,6 @@
                     $output.=' 
                             <table class="table table-hover">
                             <caption><center><h4 class="text-center"><b>'.$row['category'].' not working count : '.$lab['count'].' </b></h4></center></caption>
-                            <caption>'.$row['category'].'</caption>
                                 <tr>
                                 <th>Component ID</th>
                                 <th>Description</th>
