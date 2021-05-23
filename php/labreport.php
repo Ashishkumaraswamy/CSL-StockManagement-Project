@@ -28,7 +28,7 @@
 			          	   </div>
 			          	   <br><br>
 			    			<div class="col-sm-offset-2 col-md-9 text-center">
-			    			<table class="table table-hover">
+			    			<table class="table table-hover" border="1">
 							  <tr>
 							    <th>System_ID</th>
 							    <th>Mouse_ID</th>
@@ -46,10 +46,96 @@
 						    <td>'.$labsys['cpu_id'].'</td>
 						  </tr>';
 					}
-					$output .='</table>
-    				</div>';
-    				echo $output;
-
+					$output .='</table>';
+					$complocationcntsql=mysqli_query($conn,"SELECT count(*) as complocationcnt FROM components WHERE location={$location['lab_id']} AND componentid NOT LIKE 'mou%' AND componentid NOT LIKE 'key%' AND componentid NOT LIKE 'mon%'");
+					$cpulocationcntsql=mysqli_query($conn,"SELECT count(*) as cpulocationcnt FROM cpu WHERE location={$location['lab_id']} AND cpu_id NOT LIKE 'cpu%'");
+					$complocationcnt=mysqli_fetch_assoc($complocationcntsql);
+					$cpulocationcnt=mysqli_fetch_assoc($cpulocationcntsql);
+					$othercnt=$cpulocationcnt['cpulocationcnt']+$complocationcnt['complocationcnt'];
+					if($othercnt==0)
+					{
+						$output.='<br><br><div class="row">
+			          		<div class="col-md-2">
+			          		</div>
+			          		<center><h4>No Other Components available</h4></center>
+			        </div>';
+			        	echo $output;
+					}
+					else
+					{
+	    				$output.='<div class="row">
+				          		<div class="col-md-4">
+				          		</div>
+				          		<h4>Other Components</h4>
+				        </div>
+	    				<div class="col-sm-offset-2 col-md-9 text-center">
+				    			<table class="table table-hover">
+				    			<tr>
+								    <th>Category</th>
+								    <th>Component_ID</th>
+								    <th>Description</th>
+								    <th>Status</th>
+								  </tr>';
+	    				$catsql=mysqli_query($conn,"SELECT * FROM category WHERE category_code NOT IN ('cpu','mon','mou','key')");
+	    				if($catsql)
+	    				{
+	    					$count=0;
+	    					while($cat=mysqli_fetch_assoc($catsql))
+	    					{
+	    						if($cat['category_code']=='ser' or $cat['category_code']=='mac' or $cat['category_code']=='lap')
+	    						{
+	    							$category_code=$cat['category_code'];
+	    							$catfetchsql=mysqli_query($conn,"SELECT * FROM cpu WHERE cpu_id LIKE '$category_code%' AND location={$location['lab_id']}");
+	    							if(mysqli_num_rows($catfetchsql)>0)
+	    							{
+	    								while($catfetch=mysqli_fetch_assoc($catfetchsql))
+	    								{
+	    									$desc=$catfetch['RAM']." GB RAM,".$catfetch['processor_series'].",".$catfetch['storage']." GB Storage";
+	    									$count=$count+1;
+	    									$status=mysqli_query($conn,"SELECT * FROM status WHERE status_id={$catfetch['status']}");
+	    									$statusfetch=mysqli_fetch_assoc($status);
+	    									$output .='<tr>
+										    <td>'.$cat['category'].'</td>
+										    <td>'.$catfetch['cpu_id'].'</td>
+										    <td>'.$desc.'</td>
+										    <td>'.$statusfetch['status'].'</td>
+										  </tr>';
+	    								}
+	    							}
+	    						}
+	    						else
+	    						{
+	    							$category_code=$cat['category_code'];
+	    							$catfetchsql=mysqli_query($conn,"SELECT * FROM components WHERE componentid LIKE '$category_code%' AND location={$location['lab_id']}");
+	    							if(mysqli_num_rows($catfetchsql)>0)
+	    							{
+	    								while($catfetch=mysqli_fetch_assoc($catfetchsql))
+	    								{
+	    									$desc=$catfetch['brand'].",".$catfetch['type'].",".$catfetch['description'].".";
+	    									$count=$count+1;
+	    									$status=mysqli_query($conn,"SELECT * FROM status WHERE status_id={$catfetch['status']}");
+	    									$statusfetch=mysqli_fetch_assoc($status);
+	    									$output .='<tr>
+										    <td>'.$cat['category'].'</td>
+										    <td>'.$catfetch['cpu_id'].'</td>
+										    <td>'.$desc.'</td>
+										    <td>'.$statusfetch['status'].'</td>
+										  </tr>';
+	    								}
+	    							}
+	    						}
+	    					}
+	    					$output .='</table></div>';
+				        echo $output;
+	    				}
+	    				else
+	    				{
+	    					echo '<div class="alert alert-info">
+				 	 	<strong>Here</strong> 
+						</div>';
+	    				}
+	    				// echo $output;
+	    			}
 				}
 				else
 				{

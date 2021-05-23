@@ -16,7 +16,7 @@
 		$invoice_sql=mysqli_query($conn,"SELECT * FROM purchase WHERE invoice_id='{$invoice_id}'");
 		if(mysqli_num_rows($invoice_sql)>=0)
 		{
-			$purchaseinsert=mysqli_query($conn,"INSERT INTO purchase(invoice_id,purchase_date) VALUES('{$invoice_id}','{$date}')");
+			$purchaseinsert=mysqli_query($conn,"INSERT INTO purchase(invoice_id,purchase_date,category) VALUES('{$invoice_id}','{$date}','{$cat}')");
 			if($purchaseinsert)
 			{
 				$purchaseidsql=mysqli_query($conn,"SELECT * FROM purchase ORDER BY purchaseid DESC LIMIT 1");
@@ -28,7 +28,8 @@
 				while($i<=$cpuquant)
 				{
 					$cpuid=$cpucat.(string)($count+$i);
-					$insertcomp=mysqli_query($conn,"INSERT INTO cpu VALUES('{$cpuid}',{$purchaseid['purchaseid']},'{$ram}','{$procseries}',{$storage},1,1,'{$desc}','NA')");
+					$id=($count+$i);
+					$insertcomp=mysqli_query($conn,"INSERT INTO cpu VALUES('{$cpuid}',{$id},{$purchaseid['purchaseid']},'{$ram}','{$procseries}',{$storage},1,1,'{$desc}','NA')");
 					$i=$i+1;
 				}
 				echo $cat." added to store. ID of the new items are from ".($count+1)." to ".($count+$i-1);

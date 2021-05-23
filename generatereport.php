@@ -240,6 +240,10 @@
               {
                     document.getElementById("okaybutton").style.display="block";
               }
+              else
+              {
+                alert(data);
+              }
 	      	}
     	}
 	}
