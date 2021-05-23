@@ -6,24 +6,24 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-2">
-			<div class="radio">
-			  <label style="font-size: 15px"><input type="radio" name="reporttype" id="Search">Searchwise Report</label>
-			</div>
+            <div class="radio">
+              <label style="font-size: 15px"><input type="radio" name="reporttype" id="Search">Searchwise Report</label>
+            </div>
             </div>
             <div class="col-md-2">
             <div class="radio">
-			    <label style="font-size: 15px"><input type="radio" id="overall" name="reporttype">Overall  Report</label>
-			</div>
+                <label style="font-size: 15px"><input type="radio" id="overall" name="reporttype">Overall  Report</label>
+            </div>
             </div>
             <div class="col-md-2">
-			<div class="radio">
-			  <label style="font-size: 15px"><input type="radio" name="reporttype" id="status">Status Report</label>
-			</div>
+            <div class="radio">
+              <label style="font-size: 15px"><input type="radio" name="reporttype" id="status">Status Report</label>
+            </div>
             </div>
             <div class="col-md-2">
-			<div class="radio">
-			  <label style="font-size: 15px"><input type="radio" name="reporttype" id="labwise">Labwise Report</label>
-			</div>
+            <div class="radio">
+              <label style="font-size: 15px"><input type="radio" name="reporttype" id="labwise">Labwise Report</label>
+            </div>
             </div>
             
 
@@ -34,29 +34,26 @@
           <br>
                 <input type="text" name="invoicecheck" id="invoicecheck" value="uncheck" hidden>
                 <div class="form-group" id="overallarea" hidden>
-                        <center><h4 class="text-center"><b>Invoice Report</b></h4></center>
+                        <center><h4 class="text-center"><b>Overall Report</b></h4></center>
                         <br><br>
-                        
-                        <div class="form-check">
+                        <div class="row">
                             <div class="col-md-2">
-            </div>
-            <div class="col-md-3">
-            <div class="radio">
-              <label style="font-size: 15px"><input type="radio" name="invrepttype" id="datewise">Datewise Report</label>
-            </div>
-            </div>
-            <div class="col-md-2">
-            <div class="radio">
-                <label style="font-size: 15px"><input type="radio" id="allreport" name="invrepttype">All Report</label>
-            </div>
-            </div>
-            <div class="col-md-3">
-            <div class="radio">
-              <label style="font-size: 15px"><input type="radio" name="invrepttype" id="invoiceidrept">Get Report With Invoice ID</label>
-            </div>
-            </div>
-            <div class="col-md-2">
-            </div>       
+                            </div>
+                            <div class="col-md-3">
+                            <div class="radio">
+                              <label style="font-size: 15px"><input type="radio" name="invreporttype" id="datewise" checked>Datewise Report</label>
+                            </div>
+                            </div>
+                            <div class="col-md-2">
+                            <div class="radio">
+                                <label style="font-size: 15px"><input type="radio" id="alltype" name="invreporttype">Get All Invoice Report</label>
+                            </div>
+                            </div>
+                            <div class="col-md-2">
+                            <div class="radio">
+                              <label style="font-size: 15px"><input type="radio" name="invreporttype" id="idwise">Get Report by ID</label>
+                            </div>
+                            </div>
                         </div>
                         <br><br><br>
                         <div id="areabasedoncheck">
@@ -78,7 +75,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-1">
+                        <div class="col-md-1" id="godiv">
                             <button type="submit" class="btn btn-primary" id="invoicebtn" name="invoicebtn">GO</button>
                         </div>
                 </div>
@@ -163,25 +160,25 @@
                     
                 </div>
 
-			</form></center><br><br><br>
+            </form></center><br><br><br>
 
 
 <?php
     include_once("footer.php");
 ?>
 <script>
-	const form= document.querySelector("#formassign");
+    const form= document.querySelector("#formassign");
 
-	document.getElementById("overall").onclick=(e)=>{
-		// document.getElementById("status").style.display="none";
+    document.getElementById("overall").onclick=(e)=>{
+        // document.getElementById("status").style.display="none";
         document.getElementById("statusarea").style.display="none";
         document.getElementById("labwisearea").style.display="none";
         document.getElementById("okaybutton").style.display="none";
         document.getElementById("Searcharea").style.display="none";
         document.getElementById("overallarea").style.display="block";
-	}
+    }
 
-	document.getElementById("status").onclick=(e)=>{
+    document.getElementById("status").onclick=(e)=>{
         // document.getElementById("overall").style.display="none";
         document.getElementById("overallarea").style.display="none";
         document.getElementById("labwisearea").style.display="none";
@@ -189,7 +186,7 @@
         document.getElementById("Searcharea").style.display="none";
         document.getElementById("statusarea").style.display="block";
 
-	}
+    }
     document.getElementById("labwise").onclick=(e)=>{
         //document.getElementById("radiovalue").value="labwise";
         document.getElementById("overallarea").style.display="none";
@@ -197,7 +194,7 @@
         document.getElementById("okaybutton").style.display="none";
         document.getElementById("Searcharea").style.display="none";
         document.getElementById("labwisearea").style.display="block";
-	}
+    }
     document.getElementById("Search").onclick=(e)=>{
         //document.getElementById("radiovalue").value="labwise";
         document.getElementById("overallarea").style.display="none";
@@ -205,7 +202,7 @@
         document.getElementById("okaybutton").style.display="none";
         document.getElementById("labwisearea").style.display="none";
         document.getElementById("Searcharea").style.display="block";
-	}
+    }
 
         document.getElementById("working").onclick=(e)=>{
             let xhr = new XMLHttpRequest();
@@ -266,39 +263,30 @@
             let formData = new FormData(form);
             xhr.send(formData);
         }
-    
-    //  document.getElementById("invoicechkbox").onclick=()=>{
-    //     alert('Here');
-    //     if(document.getElementById("invoicecheck").value=="uncheck")
-    //     {
-    //         document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-5"></div><div class="col-md-2"><input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required></div>';
-    //         document.getElementById("invoicecheck").value="check";
-    //     }
-    //     else
-    //     {
-    //         document.getElementById("invoicecheck").value="uncheck";
-    //         document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-3"></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">From</label></div><div class="col-md-2"><input type="date" class="form-control" id="from" name="from" placeholder="From Date" required></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">To</label></div><div class="col-md-2"><input type="date" class="form-control" id="to" name="to" placeholder="To Date" required></div>';
-    //     }   
-    // }
-    document.getElementById("datewise").onchange=()=>{
-        alert('Here');
-        document.getElementById("invoicecheck").value="datewise";
+
+    document.getElementById("datewise").onclick=()=>{
+        alert('here');
+        document.getElementById("godiv").display.style="block";
+        document.getElementById("reportarea").innerHTML="";
         document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-3"></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">From</label></div><div class="col-md-2"><input type="date" class="form-control" id="from" name="from" placeholder="From Date" required></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">To</label></div><div class="col-md-2"><input type="date" class="form-control" id="to" name="to" placeholder="To Date" required></div>';
-    }
-	
-    document.getElementById("invoiceidrept").onchange=()=>{
-        alert('Here');
-        document.getElementById("invoicecheck").value="invoiceidrept";
-        document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-5"></div><div class="col-md-2"><input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required></div>';
-            document.getElementById("invoicecheck").value="check";
+            document.getElementById("invoicecheck").value="uncheck";
     }
 
-    document.getElementById("allreport").onchange=(e)=>{
-        alert('Here');
-        document.getElementById("invoicecheck").value="invoiceidrept";
+    document.getElementById("idwise").onclick=()=>{
+        alert('here');
+        document.getElementById("reportarea").innerHTML="";
+        document.getElementById("godiv").style.display="block";
+        document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-5"></div><div class="col-md-2"><input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required></div>';
+            document.getElementById("invoicecheck").value="check";       
+    }
+    
+    document.getElementById("alltype").onclick=(e)=>{
+        alert('here');
+        document.getElementById("areabasedoncheck").innerHTML="";
+        document.getElementById("godiv").style.display="none";
         e.preventDefault();
         let xhr = new XMLHttpRequest();
-        xhr.open("POST", "php/invoicereport.php", true);
+        xhr.open("POST", "php/allinvoicereport.php", true);
         xhr.onload = ()=>{
           if(xhr.readyState === XMLHttpRequest.DONE){
               if(xhr.status === 200){
@@ -316,19 +304,32 @@
             }
         }
         let formData = new FormData(form);
-        xhr.send(formData);
+        xhr.send(formData);  
     }
 
-	document.getElementById("labreportbtn").onclick=(e)=>
-	{
-	e.preventDefault();
+    //  document.getElementById("invoicechkbox").onclick=()=>{
+    //     alert('Here');
+    //     if(document.getElementById("invoicecheck").value=="uncheck")
+    //     {
+    //         document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-5"></div><div class="col-md-2"><input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required></div>';
+    //         document.getElementById("invoicecheck").value="check";
+    //     }
+    //     else
+    //     {
+    //         document.getElementById("invoicecheck").value="uncheck";
+    //         document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-3"></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">From</label></div><div class="col-md-2"><input type="date" class="form-control" id="from" name="from" placeholder="From Date" required></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">To</label></div><div class="col-md-2"><input type="date" class="form-control" id="to" name="to" placeholder="To Date" required></div>';
+    //     }   
+    // }
+    
+    document.getElementById("labreportbtn").onclick=(e)=>
+    {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/labreport.php", true);
     xhr.onload = ()=>{
       if(xhr.readyState === XMLHttpRequest.DONE){
           if(xhr.status === 200){
-	          let data = xhr.response;
-	          document.getElementById("reportarea").innerHTML=data;
+              let data = xhr.response;
+              document.getElementById("reportarea").innerHTML=data;
               if(data.length>200)
               {
                     document.getElementById("okaybutton").style.display="block";
@@ -337,12 +338,12 @@
               {
                 alert(data);
               }
-	      	}
-    	}
-	}
+            }
+        }
+    }
     let formData = new FormData(form);
     xhr.send(formData);
-	}
+    }
 
     document.getElementById("invoicebtn").onclick=(e)=>{
         alert('here');
@@ -364,8 +365,8 @@
     }
 
     document.getElementById("searchareabtn").onclick=(e)=>
-	{
-	e.preventDefault();
+    {
+    e.preventDefault();
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/search.php", true);
     xhr.onload = ()=>{
@@ -377,11 +378,11 @@
                 document.getElementById("reportarea").innerHTML=data;
                 document.getElementById("okaybutton").style.display="block";
             }
-    	}
-	}
+        }
+    }
     let formData = new FormData(form);
     xhr.send(formData);
-	}
+    }
 
 
     document.getElementById("okaybtn").onclick=()=>{

@@ -145,7 +145,6 @@
 				{
 				$itemlistsql=mysqli_query($conn,"SELECT DISTINCT(category) FROM purchase WHERE invoice_id='{$invoicefetch['invoice_id']}'");
 				$span=mysqli_num_rows($itemlistsql);
-				echo $span;
 				$categorysql=mysqli_query($conn,"SELECT * FROM category");
 				if($categorysql)
 				{

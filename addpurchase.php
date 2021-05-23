@@ -109,6 +109,11 @@
 
             	</div>
            	</div>
+            <br>
+            <br>
+            <div class="row" id="finish">
+                <center><button type="submit" class="btn btn-primary" id="addcpu" name="addcpu">Finish Purchase Details</button></center>
+            </div>
           </div>
           <br>
           <br>
@@ -230,7 +235,6 @@ $(document).on('click','#assignsystem',function(e){
           if(xhr.status === 200){
               let data = xhr.response;
               document.getElementById("assemblesystemdiv").innerHTML=data;
-              document.getElementById("assemblesystem").innerHTML='<br><button type="submit" class="btn btn-primary" id="okay" name="okay">Okay</button>';
           }
       }
     }
@@ -241,9 +245,9 @@ $(document).on('click','#assignsystem',function(e){
     xhr.send(formData);
 });
 
-$(document).on('click','#okay',function(e){
-    location.href="addpurchase.php";
-});
+// $(document).on('click','#okay',function(e){
+//     location.href="addpurchase.php";
+// });
 </script>	
 </body>
 </html>
