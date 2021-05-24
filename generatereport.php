@@ -56,33 +56,8 @@
                             </div>
                         </div>
                         <br><br><br>
-                        <div id="datewisediv" hidden>
-                            <div class="col-md-3">
-                            </div>
-
-                            <div class="col-md-1">
-                                <label for="inputEmail3" class="col-md-5 control-label">From</label>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="date" class="form-control" id="from" name="from" placeholder="From Date" required>
-                            </div>
+                        <div id="areabasedoncheck">
                             
-                            <div class="col-md-1">
-                                <label for="inputEmail3" class="col-md-5 control-label">To</label>
-                            </div>
-                            <div class="col-md-2">
-                                <input type="date" class="form-control" id="to" name="to" placeholder="To Date" required>
-                            </div>
-                        </div>
-                        <div id="alldiv" hidden>
-
-                        </div>
-                        <div id="idwisediv" hidden>
-                            <div class="col-md-5"></div><div class="col-md-2"><input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required></div>
-                        </div>
-
-                        <div class="col-md-1" id="godiv">
-                            <button type="submit" class="btn btn-primary" id="invoicebtn" name="invoicebtn">GO</button>
                         </div>
                 </div>
 
@@ -270,25 +245,17 @@
             xhr.send(formData);
         }
 
-    document.getElementById("datewise").onclick=(e)=>{
+    document.getElementById("datewise").onclick=()=>{
         document.getElementById("reportarea").innerHTML="";
-        document.getElementById("alldiv").style.display="none";
-        document.getElementById("idwisediv").style.display="none";
-        document.getElementById("datewise").style.display="block";
+        document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-3"></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">From</label></div><div class="col-md-2"><input type="date" class="form-control" id="from" name="from" placeholder="From Date" required></div><div class="col-md-1"><label for="inputEmail3" class="col-md-5 control-label">To</label></div><div class="col-md-2"><input type="date" class="form-control" id="to" name="to" placeholder="To Date" required></div><div class="col-md-1"><button type="submit" class="btn btn-primary" id="datewisebtn" name="goo">Go</button></div>';
     }
 
-    document.getElementById("idwise").onclick=(e)=>{
-        // document.getElementById("overall").style.display="none";
+    document.getElementById("idwise").onclick=()=>{
         document.getElementById("reportarea").innerHTML="";
-        document.getElementById("alldiv").style.display="none";
-        document.getElementById("datewise").style.display="none";
-        document.getElementById("idwise").style.display="block";
+        document.getElementById("areabasedoncheck").innerHTML='<div class="col-md-5"></div><div class="col-md-2"><input type="text" class="form-control" id="invoice" name="invoice" placeholder="Invoice Number" required></div><div class="col-md-1"><button type="submit" class="btn btn-primary" id="idwisebtn" name="goo">Go</button></div>';
     }
     
     document.getElementById("alltype").onclick=(e)=>{
-        document.getElementById("reportarea").innerHTML="";
-        document.getElementById("godiv").style.display="none";
-        e.preventDefault();
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "php/allinvoicereport.php", true);
         xhr.onload = ()=>{
@@ -310,6 +277,55 @@
         let formData = new FormData(form);
         xhr.send(formData);  
     }
+
+    $(document).on('click','#datewisebtn',function(e){
+    e.preventDefault();
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "php/datewisereport.php", true);
+    xhr.onload = ()=>{
+      if(xhr.readyState === XMLHttpRequest.DONE){
+          if(xhr.status === 200){
+              let data = xhr.response;
+              document.getElementById("reportarea").innerHTML=data;
+              if(data.length>200)
+              {
+                    document.getElementById("okaybutton").style.display="block";
+              }
+              else
+              {
+                alert(data);
+              }
+            }
+        }
+    }
+    let formData = new FormData(form);
+    xhr.send(formData);
+    });
+
+    $(document).on('click','#idwisebtn',function(e){
+    alert('here');
+    e.preventDefault();
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "php/idwisereport.php", true);
+    xhr.onload = ()=>{
+      if(xhr.readyState === XMLHttpRequest.DONE){
+          if(xhr.status === 200){
+              let data = xhr.response;
+              document.getElementById("reportarea").innerHTML=data;
+              if(data.length>200)
+              {
+                    document.getElementById("okaybutton").style.display="block";
+              }
+              else
+              {
+                alert(data);
+              }
+            }
+        }
+    }
+    let formData = new FormData(form);
+    xhr.send(formData);
+    });
     
     document.getElementById("labreportbtn").onclick=(e)=>
     {
@@ -333,25 +349,6 @@
     }
     let formData = new FormData(form);
     xhr.send(formData);
-    }
-
-    document.getElementById("invoicebtn").onclick=(e)=>{
-        alert('here');
-        e.preventDefault();
-        let xhr=new XMLHttpRequest();
-        xhr.open("POST","php/invoicereport.php",true);
-        xhr.onload=()=>{
-            if(xhr.readyState==XMLHttpRequest.DONE){
-                if(xhr.status===200)
-                {
-                    let data=xhr.response;
-                    document.getElementById("reportarea").innerHTML=data;
-                    document.getElementById("okaybutton").style.display="block";
-                }
-            }
-        }
-        let formData = new FormData(form);
-        xhr.send(formData);
     }
 
     document.getElementById("searchareabtn").onclick=(e)=>
