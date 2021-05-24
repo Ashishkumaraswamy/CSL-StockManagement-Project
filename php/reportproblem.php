@@ -32,8 +32,7 @@
 						{
 							$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
 							$sysfetch=mysqli_fetch_assoc($syssql);
-							$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
-							$sysfetch=mysqli_fetch_assoc($syssql);
+							if(mysqli_num_rows($syssql)>0)
 							{
 								echo "This component seems to be assigned to system ".$sysfetch['system_id'].".This component must be replaced before moving to store";
 							}
