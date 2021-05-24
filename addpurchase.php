@@ -112,7 +112,7 @@
             <br>
             <br>
             <div class="row" id="finish">
-                <center><button type="submit" class="btn btn-primary" id="finish" name="finish">Finish Purchase Details</button></center>
+                <center><button type="submit" class="btn btn-primary" id="finishbtn" name="finish">Finish Purchase Details</button></center>
             </div>
           </div>
           <br>
@@ -294,7 +294,8 @@ $(document).on('click','#assignsystem',function(e){
     xhr.send(formData);
 });
 
-document.getElementById("finish").onclick=(e)=>{
+document.getElementById("finishbtn").onclick=(e)=>{
+  alert('clicked');
   e.preventDefault();
   let xhr=new XMLHttpRequest();
   xhr.open("POST", "php/insertinvoice.php", true);
@@ -308,6 +309,7 @@ document.getElementById("finish").onclick=(e)=>{
       }
     }
     let formData = new FormData();
+    alert(document.getElementById("invoice").value);
     formData.append("invoice_id",document.getElementById("invoice").value);
     xhr.send(formData);
 }

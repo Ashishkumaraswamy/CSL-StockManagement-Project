@@ -26,19 +26,19 @@
 				$count=$count+1;
 				$itemlistsql=mysqli_query($conn,"SELECT DISTINCT(category) FROM purchase WHERE invoice_id='{$invoicefetch['invoice_id']}'");
 				$span=mysqli_num_rows($itemlistsql);
-				$categorysql=mysqli_query($conn,"SELECT * FROM category");
-				if($categorysql)
+				if($itemlistsql)
 				{
 					$output.='
 							  <tr>
 							  <th rowspan="'.($span+1).'">'.$count.'</th>
-							  <th rowspan="'.($span+1).'">'.$invoicefetch['invoice_id'].'</th>
+							  <th rowspan="'.($span+1).'">'.$invoicefetch['invoice_id'].'</th> 
 							  <th rowspan="'.($span+1).'">'.$invoicefetch['purchase_date'].'</th>
 							  ';
-					while($category=mysqli_fetch_assoc($categorysql))
+					while($category=mysqli_fetch_assoc($itemlistsql))
 					{
-						$category_code=$category['category_code'];
-						if($category['category_code']=="cpu" or $category['category_code']=="ser" or $category['category_code']=="mac" or $category['category_code']=="lap")
+						$category_code=$category['category'];
+						$category_code=substr($category_code,0,3);
+						if($category['category']=="cpu" or $category['category']=="ser" or $category['category']=="mac" or $category['category']=="lap")
 						{
 							$category_count_sql=mysqli_query($conn,"SELECT count(*) as categorycnt FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.cpu_id LIKE '$category_code%'");
 							$category_working_sql=mysqli_query($conn,"SELECT count(*) as categoryworkcnt FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.cpu_id LIKE '$category_code%' AND status=1");
