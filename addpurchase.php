@@ -112,7 +112,7 @@
             <br>
             <br>
             <div class="row" id="finish">
-                <center><button type="submit" class="btn btn-primary" id="addcpu" name="addcpu">Finish Purchase Details</button></center>
+                <center><button type="submit" class="btn btn-primary" id="finish" name="finish">Finish Purchase Details</button></center>
             </div>
           </div>
           <br>
@@ -135,16 +135,24 @@
 	document.getElementById("systemcheck").onclick=()=>{
 		if(document.getElementById("check").value=="uncheck")
 		{
+      count=0;
 			document.getElementById("check").value="check";
 			if(count==0)
 			{
 				document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 1: Enter Mouse details of the Systems Puchased.</strong></div>';
 				document.getElementById("compcat").value="mouse";
         document.getElementById("cpucat").value="";
-				$("#addcpu").attr("hidden",true);
+        $('#addcpu').prop("disabled",true);
 			}
 		}
+    else if(document.getElementById("check").value=="check" && count>0 && count<4)
+    {
+        alert('System details must be finished before entering other components');
+        document.getElementById("systemcheck").checked=true;
+    }
 		else{
+      $('#addcpu').prop("disabled",false);
+      $('#addcomponent').prop("disabled",false);
       document.getElementById("inputcompcheck").innerHTML='';
 			document.getElementById("check").value="uncheck";
 			count=0;
@@ -155,6 +163,7 @@
 
 	e.preventDefault();
 	console.log(document.getElementById("compcat").value);
+    document.getElementById("assemblesystemdiv").innerHTML="";
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/addcomponent.php", true);
     console.log(xhr.response);
@@ -162,34 +171,49 @@
       if(xhr.readyState === XMLHttpRequest.DONE){
           if(xhr.status === 200){
             let data = xhr.response;
-             alert(data);
-             document.getElementById("brand").value="";
-             document.getElementById("type").value="";
-             document.getElementById("compdesc").value="";
-             document.getElementById("type").value="";
-             if(document.getElementById("check").value!="check")
-             {
-             	document.getElementById("compquant").value="";
-             }
-             else
-             {
-               	count=count+1;
-               	if(count==1)
-               	{
-               		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 2: Enter Monitor details of the Systems Puchased.</strong></div>';
-               		document.getElementById("compcat").value="monitor";
-               	}
-               	else if(count==2)
-               	{
-               		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 3: Enter KeyBoard details of the Systems Puchased.</strong></div>';
-               		document.getElementById("compcat").value="keyboard";
-               	}
-               	else if(count==3)
-               	{
-               		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 4: Enter CPU details of the Systems Puchased.</strong></div>';
-               		document.getElementById("cpucat").value="cpu";
-               		document.getElementById("cpuquant").value=document.getElementById("compquant").value;
-               	}
+             if(parseInt(data.slice(-1))>=0 && parseInt(data.slice(-1))<=9)
+             { 
+               alert(data);
+               document.getElementById("assemblesystemdiv").innerHTML="";
+               document.getElementById("brand").value="";
+               document.getElementById("type").value="";
+               document.getElementById("compdesc").value="";
+               document.getElementById("type").value="";
+               if(document.getElementById("check").value!="check")
+               {
+               	document.getElementById("compquant").value="";
+                $('#addcpu').prop("disabled",false);
+                $('#addcomponent').prop("disabled",false);
+               }
+               else
+               {
+                  $('#addcpu').prop("disabled",true);
+                 	count=count+1;
+                 	if(count==1)
+                 	{
+                 		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 2: Enter Monitor details of the Systems Puchased.</strong></div>';
+                 		document.getElementById("compcat").value="monitor";
+                 	}
+                 	else if(count==2)
+                 	{
+                 		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 3: Enter KeyBoard details of the Systems Puchased.</strong></div>';
+                 		document.getElementById("compcat").value="keyboard";
+                 	}
+                 	else if(count==3)
+                 	{
+                 		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 4: Enter CPU details of the Systems Puchased.</strong></div>';
+                    document.getElementById("compcat").value="";
+                 		document.getElementById("cpucat").value="cpu";
+                 		document.getElementById("cpuquant").value=document.getElementById("compquant").value;
+                    document.getElementById("compquant").value="";
+                    $('#addcpu').prop("disabled",false);
+                    $('#addcomponent').prop("disabled",true);
+                 	}
+                }
+              }
+              else
+              {
+                alert(data);
               }
           }
       }
@@ -206,17 +230,39 @@
       if(xhr.readyState === XMLHttpRequest.DONE){
           if(xhr.status === 200){
               let data = xhr.response;
-              alert(data);
-              count=count+1;
-              document.getElementById("ram").value="";
-              document.getElementById("procseries").value="";
-              document.getElementById("storage").value="";
-              document.getElementById("cpudesc").value="";
-              if(count==4)
+              if(parseInt(data.slice(-1))>=0 && parseInt(data.slice(-1))<=9)
               {
-              	   document.getElementById("compquant").value="";
-                   document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Great All Details of System submitted. Click Assemble System to Assign Components.</strong></div>';
-              	   document.getElementById("assemblesystem").innerHTML='<br><button type="submit" class="btn btn-primary" id="assignsystem" name="assignsystem">Assemble System</button>';
+                alert(data);
+                if(document.getElementById("check").value=="check" && count==3)
+                {
+                  count=count+1;
+                  document.getElementById("ram").value="";
+                  document.getElementById("procseries").value="";
+                  document.getElementById("storage").value="";
+                  document.getElementById("cpudesc").value="";
+                  console.log(count);
+                  if(count==4)
+                  {
+                      alert('here');
+                  	   document.getElementById("compquant").value="";
+                       document.getElementById("assemblesystem").style.display="block";
+                       document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Great All Details of System submitted. Click Assemble System to Assign Components.</strong></div>';
+                  	   document.getElementById("assemblesystem").innerHTML='<br><center><button type="submit" class="btn btn-primary" id="assignsystem" name="assignsystem">Assemble System</button><center>';
+                       document.getElementById("finish").style.display="none";
+                       $('#addcpu').prop("disabled",false);
+                       $('#addcomponent').prop("disabled",false);
+                       count=0;
+                  }
+                }
+                else
+                {
+                  $('#addcpu').prop("disabled",false);
+                  $('#addcomponent').prop("disabled",false);
+                }
+              }
+              else
+              {
+                alert(data);
               }
           }
       }
@@ -235,15 +281,41 @@ $(document).on('click','#assignsystem',function(e){
           if(xhr.status === 200){
               let data = xhr.response;
               document.getElementById("assemblesystemdiv").innerHTML=data;
+              document.getElementById("inputcompcheck").innerHTML='';
+              document.getElementById("assignsystem").style.display="none";
           }
       }
     }
     let formData = new FormData();
     formData.append("invoice_id",document.getElementById("invoice").value);
     formData.append("quantity",document.getElementById("cpuquant").value);
+    formData.append("date",document.getElementById("date").value);
     xhr.send(formData);
 });
 
+document.getElementById("finish").onclick=(e)=>{
+  e.preventDefault();
+  let xhr=new XMLHttpRequest();
+  xhr.open("POST", "php/insertinvoice.php", true);
+    xhr.onload = ()=>{
+      if(xhr.readyState === XMLHttpRequest.DONE){
+          if(xhr.status === 200){
+              let data = xhr.response;
+              console.log(data);
+              location.href="addpurchase.php";
+          }
+      }
+    }
+    let formData = new FormData();
+    formData.append("invoice_id",document.getElementById("invoice").value);
+    xhr.send(formData);
+}
+
+$(document).on('click','#okaybtn',function(e){
+    e.preventDefault();
+   document.getElementById("assemblesystemdiv").innerHTML=""; 
+   document.getElementById("finish").style.display="block";
+});
 // $(document).on('click','#okay',function(e){
 //     location.href="addpurchase.php";
 // });

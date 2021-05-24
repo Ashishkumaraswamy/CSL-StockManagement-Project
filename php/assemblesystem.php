@@ -45,7 +45,12 @@
     		$i=$i+1;
     	}
     	$output .='</table>
-    				</div>';
+    				</div>
+                    <div class="row">
+                <div class="col-sm-offset-2 col-md-9 text-center">
+                <br><center><button type="submit" class="btn btn-primary" id="okaybtn" name="assignsystem">Okay</button><center>
+                </div>
+                </div>';
     	echo $output;
     }
     else{

@@ -9,6 +9,7 @@
 			          		<div class="col-sm-offset-2 col-md-9 text-center">
 			    			<table class="table table-hover" border="1">
 			    			<tr>
+			    				<th>S.No</th>
 							  	<th>Invoice ID</th>
 							  	<th>Inovice Date</th>
 							    <th>Category</th>
@@ -19,8 +20,10 @@
 							    <th>Disposed</th>
 							    <th>Total Count</th>
 							  </tr>';
+				$count=0;
 				while($invoicefetch=mysqli_fetch_assoc($invoicelistsql))
 				{
+				$count=$count+1;
 				$itemlistsql=mysqli_query($conn,"SELECT DISTINCT(category) FROM purchase WHERE invoice_id='{$invoicefetch['invoice_id']}'");
 				$span=mysqli_num_rows($itemlistsql);
 				$categorysql=mysqli_query($conn,"SELECT * FROM category");
@@ -28,6 +31,7 @@
 				{
 					$output.='
 							  <tr>
+							  <th rowspan="'.($span+1).'">'.$count.'</th>
 							  <th rowspan="'.($span+1).'">'.$invoicefetch['invoice_id'].'</th>
 							  <th rowspan="'.($span+1).'">'.$invoicefetch['purchase_date'].'</th>
 							  ';

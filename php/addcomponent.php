@@ -13,7 +13,8 @@
 	if(!empty($compcat) and !empty($brand) and !empty($type) and !empty($desc) and !empty($compquant) and !empty($invoice_id) and !empty($date))
 	{
 		$invoice_sql=mysqli_query($conn,"SELECT * FROM purchase WHERE invoice_id='{$invoice_id}'");
-		if(mysqli_num_rows($invoice_sql)>=0)
+		$invoiceval=mysqli_query($conn,"SELECT * FROM invoice WHERE invoice_id='{$invoice_id}'");
+		if(mysqli_num_rows($invoiceval)==0)
 		{
 			$purchaseinsert=mysqli_query($conn,"INSERT INTO purchase(invoice_id,purchase_date,category) VALUES('{$invoice_id}','{$date}','{$cat}')");
 			if($purchaseinsert)
@@ -45,8 +46,9 @@
 				echo "Failure";
 			}
 		}
-		else{
-			echo "Invoice ID already exists.Check your Invoice ID.";
+		else
+		{
+			echo "Invoice Already Exists. Please check your Invoice ID";
 		}
 	}
 	else
