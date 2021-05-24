@@ -122,7 +122,6 @@
 	}
 
 	document.getElementById("assignsystembtn").onclick=(e)=>{
-    alert("Here");
 		e.preventDefault();
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/assignsystem.php", true);
@@ -141,7 +140,6 @@
 
 	document.getElementById("assigncomponentbtn").onclick=(e)=>
 	{
-	alert('Here');
 	e.preventDefault();
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/assigncomponent.php", true);

@@ -12,7 +12,7 @@
             </div>
             <div class="col-md-2">
             <div class="radio">
-                <label style="font-size: 15px"><input type="radio" id="overall" name="reporttype">Overall  Report</label>
+                <label style="font-size: 15px"><input type="radio" id="overall" name="reporttype">Invoice  Report</label>
             </div>
             </div>
             <div class="col-md-2">
@@ -34,7 +34,7 @@
           <br>
                 <input type="text" name="invoicecheck" id="invoicecheck" value="uncheck" hidden>
                 <div class="form-group" id="overallarea" hidden>
-                        <center><h4 class="text-center"><b>Overall Report</b></h4></center>
+                        <center><h4 class="text-center"><b>Invoice Report</b></h4></center>
                         <br><br>
                         <div class="row">
                             <div class="col-md-2">
@@ -256,6 +256,7 @@
     }
     
     document.getElementById("alltype").onclick=(e)=>{
+        document.getElementById("areabasedoncheck").innerHTML="";
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "php/allinvoicereport.php", true);
         xhr.onload = ()=>{
@@ -303,7 +304,6 @@
     });
 
     $(document).on('click','#idwisebtn',function(e){
-    alert('here');
     e.preventDefault();
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/idwisereport.php", true);
@@ -329,6 +329,7 @@
     
     document.getElementById("labreportbtn").onclick=(e)=>
     {
+    e.preventDefault();
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "php/labreport.php", true);
     xhr.onload = ()=>{

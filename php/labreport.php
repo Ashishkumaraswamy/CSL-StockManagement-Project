@@ -9,11 +9,15 @@
 		if($locationsql){
 			$location=mysqli_fetch_assoc($locationsql);
 			$syslocationsql=mysqli_query($conn,"SELECT count(*) AS labsyscount FROM `system` WHERE location_id={$location['lab_id']}");
+			$compcntsql=mysqli_query($conn,"SELECT count(*) AS compcnt FROM components WHERE location={$location['lab_id']}");
+			$cpucntsql=mysqli_query($conn,"SELECT count(*) AS cpucnt FROM cpu WHERE location={$location['lab_id']}");
+			$cpucnt=mysqli_fetch_assoc($cpucntsql);
+			$compcnt=mysqli_fetch_assoc($compcntsql);
 			if($syslocationsql)
 			{
 				$syslocation=mysqli_fetch_assoc($syslocationsql);
 				$labsyssql=mysqli_query($conn,"SELECT * FROM `system` WHERE location_id={$location['lab_id']}");
-				if(mysqli_num_rows($labsyssql)>0)
+				if(mysqli_num_rows($labsyssql)+$cpucnt['cpucnt']+$compcnt['compcnt']>0)
 				{
 					 $output.='<div class="row">
 			          		<div class="col-md-4">
@@ -117,7 +121,7 @@
 	    									$statusfetch=mysqli_fetch_assoc($status);
 	    									$output .='<tr>
 										    <td>'.$cat['category'].'</td>
-										    <td>'.$catfetch['cpu_id'].'</td>
+										    <td>'.$catfetch['componentid'].'</td>
 										    <td>'.$desc.'</td>
 										    <td>'.$statusfetch['status'].'</td>
 										  </tr>';

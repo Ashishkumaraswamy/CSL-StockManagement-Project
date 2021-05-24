@@ -21,61 +21,115 @@
 				if($cat=="cpu" or $cat=="lap" or $cat=="ser" or $cat=="mac")
 				{
 					$category=mysqli_fetch_assoc($categorysql);
-					$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category['category']."_id='{$assignid}'");
-					if(mysqli_num_rows($syssql)==0)
+					if($cat=="cpu")
 					{
-						$cpufetch=mysqli_fetch_assoc($checkcpusql);
-						if($cpufetch['location']==1)
+						$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category['category']."_id='{$assignid}'");
+						if(mysqli_num_rows($syssql)==0)
 						{
-							if($cpufetch['status']==1)
+							$cpufetch=mysqli_fetch_assoc($checkcpusql);
+							if($cpufetch['location']==1)
 							{
-								$updatecpu=mysqli_query($conn,"UPDATE cpu SET location={$locationid['lab_id']} WHERE cpu_id='{$assignid}'");
-								echo $assignid." moved to ".$location;
+								if($cpufetch['status']==1)
+								{
+									$updatecpu=mysqli_query($conn,"UPDATE cpu SET location={$locationid['lab_id']} WHERE cpu_id='{$assignid}'");
+									echo $assignid." moved to ".$location;
+								}
+								else
+								{
+									echo "Component in not working status.Cannot place this component in the lab";
+								}
 							}
 							else
 							{
-								echo "Component in not working status.Cannot place this component in the lab";
+								echo "Component not in store.Can assign location to components only in store";
 							}
 						}
 						else
 						{
-							echo "Component not in store.Can assign location to components only in store";
+							$sysfetch=mysqli_fetch_assoc($syssql);
+							echo "Component assigned to system ".$sysfetch['system_id']." cannot move this component to lab.";
 						}
 					}
 					else
 					{
-						$sysfetch=mysqli_fetch_assoc($syssql);
-						echo "Component assigned to system ".$sysfetch['system_id']." cannot move this component to lab.";
+						if(mysqli_num_rows($syssql)==0)
+						{
+							$cpufetch=mysqli_fetch_assoc($checkcpusql);
+							if($cpufetch['location']==1)
+							{
+								if($cpufetch['status']==1)
+								{
+									$updatecpu=mysqli_query($conn,"UPDATE cpu SET location={$locationid['lab_id']} WHERE cpu_id='{$assignid}'");
+									echo $assignid." moved to ".$location;
+								}
+								else
+								{
+									echo "Component in not working status.Cannot place this component in the lab";
+								}
+							}
+							else
+							{
+								echo "Component not in store.Can assign location to components only in store";
+							}
+						}
+						else
+						{
+							$sysfetch=mysqli_fetch_assoc($syssql);
+							echo "Component assigned to system ".$sysfetch['system_id']." cannot move this component to lab.";
+						}
 					}
 				}	
 				else
 				{
 					$category=mysqli_fetch_assoc($categorysql);
-					$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category['category']."_id='{$assignid}'");
-					if(mysqli_num_rows($syssql)==0)
+					if($cat=="mou" or $cat=="mon" or $cat=="key")
 					{
-						$compfetch=mysqli_fetch_assoc($checkscompql);
-						if($compfetch['location']==1)
+						$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category['category']."_id='{$assignid}'");
+						if(mysqli_num_rows($syssql)==0)
 						{
-							if ($compfetch['status']==1)
+							$compfetch=mysqli_fetch_assoc($checkscompql);
+							if($compfetch['location']==1)
 							{
-								$updatecpu=mysqli_query($conn,"UPDATE components SET location={$locationid['lab_id']} WHERE componentid='{$assignid}'");
-								echo $assignid." moved to ".$location;
+								if ($compfetch['status']==1)
+								{
+									$updatecpu=mysqli_query($conn,"UPDATE components SET location={$locationid['lab_id']} WHERE componentid='{$assignid}'");
+									echo $assignid." moved to ".$location;
+								}
+								else
+								{
+									echo "Component in not working status.Cannot place this component in the lab";
+								}
 							}
 							else
 							{
-								echo "Component in not working status.Cannot place this component in the lab";
+								echo "Component not in store.Can assign location to components only in store";
 							}
 						}
 						else
 						{
-							echo "Component not in store.Can assign location to components only in store";
+							$sysfetch=mysqli_fetch_assoc($syssql);
+							echo "Component assigned to system ".$sysfetch['system_id']." cannot move this component to lab.";
 						}
 					}
 					else
 					{
-						$sysfetch=mysqli_fetch_assoc($syssql);
-						echo "Component assigned to system ".$sysfetch['system_id']." cannot move this component to lab.";
+						$compfetch=mysqli_fetch_assoc($checkscompql);
+							if($compfetch['location']==1)
+							{
+								if ($compfetch['status']==1)
+								{
+									$updatecpu=mysqli_query($conn,"UPDATE components SET location={$locationid['lab_id']} WHERE componentid='{$assignid}'");
+									echo $assignid." moved to ".$location;
+								}
+								else
+								{
+									echo "Component in not working status.Cannot place this component in the lab";
+								}
+							}
+							else
+							{
+								echo "Component not in store.Can assign location to components only in store";
+							}
 					}
 				}
 				

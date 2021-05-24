@@ -19,9 +19,12 @@
 			$purchaseinsert=mysqli_query($conn,"INSERT INTO purchase(invoice_id,purchase_date,category) VALUES('{$invoice_id}','{$date}','{$cat}')");
 			if($purchaseinsert)
 			{	
+				$catsql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$cat}'");
+				$catfetch=mysqli_fetch_assoc($catsql);
 				$purchaseidsql=mysqli_query($conn,"SELECT * FROM purchase ORDER BY purchaseid DESC LIMIT 1");
+				$catcode=$catfetch['category_code'];
 				$purchaseid=mysqli_fetch_assoc($purchaseidsql);
-				$idsql=mysqli_query($conn,"SELECT count(*) as count FROM components WHERE componentid LIKE '$compcat%'");
+				$idsql=mysqli_query($conn,"SELECT count(*) as count FROM components WHERE componentid LIKE '$catcode%'");
 				$id=mysqli_fetch_assoc($idsql);
 				$count=(string)($id['count']);
 				if($purchaseid)
@@ -29,7 +32,7 @@
 					$i=1;
 					while($i<=$compquant)
 					{
-						$compid=$compcat.(string)($count+$i);
+						$compid=$catfetch['category_code'].(string)($count+$i);
 						$id=($count+$i);
 						$insertcomp=mysqli_query($conn,"INSERT INTO components VALUES('{$compid}',{$id},{$purchaseid['purchaseid']},'{$brand}','{$type}',1,1,'{$desc}','NA')");
 						$sql1 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Invoice ID - {$invoice_id} ,Purchase ID -{$purchaseid['purchaseid']} and Purchase date - {$date}.','New Components Added.')");

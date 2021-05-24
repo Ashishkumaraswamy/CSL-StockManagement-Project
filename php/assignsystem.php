@@ -6,7 +6,7 @@
 	$toassignid=mysqli_real_escape_string($conn,$_POST['toassignsystem']);
 	$location=mysqli_real_escape_string($conn,$_POST['sysloc']);
 
-	if(!empty($assigntype) and !empty($assignid) and !empty($location))
+	if(!empty($assigntype) and !empty($assignid) and !empty($location) and !empty($toassignid))
 	{
 		$locationsql=mysqli_query($conn,"SELECT * FROM location WHERE lab_name='{$location}'");
 		if($locationsql)
@@ -41,6 +41,7 @@
 				else
 				{
 					echo "Enter a proper component id";
+					break;
 				}
 				$i++;
 			}

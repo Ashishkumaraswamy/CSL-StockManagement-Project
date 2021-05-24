@@ -11,7 +11,7 @@
 	$invoicelistsql=mysqli_query($conn,"SELECT DISTINCT(invoice_id),purchase_date FROM purchase WHERE purchase_date BETWEEN '{$fromdate}' AND '{$todate}'");
 			if(mysqli_num_rows($invoicelistsql)>0)
 			{	
-				$output .='
+				$output .='<div class="row">
 			          		<div class="col-sm-offset-2 col-md-9 text-center">
 			    			<table class="table table-hover" border="1">
 			    			<tr>
@@ -42,9 +42,10 @@
 							  ';
 					while($category=mysqli_fetch_assoc($itemlistsql))
 					{
-						$category_code=$category['category'];
-						$category_code=substr($category_code,0,3);
-						if($category['category']=="cpu" or $category['category']=="ser" or $category['category']=="mac" or $category['category']=="lap")
+						$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$category['category']}'");
+						$categoryfetch=mysqli_fetch_assoc($categorysql);
+						$category_code=$categoryfetch['category_code'];
+						if($category_code=="cpu" or $category_code=="ser" or $category_code=="mac" or $category_code=="lap")
 						{
 							$category_count_sql=mysqli_query($conn,"SELECT count(*) as categorycnt FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.cpu_id LIKE '$category_code%'");
 							$category_working_sql=mysqli_query($conn,"SELECT count(*) as categoryworkcnt FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.cpu_id LIKE '$category_code%' AND status=1");
@@ -99,7 +100,7 @@
 									$categorylastsql=mysqli_query($conn,"SELECT * FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.componentid LIKE '$category_code%' ORDER BY id DESC LIMIT 1");
 									$categorylast=mysqli_fetch_assoc($categorylastsql);
 									$categorydesc=$categorydescfetch['brand'].','.$categorydescfetch['type'].','.$categorydescfetch['description'].'.';
-									$output .='<tr>
+									$output .='
 										    <td>'.$category['category'].'</td>
 										    <td>'.$categorydesc.'</td>
 										    <td>'.$categorydescfetch['componentid'].'-'.$categorylast['componentid'].'</td>
@@ -107,7 +108,8 @@
 										    <td>'.$category_not_working['categorynotworkcnt'].'</td>
 										    <td>'.($categorycnt['categorycnt']-$category_not_working['categorynotworkcnt']-$category_working['categoryworkcnt']).'</td>
 										     <td>'.$categorycnt['categorycnt'].'</td>
-										  </tr>';
+										  </tr>
+										  <tr>';
 								}
 							}
 							else{
@@ -117,7 +119,7 @@
 							}	
 						}
 					}
-					$output .='</tr></div><br><br><br>';
+					$output .='</tr>';
 				}
 				else
 				{
@@ -126,7 +128,7 @@
 					</div>';
 				}
 				}
-				$output.="</table></div></div>";
+				$output.="</table></div></div></div><br><br>";
 				echo $output;
 		}
     }

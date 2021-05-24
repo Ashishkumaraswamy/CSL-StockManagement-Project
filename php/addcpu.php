@@ -2,7 +2,6 @@
 	include_once('config.php');
 	session_start();
 	$invoice_id=mysqli_real_escape_string($conn,$_POST['invoice']);
-	echo $invoice_id;
 	$cat=mysqli_real_escape_string($conn,$_POST['cpucat']);
 	$cpucat=strtolower($cat);
 	$cpucat= substr($cpucat, 0,3);
@@ -15,7 +14,6 @@
 	if(!empty($cpucat) and !empty($ram) and !empty($procseries) and !empty($storage) and !empty($desc) and !empty($cpuquant) and !empty($invoice_id) and !empty($date))
 	{
 		$invoiceval=mysqli_query($conn,"SELECT * FROM invoice WHERE invoice_id='{$invoice_id}'");
-		echo mysqli_num_rows($invoiceval);
 		if(mysqli_num_rows($invoiceval)==0)
 		{	
 			$purchaseinsert=mysqli_query($conn,"INSERT INTO purchase(invoice_id,purchase_date,category) VALUES('{$invoice_id}','{$date}','{$cat}')");

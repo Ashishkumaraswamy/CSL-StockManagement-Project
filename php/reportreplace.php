@@ -6,8 +6,10 @@
 	$repcompid=mysqli_real_escape_string($conn,$_POST['repcompid']);
 	$repcompid=strtolower($repcompid);
 	$compid=strtolower($compid);
-	$compcode=substr($compid, 0,3);
-	$repcompcode=substr($repcompid, 0,3);
+	$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$category}'");
+	$categoryfetch=mysqli_fetch_assoc($categorysql);
+	$compcode=$categoryfetch['category_code'];
+	$repcompcode=$categoryfetch['category_code'];
 	$status=mysqli_real_escape_string($conn,$_POST['compstat1']);
 	$description=mysqli_real_escape_string($conn,$_POST['description1']);
 	$date=date('Y-m-d');
@@ -168,15 +170,14 @@
 											}
 											else
 											{
-												$updatecpu=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location={$repsysfetch['location']},problem_description='NA' WHERE componentid='{$compid}'");
+												$updatecpu=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$repsysfetch['location']},problem_description='NA' WHERE componentid='{$compid}'");
 												$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$repcom['componentid']} WHERE system_id={$sysfetch['system_id']}");
 												$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$sysfetch['location_id']} WHERE componentid='{$repcompid}'");
+												$updaterepsys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$comp['componentid']} WHERE system_id={$repsysfetch['system_id']}");	
 												
 												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$sysfetch['system_id']}','Replaced ID - ".$repcompid.".".$compid." ','Assigned to system to replace,moved to store.')");
 
-												echo $compid." assigned to system ".$sysfetch['system_id']." replaced by ".$repcompid.".".$compid." moved to store.";
-												
-												$updaterepsys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$comp['componentid']} WHERE system_id={$repsysfetch['system_id']}");	
+												echo $compid." assigned to system ".$sysfetch['system_id']." replaced by ".$repcompid.". Component locations swapped.";
 											}
 									}
 								}

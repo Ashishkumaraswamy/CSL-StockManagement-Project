@@ -240,10 +240,8 @@
                   document.getElementById("procseries").value="";
                   document.getElementById("storage").value="";
                   document.getElementById("cpudesc").value="";
-                  console.log(count);
                   if(count==4)
                   {
-                      alert('here');
                   	   document.getElementById("compquant").value="";
                        document.getElementById("assemblesystem").style.display="block";
                        document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Great All Details of System submitted. Click Assemble System to Assign Components.</strong></div>';
@@ -283,6 +281,10 @@ $(document).on('click','#assignsystem',function(e){
               document.getElementById("assemblesystemdiv").innerHTML=data;
               document.getElementById("inputcompcheck").innerHTML='';
               document.getElementById("assignsystem").style.display="none";
+              document.getElementById("cpuquant").value="";
+              document.getElementById("compcat").value="mouse";
+              document.getElementById("systemcheck").checked=false;
+              document.getElementById("check").value="uncheck";
           }
       }
     }
@@ -295,7 +297,6 @@ $(document).on('click','#assignsystem',function(e){
 });
 
 document.getElementById("finishbtn").onclick=(e)=>{
-  alert('clicked');
   e.preventDefault();
   let xhr=new XMLHttpRequest();
   xhr.open("POST", "php/insertinvoice.php", true);
@@ -309,7 +310,6 @@ document.getElementById("finishbtn").onclick=(e)=>{
       }
     }
     let formData = new FormData();
-    alert(document.getElementById("invoice").value);
     formData.append("invoice_id",document.getElementById("invoice").value);
     xhr.send(formData);
 }
