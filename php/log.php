@@ -2,7 +2,7 @@
 	include_once('config.php');
 	session_start();
 
-	$sql = mysqli_query($conn,"select * from log");
+	$sql = mysqli_query($conn,"select * from log ORDER BY time DESC");
     $output="";
     $output.='  <div class="row">
                         <div class="col-sm-offset-1 col-md-10 text-center">';
