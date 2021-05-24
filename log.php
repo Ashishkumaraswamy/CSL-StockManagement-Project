@@ -5,29 +5,26 @@
 
 <center><form action="" class="form-horizontal" method="post" name="myForm" id="formlog">
 <br>
-                <div class="form-group" id="okaybutton">
-                    <div class="col-md-1">
+                
+                    <div class="col-4">
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                     <input type="text" class="form-control" id="searchname" name="searchname" placeholder="ComponentID/CPU-ID">
                     </div>
-                    <div class="col-md-1">
-                        <label for="inputEmail3" class="col-md-5 control-label">From</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" id="actio" name="actio" placeholder="Purpose">
                     </div>
+                    <label for="inputEmail3" class="col-md-1 control-label">From</label>
                     <div class="col-md-2">
                         <input type="date" class="form-control" id="from" name="from" placeholder="From Date" required>
                     </div>
-                    
-                    <div class="col-md-1">
-                        <label for="inputEmail3" class="col-md-5 control-label">To</label>
-                    </div>
+                    <label for="inputEmail3" class="col-md-1 control-label">To</label>
                     <div class="col-md-2">
                         <input type="date" class="form-control" id="to" name="to" placeholder="To Date" required>
                     </div>
-
-                    <div class="col-md-1">
-                    <button type="submit" class="btn btn-primary" id="searchareabtn" name="goo">Search </button>
-                    </div>
+                    
+                        <button type="submit" class="btn btn-primary" id="searchareabtn" name="goo">Search </button>
+                    
                     <br>
                     <br>
                     <br>
@@ -41,7 +38,7 @@
                     
                     
                     </div>
-                </div>
+            
           
 			</form></center><br><br><br>
 

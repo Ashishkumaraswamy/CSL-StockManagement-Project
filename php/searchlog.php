@@ -3,8 +3,12 @@
 	session_start();
 
     $id = mysqli_real_escape_string($conn,$_POST['searchname']);
+    $purpo = mysqli_real_escape_string($conn,$_POST['actio']);
 	$from = mysqli_real_escape_string($conn,$_POST['from']);
     $to = mysqli_real_escape_string($conn,$_POST['to']);
+
+    $id =strtolower($id);
+    $purpo =strtolower($purpo);
 
 
     function defaulttab($qur){
@@ -61,10 +65,16 @@
         echo $output;
     
     }
+    if(!empty($id) && !empty($purpo) && !empty($from) && !empty($to)){
+        $s = "select * from `log` where LOWER(id) like '{$id}' and LOWER(purpose) like '%{$purpo}%' and DATE(time) BETWEEN '{$from}' AND '{$to}'";
+        defaulttab($s);
+    }
+    elseif(!empty($id) && !empty($from) && !empty($to)){
+        $s = "select * from `log` where LOWER(id) like '{$id}' and DATE(time) BETWEEN '{$from}' AND '{$to}'";
+        defaulttab($s);
 
-
-    if(!empty($id) && !empty($from) && !empty($to)){
-        $s = "select * from `log` where id like '{$id}' and DATE(time) BETWEEN '{$from}' AND '{$to}'";
+    }elseif(!empty($purpo) && !empty($from) && !empty($to)){
+        $s = "select * from `log` where LOWER(purpose) like '%{$purpo}%' and DATE(time) BETWEEN '{$from}' AND '{$to}'";
         defaulttab($s);
 
     }elseif(!empty($id) && !empty($to)){
@@ -75,14 +85,27 @@
 
         echo '<br><br>Enter TO date to fetch results!!';
 
-    }elseif(!empty($from) && !empty($to)){
+    }elseif(!empty($purpo) && !empty($to)){
+
+        echo '<br><br>Enter From date to fetch results !!';
+
+    }elseif(!empty($purpo) && !empty($from)){
+
+        echo '<br><br>Enter TO date to fetch results!!';
+    }
+    elseif(!empty($from) && !empty($to)){
 
         $s = "select * from `log` where DATE(time) BETWEEN '{$from}' AND '{$to}'";
         defaulttab($s);
     }
     elseif(!empty($id)){
 
-        $s = "select * from log where id like '{$id}'";
+        $s = "select * from log where LOWER(id) like '{$id}'";
+        defaulttab($s);
+
+    }elseif(!empty($purpo)){
+
+        $s = "select * from log where LOWER(purpose) like '%{$purpo}%'";
         defaulttab($s);
 
     }elseif(!empty($from)){
@@ -93,8 +116,7 @@
 
         echo '<br><br>Enter From date to fetch results !!';
 
-    }
-    else{
+    }else{
         
         $s = "select * from log ORDER BY time DESC LIMIT 25;";
         defaulttab($s);
