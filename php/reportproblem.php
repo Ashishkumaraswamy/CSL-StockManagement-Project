@@ -43,7 +43,13 @@
 									echo $compid." already in not working status and component in store";
 								}
 								else{
+
 									$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE cpu_id='{$compid}'");
+
+									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
+									
+									$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.')");
+
 									echo $compid." status updated to not working.Component already in store.";
 								}
 							}
@@ -58,11 +64,14 @@
 							{
 								$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location=1,problem_description='NA' WHERE cpu_id='{$compid}'");
 								
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','updated to working status.')");
+
 								echo $compid." updated to working status.Component present in store.";
 							}
 						}
 						else
 						{
+
 							$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
 							$sysfetch=mysqli_fetch_assoc($syssql);
 							if(mysqli_num_rows($syssql)==1)
@@ -73,6 +82,7 @@
 							{
 								$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE cpu_id='{$compid}'");
 								$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.')");
 								echo $compid." disposed and component moved to dipsose area.";	
 							}
 						}
@@ -110,7 +120,11 @@
 									echo $compid." already in not working status and component in store";
 								}
 								else{
+
 									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
+									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
+									
+									$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.')");
 									echo $compid." status updated to not working.Component already in store.";
 								}
 							}
@@ -124,11 +138,14 @@
 							else{
 								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='NA' WHERE componentid='{$compid}'");
 								
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','updated to working status.')");
+
 								echo $compid." updated to working status.Component present in store.";
 							}
 						}
 						else
 						{
+
 							$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
 							$sysfetch=mysqli_fetch_assoc($syssql);
 							if(mysqli_num_rows($syssql)==1)
@@ -139,6 +156,7 @@
 							{
 								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
 								$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.')");
 								echo $compid." disposed and component moved to dipsose area.";	
 							}
 						}
