@@ -41,7 +41,7 @@
                         </select>
                       </div>
                         <div class="col-md-1">
-                          <input type="text" class="form-control" id="compid" name="compid" placeholder="Component ID" required>
+                          <input type="text" class="form-control" id="compid" name="compid" placeholder="Component ID">
                         </div>
                       <div id="addcomp">
                       </div>
@@ -60,7 +60,7 @@
                       </select> 
                       </div>
                       <div class="col-md-2">
-                          <center><input type="text" class="form-control" id="description" name="description" placeholder="Problem Description" required></center>
+                          <center><input type="text" class="form-control" id="description" name="description" placeholder="Problem Description"></center>
                         </div> 
                     </div>
                     <br>
@@ -93,10 +93,10 @@
                           </select>
                         </div>
                           <div class="col-md-1">
-                            <input type="text" class="form-control" id="compid" name="compid1" placeholder="Component ID" required>
+                            <input type="text" class="form-control" id="compid" name="compid1" placeholder="Component ID">
                           </div>
                         <div class="col-md-2">
-                            <input type="text" class="form-control" id="repcompid" name="repcompid" placeholder="Replace Component ID" required>
+                            <input type="text" class="form-control" id="repcompid" name="repcompid" placeholder="Replace Component ID">
                           </div>
                         <div class="col-md-2">
                               <select id="compstat" class="dropdown" name="compstat1" style="width:130px;height:30px">
@@ -113,7 +113,7 @@
                         </select> 
                         </div>
                         <div class="col-md-3">
-                            <input type="text" class="form-control" id="description" name="description1" placeholder="Problem Description" required>
+                            <input type="text" class="form-control" id="description" name="description1" placeholder="Problem Description">
                           </div> 
                       </div>
                         <br>
@@ -147,6 +147,7 @@
     
     document.getElementById("reportproblembtn").onclick=(e)=>
     {
+        e.preventDefault();
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "php/reportproblem.php", true);
         xhr.onload = ()=>{
@@ -162,7 +163,8 @@
     }
 
     document.getElementById("reportreplacebtn").onclick=(e)=>
-    {
+    {   
+        e.preventDefault();
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "php/reportreplace.php", true);
         xhr.onload = ()=>{
@@ -175,12 +177,6 @@
         }
         let formData = new FormData(form);
         xhr.send(formData);
-    }
-
-    document.getElementById("report")
-
-    document.getElementById("okaybtn").onclick=()=>{
-        location.href="generatereport.php";
     }
 
 </script>

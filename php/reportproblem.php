@@ -43,7 +43,7 @@
 									echo $compid." already in not working status and component in store";
 								}
 								else{
-									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
+									$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE cpu_id='{$compid}'");
 									echo $compid." status updated to not working.Component already in store.";
 								}
 							}
@@ -54,17 +54,27 @@
 							{
 								echo $compid." already in working status";
 							}
-							else{
-								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='NA' WHERE componentid='{$compid}'");
+							else
+							{
+								$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location=1,problem_description='NA' WHERE cpu_id='{$compid}'");
 								
 								echo $compid." updated to working status.Component present in store.";
 							}
 						}
 						else
 						{
-							$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
-							$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
-							echo $compid." disposed and component moved to dipsose area.";	
+							$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
+							$sysfetch=mysqli_fetch_assoc($syssql);
+							if(mysqli_num_rows($syssql)==1)
+							{
+								echo "This component seems to be assigned to system ".$sysfetch['system_id'].".This component must be replaced before moving to dump";
+							}
+							else
+							{
+								$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE cpu_id='{$compid}'");
+								$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
+								echo $compid." disposed and component moved to dipsose area.";	
+							}
 						}
 					}
 					else
@@ -95,12 +105,12 @@
 							}
 							else
 							{
-								if($statusfetch['status_id']==$comcompfetch['status'])
+								if($statusfetch['status_id']==$compfetch['status'])
 								{
 									echo $compid." already in not working status and component in store";
 								}
 								else{
-									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
+									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
 									echo $compid." status updated to not working.Component already in store.";
 								}
 							}
@@ -119,9 +129,18 @@
 						}
 						else
 						{
-							$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
-							$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
-							echo $compid." disposed and component moved to dipsose area.";	
+							$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
+							$sysfetch=mysqli_fetch_assoc($syssql);
+							if(mysqli_num_rows($syssql)==1)
+							{
+								echo "This component seems to be assigned to system ".$sysfetch['system_id'].".This component must be replaced before moving to dump";
+							}
+							else
+							{
+								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
+								$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
+								echo $compid." disposed and component moved to dipsose area.";	
+							}
 						}
 					}
 					else
