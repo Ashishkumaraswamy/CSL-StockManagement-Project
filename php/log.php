@@ -11,7 +11,7 @@
 
         $output.=' 
                 <table class="table table-hover">
-                <caption><center><h4 class="text-center"><b> </b></h4></center></caption>
+                <caption><center><h4 class="text-center"><b>LOG ENTRIES</b></h4></center></caption>
                 <tr>
                 <th>LOG ID</th>
                 <th>User ID</th>

@@ -2,6 +2,7 @@
     include_once("config.php");
     session_start();
     $invoice_id=mysqli_real_escape_string($conn,$_POST['invoice_id']);
+	$date=mysqli_real_escape_string($conn,$_POST['date']);
     $quantity=mysqli_real_escape_string($conn,$_POST['quantity']);
     $mousefetchsql=mysqli_query($conn,"SELECT * FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoice_id}' AND c.componentid LIKE 'mou%'");
     $keyboardfetchsql=mysqli_query($conn,"SELECT * FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoice_id}' AND c.componentid LIKE 'key%'");
@@ -27,6 +28,8 @@
     		$keyboardfetch=mysqli_fetch_assoc($keyboardfetchsql);
     		$cpufetch=mysqli_fetch_assoc($cpufetchsql);
     		$systeminsert=mysqli_query($conn,"INSERT INTO `system`(`mouse_id`, `keyboard_id`, `monitor_id`, `cpu_id`, `location_id`, `status`, `description`) VALUES ('{$mousefetch['componentid']}','{$keyboardfetch['componentid']}','{$monitorfetch['componentid']}','{$cpufetch['cpu_id']}',1,1,'NA')");
+
+			
     		if($systeminsert)
     		{
     			$systemidsql=mysqli_query($conn,"SELECT * FROM `system` ORDER BY system_id DESC LIMIT 1");
@@ -38,6 +41,9 @@
 						    <td>'.$keyboardfetch['componentid'].'</td>
 						    <td>'.$cpufetch['cpu_id'].'</td>
 						  </tr>';
+				
+			    $sql7 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$systemid['system_id']}','Invoice ID - {$invoice_id} and Purchase date - {$date}.','New System Added.')");
+
     		}
     		else{
     			echo "failure";
