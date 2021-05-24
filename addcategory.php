@@ -1,5 +1,7 @@
 <?php
     include_once("navigation.php");
+	include_once "php/config.php";
+    $sql = mysqli_query($conn, "select * from category");
 ?>
 <center><h2>ADD NEW CATEGORY</h2></center>
 
@@ -24,6 +26,32 @@
 	        	<div class="col-md-1">
 	        		<button type="submit" class="btn btn-primary" id="addcomponent" name="add">Add to Category</button>
 	        	</div>
+
+				<br><br>
+              	<br><br>
+          		<div class="col-sm-offset-2 col-md-9 text-center">
+    			<table class="table table-hover">
+                    <tr>
+                        <th>Category_ID</th>
+                        <th>Category</th>
+						<th>Category Code</th>
+                    </tr>
+
+                    <?php
+                        while($row = mysqli_fetch_array($sql))  
+                        {  
+                                echo '<tr>
+                                <td>'.$row['category_id'].'</td>
+                                <td>'.$row['category'].'</td>
+								<td>'.$row['category_code'].'</td>
+                                </tr>';
+                        }
+                    ?>
+                </table>
+	            </div>
+
+
+
             </div>
           </div>
           
