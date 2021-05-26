@@ -7,6 +7,7 @@
 	$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$category}'");
 	$categoryfetch=mysqli_fetch_assoc($categorysql);
 	$compcode=$categoryfetch['category_code'];
+	$inpcompcode=substr($compid,0,3);
 	$status=mysqli_real_escape_string($conn,$_POST['compstat']);
 	$description=mysqli_real_escape_string($conn,$_POST['description']);
 	$date=date('Y-m-d');
@@ -14,12 +15,9 @@
 	{
 		$statsql=mysqli_query($conn,"SELECT * FROM status WHERE status='{$status}'");
 		$statusfetch=mysqli_fetch_assoc($statsql);
-		$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$category}'");
-		$catsql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$category}'");
-		$cat=mysqli_fetch_assoc($catsql);
 		$locationsql=mysqli_query($conn,"SELECT * FROM location WHERE lab_name='disposed'");
 		$locationfetch=mysqli_fetch_assoc($locationsql);
-		if($cat['category_code']==$compcode)
+		if($compcode==$inpcompcode)
 		{
 			if($compcode=="cpu" or $compcode=="ser" or $compcode=="lap" or $compcode=="mac")
 			{
@@ -41,15 +39,13 @@
 								}
 								else
 								{
-									if($statusfetch['status_id']==$comcompfetch['status'])
+									if($statusfetch['status_id']==$compfetch['status'])
 									{
 										echo $compid." already in not working status and component in store";
 									}
 									else{
 
-										$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE cpu_id='{$compid}'");
-
-										$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
+										$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE cpu_id='{$compid}'");
 										
 										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.')");
 
@@ -92,7 +88,7 @@
 						}
 						else
 						{
-							if($category_code=="cpu")
+							if($compcode=="cpu")
 							{
 								$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
 								$sysfetch=mysqli_fetch_assoc($syssql);
@@ -154,8 +150,6 @@
 									else{
 
 										$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
-										$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
-										
 										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.')");
 										echo $compid." status updated to not working.Component already in store.";
 									}
@@ -170,7 +164,6 @@
 									else{
 
 										$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
-										$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
 										
 										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.')");
 										echo $compid." status updated to not working.Component already in store.";
@@ -184,7 +177,7 @@
 								echo $compid." already in working status";
 							}
 							else{
-								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$status['status_id']},location=1,problem_description='NA' WHERE componentid='{$compid}'");
+								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='NA' WHERE componentid='{$compid}'");
 								
 								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','updated to working status.')");
 

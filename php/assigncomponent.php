@@ -52,32 +52,27 @@
 					}
 					else
 					{
-						if(mysqli_num_rows($syssql)==0)
+						$cpufetch=mysqli_fetch_assoc($checkcpusql);
+						$locationsql=mysqli_query($conn,"SELECT * FROM location WHERE lab_name='disposed'");
+						$locationfetch=mysqli_fetch_assoc($locationsql);
+						if($cpufetch['location']!=$locationfetch['lab_id'])
 						{
-							$cpufetch=mysqli_fetch_assoc($checkcpusql);
-							if($cpufetch['location']==1)
+							if($cpufetch['status']==1)
 							{
-								if($cpufetch['status']==1)
-								{
-									$updatecpu=mysqli_query($conn,"UPDATE cpu SET location={$locationid['lab_id']} WHERE cpu_id='{$assignid}'");
-									echo $assignid." moved to ".$location;
-								}
-								else
-								{
-									echo "Component in not working status.Cannot place this component in the lab";
-								}
+								$updatecpu=mysqli_query($conn,"UPDATE cpu SET location={$locationid['lab_id']} WHERE cpu_id='{$assignid}'");
+								echo $assignid." moved to ".$location;
 							}
 							else
 							{
-								echo "Component not in store.Can assign location to components only in store";
+								echo "Component in not working status.Cannot place this component in the lab";
 							}
 						}
 						else
 						{
-							$sysfetch=mysqli_fetch_assoc($syssql);
-							echo "Component assigned to system ".$sysfetch['system_id']." cannot move this component to lab.";
+							echo "Component in dump cannot assign location";
 						}
 					}
+						
 				}	
 				else
 				{
@@ -114,7 +109,10 @@
 					else
 					{
 						$compfetch=mysqli_fetch_assoc($checkscompql);
-							if($compfetch['location']==1)
+						$locationsql=mysqli_query($conn,"SELECT * FROM location WHERE lab_name='disposed'");
+						$locationfetch=mysqli_fetch_assoc($locationsql);
+						echo $compfetch['location'];
+							if($compfetch['location']!=$locationfetch['lab_id'])
 							{
 								if ($compfetch['status']==1)
 								{
@@ -128,7 +126,7 @@
 							}
 							else
 							{
-								echo "Component not in store.Can assign location to components only in store";
+								echo "Component in dump cannot assign location.";
 							}
 					}
 				}
