@@ -125,7 +125,6 @@
                            }
                         ?>
                         <a href="log.php">View Log</a>
-                        <a href="viewentry.php">Assign Components</a>
                     </div>
                 </div>
             </div>
