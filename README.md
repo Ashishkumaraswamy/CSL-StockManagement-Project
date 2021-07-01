@@ -1,1 +1,1 @@
-# CSL-StockManagement-Project
+**CSL StockManagement Project**, a web application that is used to manage the resources of my **College’s lab** components.This project was built using **HTML,CSS, Javascript and PHP.** This application allows the lab faculties to add new components to the lab, report failure of a component, assign location to the systems, generate reports and maintain logs. 
