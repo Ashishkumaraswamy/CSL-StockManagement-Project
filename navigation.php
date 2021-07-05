@@ -75,7 +75,7 @@
 </style>
 </head>
 <body>
-    <div class="container-fluid color_blue">
+    <div class="container-fluid color_blue" id="main">
         <div class="row text-center">
             <div class="col-md-2 pos">
                 <img src="images/psg_logo.png">

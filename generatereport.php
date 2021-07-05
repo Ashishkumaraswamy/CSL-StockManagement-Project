@@ -136,7 +136,7 @@
                         <button type="submit" class="btn btn-primary" id="okaybtn" name="goo">Okay</button>
                     </div>
                     <div class="col-md-1">
-                        <button type="submit" class="btn btn-primary" onclick="window.print()">Print this page</button>
+                        <button type="submit" class="btn btn-primary" id="btnExport">Download</button>
                     </div>
                     
                 </div>
@@ -147,7 +147,32 @@
 <?php
     include_once("footer.php");
 ?>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js""></script>
+
 <script>
+    // document.getElementById("btnExport").onclick=(e)=>{
+    // var pdf = new jsPDF('p', 'pt', 'letter');
+    // pdf.fromHTML(document.getElementById("main"));
+    // pdf.save('test.pdf');
+    // };
+    $("body").on("click", "#btnExport", function () {
+            html2canvas($('#reportarea') ,{
+                onrendered: function (canvas) {
+                    var data1 = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data1,
+                            width: 500
+                        }]
+                    };
+                
+                    pdfMake.createPdf(docDefinition).download("report.pdf");
+                }
+            });
+    });
     const form= document.querySelector("#formassign");
 
     document.getElementById("overall").onclick=(e)=>{
