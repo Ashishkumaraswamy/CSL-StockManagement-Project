@@ -42,7 +42,7 @@
 						    <td>'.$cpufetch['cpu_id'].'</td>
 						  </tr>';
 				
-			    $sql7 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$systemid['system_id']}','Invoice ID - {$invoice_id} and Purchase date - {$date}.','New System Added.')");
+			    //$sql7 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$systemid['system_id']}','Invoice ID - {$invoice_id} and Purchase date - {$date}.','New System Added.')");
 
     		}
     		else{

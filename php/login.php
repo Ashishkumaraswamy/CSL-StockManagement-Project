@@ -13,7 +13,7 @@
 				if($password==$row['password'])
 				{
 					$_SESSION['unique_id']=$row['user_id'];
-					$sql=mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'NA','Successful Login','NA')");
+					//$sql=mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'NA','Successful Login','NA')");
 					echo "success";
 				}
 				else

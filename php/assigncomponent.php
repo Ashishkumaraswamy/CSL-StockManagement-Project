@@ -131,7 +131,7 @@
 					}
 				}
 				
-				$sql5 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$assignid}','Loaction assigned is - {$location}','Assign location to components.')");
+				//$sql5 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$assignid}','Loaction assigned is - {$location}','Assign location to components.')");
 			}
 			else
 			{

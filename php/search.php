@@ -70,7 +70,7 @@
                             </tr>';
                     $output .='</table> <br><br><br>';
 
-                    $sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['componentid']}','Loaction of the Component - {$row2['lab_name']}.','Searched a Component with ComponentID.')");
+                    //$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['componentid']}','Loaction of the Component - {$row2['lab_name']}.','Searched a Component with ComponentID.')");
 
 
                 }
@@ -141,7 +141,7 @@
                             </tr>';
                     $output .='</table> <br><br><br>';
 
-                    $sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['cpu_id']}','Loaction of the system - {$row2['lab_name']}.','Searched a System with SystemID.')");
+                    //$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['cpu_id']}','Loaction of the system - {$row2['lab_name']}.','Searched a System with SystemID.')");
 
                 }
                 else{

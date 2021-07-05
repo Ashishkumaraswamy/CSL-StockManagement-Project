@@ -79,7 +79,7 @@
             }
 
         }
-        $sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'NA','NA','Generated a report for not working components and systems.')");
+        //$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'NA','NA','Generated a report for not working components and systems.')");
 
     }
     else{
