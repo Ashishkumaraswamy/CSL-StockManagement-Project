@@ -115,7 +115,7 @@
                     <button class="dropbtn"> Actions <i class="fa fa-caret-down fa-lg"></i></button>
                     <div class="dropdown-content text-left">
                         <?php
-                           if($user['user_name']=="VSK")
+                           if($user['role']==1)
                            {
                             echo '
                                 <a href="addpurchase.php">Add new Purchase</a>
