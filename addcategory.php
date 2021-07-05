@@ -35,15 +35,25 @@
                         <th>Category_ID</th>
                         <th>Category</th>
 						<th>Category Code</th>
+						<th>Delete</th>
                     </tr>
 
                     <?php
                         while($row = mysqli_fetch_array($sql))  
-                        {  
+                        {
+							if($row['category_code'] == 'mou' || $row['category_code'] == 'mon' || $row['category_code'] == 'key' || $row['category_code'] == 'cpu' ||
+							$row['category_code'] == 'lap' || $row['category_code'] == 'mac' || $row['category_code'] == 'ser'){
+								$temp = '<button type="submit" class="btn btn-primary" id="delcomponent" disabled>Not Accessible</button>';
+							}else {
+								$temp = '<button type="submit" class="btn btn-primary" id="delcomponent" onclick="myFunction('.$row['category_id'].')">Delete</button>';
+								 
+							}  
+	    
                                 echo '<tr>
                                 <td>'.$row['category_id'].'</td>
                                 <td>'.$row['category'].'</td>
 								<td>'.$row['category_code'].'</td>
+								<td>'.$temp.'</td>
                                 </tr>';
                         }
                     ?>
@@ -66,6 +76,26 @@
 	continueBtn2=form.querySelector("#addcpu");
 	// errorText = form.querySelector(".error-text");
 
+	function myFunction(a) {
+
+		console.log(a);
+		if (confirm("Do you want to delete the delete the category!!")) {
+		let xhr = new XMLHttpRequest();
+		xhr.open("GET", "php/delcategory.php?cat_id="+a, true);
+		xhr.onload = ()=>{
+		if(xhr.readyState === XMLHttpRequest.DONE){
+			if(xhr.status === 200){
+				let data = xhr.response;
+				alert(data);
+			}
+			}
+		}
+		let formData = new FormData(form);
+		xhr.send();
+		
+		}else{
+
+		}}
 
 	continueBtn1.onclick = (e)=>{
 
@@ -82,6 +112,7 @@
 					alert("New Category has been added Successfully!!");
 					document.getElementById("cat").value="";
 					document.getElementById("catcode").value="";
+					location.href = "addcategory.php"
 			  }
 			  else{
 					alert(data);
