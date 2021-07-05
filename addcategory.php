@@ -45,7 +45,7 @@
 							$row['category_code'] == 'lap' || $row['category_code'] == 'mac' || $row['category_code'] == 'ser'){
 								$temp = '<button type="submit" class="btn btn-primary" id="delcomponent" disabled>Not Accessible</button>';
 							}else {
-								$temp = '<button type="submit" class="btn btn-primary" id="delcomponent" onclick="myFunction('.$row['category_id'].')">Delete</button>';
+								$temp = '<button type="submit" class="btn btn-danger" id="delcomponent" onclick="myFunction('.$row['category_id'].')">Delete</button>';
 								 
 							}  
 	    

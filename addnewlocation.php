@@ -29,14 +29,21 @@
                     <tr>
                         <th>Location_ID</th>
                         <th>Location </th>
+                        <th>Delete</th>
                     </tr>
 
                     <?php
                         while($row = mysqli_fetch_array($sql))  
-                        {  
+                        { 
+                            if($row['lab_name'] == 'store' || $row['lab_name'] == 'disposed' ){
+								$temp = '<button type="submit" class="btn btn-primary" id="delcomponent" disabled>Not Accessible</button>';
+							}else {
+								$temp = '<button type="submit" class="btn btn-danger" id="delcomponent" onclick="myFunction('.$row['lab_id'].')">Delete</button>';
+							}  
                                 echo '<tr>
                                 <td>'.$row['lab_id'].'</td>
                                 <td>'.$row['lab_name'].'</td>
+                                <td>'.$temp.'</td>
                                 </tr>';
                         }
                     ?>
@@ -60,6 +67,28 @@
 	const form=document.querySelector("#formpurchase"),
 	continueBtn1=form.querySelector("#addcomponent");
 	// errorText = form.querySelector(".error-text");
+
+    function myFunction(a) {
+
+        console.log(a);
+        if (confirm("Do you want to delete the delete the location!!")) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", "php/deloaction.php?loc_id="+a, true);
+            xhr.onload = ()=>{
+            if(xhr.readyState === XMLHttpRequest.DONE){
+                if(xhr.status === 200){
+                    let data = xhr.response;
+                    alert(data);
+                }
+                }
+            }
+            let formData = new FormData(form);
+            xhr.send();
+		
+        
+        }else{
+
+        }}
 
 
 	continueBtn1.onclick = (e)=>{
