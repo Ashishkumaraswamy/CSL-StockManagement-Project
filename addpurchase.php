@@ -298,6 +298,7 @@ $(document).on('click','#assignsystem',function(e){
 
 document.getElementById("finishbtn").onclick=(e)=>{
   e.preventDefault();
+  window.onbeforeunload = null;
   let xhr=new XMLHttpRequest();
   xhr.open("POST", "php/insertinvoice.php", true);
     xhr.onload = ()=>{
@@ -319,6 +320,14 @@ $(document).on('click','#okaybtn',function(e){
    document.getElementById("assemblesystemdiv").innerHTML=""; 
    document.getElementById("finish").style.display="block";
 });
+
+window.onbeforeunload = function(){
+            return 'Are you sure you want to leave?';
+};
+// window.onbeforeunload = confirmExit;
+//     function confirmExit() {
+//         return "You have attempted to leave this page. Are you sure?";
+// }
 // $(document).on('click','#okay',function(e){
 //     location.href="addpurchase.php";
 // });
