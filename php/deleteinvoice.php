@@ -29,16 +29,16 @@
         $purchase=mysqli_query($conn,"SELECT * from purchase");
         $numbersql=mysqli_query($conn,"SELECT max(`system_id`) as len from `system`");
         $number=mysqli_fetch_assoc($numbersql);
-        $numberlen=$number['len']?number['len']:0;
+        $numberlen=$number['len']?$number['len']:0;
         $alter=mysqli_query($conn,"ALTER TABLE `system` AUTO_INCREMENT ={$numberlen}");
         $numbersql=mysqli_query($conn,"SELECT max(`purchaseid`) as len from `purchase`");
         $number=mysqli_fetch_assoc($numbersql);
-        $numberlen=$number['len']?number['len']:0;
+        $numberlen=$number['len']?$number['len']:0;
         $alter=mysqli_query($conn,"ALTER TABLE `purchase` AUTO_INCREMENT ={$numberlen}");
         $deleteinvoice=mysqli_query($conn,"DELETE FROM invoice WHERE invoice_id='{$invoice_id}'");
         $numbersql=mysqli_query($conn,"SELECT max(`invoice_id`) as len from `invoice`");
         $number=mysqli_fetch_assoc($numbersql);
-        $numberlen=$number['len']?number['len']:0;
+        $numberlen=$number['len']?$number['len']:0;
         $alter=mysqli_query($conn,"ALTER TABLE `invoice` AUTO_INCREMENT ={$numberlen}");
         echo "Invoice {$invoice_id} deleted successfully";
     }

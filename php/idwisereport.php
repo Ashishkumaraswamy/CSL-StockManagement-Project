@@ -10,7 +10,7 @@
 		{
 			$output .='
 				<div class="row">
-          		<div class="col-sm-offset-2 col-md-9 text-center">
+          		<div class="col-sm-offset-4 col-md-4 text-center">
     			<table class="table table-hover" border="1">
     			<tr>
     				<th>S.No</th>

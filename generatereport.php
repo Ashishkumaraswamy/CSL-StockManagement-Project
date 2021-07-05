@@ -270,7 +270,7 @@
                   }
                   else
                   {
-                    alert(data);
+                      alert('No data found');
                   }
                 }
             }
@@ -294,7 +294,7 @@
               }
               else
               {
-                alert(data);
+                alert('No data found');
               }
             }
         }
@@ -318,7 +318,7 @@
               }
               else
               {
-                alert(data);
+                alert('Invoice Id does not exist');
               }
             }
         }
@@ -343,7 +343,7 @@
               }
               else
               {
-                alert(data);
+                alert('No data found');
               }
             }
         }
