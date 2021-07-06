@@ -10,7 +10,9 @@
 	$inpcompcode=substr($compid,0,3);
 	$status=mysqli_real_escape_string($conn,$_POST['compstat']);
 	$description=mysqli_real_escape_string($conn,$_POST['description']);
+	date_default_timezone_set("Asia/Kolkata");
 	$date=date('Y-m-d');
+	$datetime = date('Y-m-d H:i:s');
 	if(!empty($category) and !empty($compid) and !empty($status) and !empty($description))
 	{
 		$statsql=mysqli_query($conn,"SELECT * FROM status WHERE status='{$status}'");
@@ -47,7 +49,7 @@
 
 										$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE cpu_id='{$compid}'");
 										
-										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.')");
+										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.','{$datetime}')");
 
 										echo $compid." status updated to not working.Component already in store.";
 									}
@@ -65,7 +67,7 @@
 
 										$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
 										
-										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.')");
+										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.','{$datetime}')");
 
 										echo $compid." status updated to not working.Component already in store.";
 									}	
@@ -81,7 +83,7 @@
 							{
 								$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location=1,problem_description='NA' WHERE cpu_id='{$compid}'");
 								
-								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','updated to working status.')");
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','updated to working status.','{$datetime}')");
 
 								echo $compid." updated to working status.Component present in store.";
 							}
@@ -100,7 +102,7 @@
 								{
 									$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE cpu_id='{$compid}'");
 									$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
-									$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.')");
+									$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.','{$datetime}')");
 									echo $compid." disposed and component moved to dipsose area.";	
 								}
 							}
@@ -108,7 +110,7 @@
 							{
 								$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE cpu_id='{$compid}'");
 								$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
-								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.')");
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.','{$datetime}')");
 								echo $compid." disposed and component moved to dipsose area.";	
 							}
 						}
@@ -150,7 +152,7 @@
 									else{
 
 										$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
-										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.')");
+										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.','{$datetime}')");
 										echo $compid." status updated to not working.Component already in store.";
 									}
 								}
@@ -165,7 +167,7 @@
 
 										$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
 										
-										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.')");
+										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.','{$datetime}')");
 										echo $compid." status updated to not working.Component already in store.";
 									}
 							}
@@ -179,7 +181,7 @@
 							else{
 								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='NA' WHERE componentid='{$compid}'");
 								
-								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','updated to working status.')");
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','updated to working status.','{$datetime}')");
 
 								echo $compid." updated to working status.Component present in store.";
 							}
@@ -198,14 +200,14 @@
 								{
 									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
 									$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
-									$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.')");
+									$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.','{$datetime}')");
 									echo $compid." disposed and component moved to dipsose area.";	
 								}
 							}
 							else{
 								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
 								$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
-								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.')");
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.','{$datetime}')");
 								echo $compid." disposed and component moved to dipsose area.";		
 							}
 						}
