@@ -27,8 +27,6 @@
 						if(mysqli_num_rows($syssql)==0)
 						{
 							$cpufetch=mysqli_fetch_assoc($checkcpusql);
-							if($cpufetch['location']==1)
-							{
 								if($cpufetch['status']==1)
 								{
 									$updatecpu=mysqli_query($conn,"UPDATE cpu SET location={$locationid['lab_id']} WHERE cpu_id='{$assignid}'");
@@ -38,11 +36,6 @@
 								{
 									echo "Component in not working status.Cannot place this component in the lab";
 								}
-							}
-							else
-							{
-								echo "Component not in store.Can assign location to components only in store";
-							}
 						}
 						else
 						{
@@ -83,21 +76,14 @@
 						if(mysqli_num_rows($syssql)==0)
 						{
 							$compfetch=mysqli_fetch_assoc($checkscompql);
-							if($compfetch['location']==1)
+							if ($compfetch['status']==1)
 							{
-								if ($compfetch['status']==1)
-								{
-									$updatecpu=mysqli_query($conn,"UPDATE components SET location={$locationid['lab_id']} WHERE componentid='{$assignid}'");
-									echo $assignid." moved to ".$location;
-								}
-								else
-								{
-									echo "Component in not working status.Cannot place this component in the lab";
-								}
+								$updatecpu=mysqli_query($conn,"UPDATE components SET location={$locationid['lab_id']} WHERE componentid='{$assignid}'");
+								echo $assignid." moved to ".$location;
 							}
 							else
 							{
-								echo "Component not in store.Can assign location to components only in store";
+								echo "Component in not working status.Cannot place this component in the lab";
 							}
 						}
 						else

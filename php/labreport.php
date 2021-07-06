@@ -80,53 +80,98 @@
 								    <th>Description</th>
 								    <th>Status</th>
 								  </tr>';
-						$catsql=mysqli_query($conn,"SELECT * FROM category WHERE category_code NOT IN ('CPU','MNT','MOU','KBD')");
+						$catsql=mysqli_query($conn,"SELECT * FROM category");
 	    				if($catsql)
 	    				{
 	    					$count=0;
 	    					while($cat=mysqli_fetch_assoc($catsql))
 	    					{
-	    						if($cat['category_code']=='SRV' or $cat['category_code']=='MAC' or $cat['category_code']=='LAP')
+	    						if($cat['category_code']=='SRV' or $cat['category_code']=='MAC' or $cat['category_code']=='LAP' or $cat['category_code']=='CPU')
 	    						{
-	    							$category_code=$cat['category_code'];
-	    							$catfetchsql=mysqli_query($conn,"SELECT * FROM cpu WHERE cpu_id LIKE '$category_code%' AND location={$location['lab_id']}");
-	    							if(mysqli_num_rows($catfetchsql)>0)
-	    							{
-	    								while($catfetch=mysqli_fetch_assoc($catfetchsql))
-	    								{
-	    									$desc=$catfetch['RAM']." GB RAM,".$catfetch['processor_series'].",".$catfetch['storage']." GB Storage";
-	    									$count=$count+1;
-	    									$status=mysqli_query($conn,"SELECT * FROM status WHERE status_id={$catfetch['status']}");
-	    									$statusfetch=mysqli_fetch_assoc($status);
-	    									$output .='<tr>
-										    <td>'.$cat['category'].'</td>
-										    <td>'.$catfetch['cpu_id'].'</td>
-										    <td>'.$desc.'</td>
-										    <td>'.$statusfetch['status'].'</td>
-										  </tr>';
-	    								}
-	    							}
+									if($cat['category_code']=='CPU')
+									{
+										$output.='Here';
+										$category_code=$cat['category_code'];
+										$catfetchsql=mysqli_query($conn,"select * from cpu c where cpu_id  LIKE 'CPU%'
+										and location={$location['lab_id']} and not exists (
+										  select null from `system` sys
+										  where sys.cpu_id=c.cpu_id
+										)");
+										if(mysqli_num_rows($catfetchsql)>0)
+										{
+											while($catfetch=mysqli_fetch_assoc($catfetchsql))
+											{
+												$desc=$catfetch['RAM']." GB RAM,".$catfetch['processor_series'].",".$catfetch['storage']." GB Storage";
+												$count=$count+1;
+												$status=mysqli_query($conn,"SELECT * FROM status WHERE status_id={$catfetch['status']}");
+												$statusfetch=mysqli_fetch_assoc($status);
+												$output .='<tr>
+												<td>'.$cat['category'].'</td>
+												<td>'.$catfetch['cpu_id'].'</td>
+												<td>'.$desc.'</td>
+												<td>'.$statusfetch['status'].'</td>
+											</tr>';
+											}
+										}
+									}
+									else
+									{
+										$category_code=$cat['category_code'];
+										$catfetchsql=mysqli_query($conn,"SELECT * FROM cpu WHERE cpu_id LIKE '$category_code%' AND location={$location['lab_id']}");
+										if(mysqli_num_rows($catfetchsql)>0)
+										{
+											while($catfetch=mysqli_fetch_assoc($catfetchsql))
+											{
+												$desc=$catfetch['RAM']." GB RAM,".$catfetch['processor_series'].",".$catfetch['storage']." GB Storage";
+												$count=$count+1;
+												$status=mysqli_query($conn,"SELECT * FROM status WHERE status_id={$catfetch['status']}");
+												$statusfetch=mysqli_fetch_assoc($status);
+												$output .='<tr>
+												<td>'.$cat['category'].'</td>
+												<td>'.$catfetch['cpu_id'].'</td>
+												<td>'.$desc.'</td>
+												<td>'.$statusfetch['status'].'</td>
+											</tr>';
+											}
+										}
+									}
+									
 	    						}
 	    						else
 	    						{
-	    							$category_code=$cat['category_code'];
-	    							$catfetchsql=mysqli_query($conn,"SELECT * FROM components WHERE componentid LIKE '$category_code%' AND location={$location['lab_id']}");
-	    							if(mysqli_num_rows($catfetchsql)>0)
-	    							{
-	    								while($catfetch=mysqli_fetch_assoc($catfetchsql))
-	    								{
-	    									$desc=$catfetch['brand'].",".$catfetch['type'].",".$catfetch['description'].".";
-	    									$count=$count+1;
-	    									$status=mysqli_query($conn,"SELECT * FROM status WHERE status_id={$catfetch['status']}");
-	    									$statusfetch=mysqli_fetch_assoc($status);
-	    									$output .='<tr>
-										    <td>'.$cat['category'].'</td>
-										    <td>'.$catfetch['componentid'].'</td>
-										    <td>'.$desc.'</td>
-										    <td>'.$statusfetch['status'].'</td>
-										  </tr>';
-	    								}
-	    							}
+									$category_code=$cat['category_code'];
+									if($cat['category_code']=='MOU')
+									{
+										$catfetchsql=mysqli_query($conn,"select * from components c where componentid  LIKE '$category_code%'and location={$location['lab_id']} and not exists (select null from `system` sys where sys.mouse_id=c.componentid)");
+									}
+									elseif($cat['category_code']=='MNT')
+									{
+										$catfetchsql=mysqli_query($conn,"select * from components c where componentid  LIKE '$category_code%'and location={$location['lab_id']} and not exists (select null from `system` sys where sys.monitor_id=c.componentid)");
+									}
+									elseif($cat['category_code']=='KBD')
+									{
+										$catfetchsql=mysqli_query($conn,"select * from components c where componentid  LIKE '$category_code%'and location={$location['lab_id']} and not exists (select null from `system` sys where sys.keyboard_id=c.componentid)");
+									}
+									else
+									{
+										$catfetchsql=mysqli_query($conn,"SELECT * FROM components WHERE componentid LIKE '$category_code%' AND location={$location['lab_id']}");
+									}
+									if(mysqli_num_rows($catfetchsql)>0)
+									{
+										while($catfetch=mysqli_fetch_assoc($catfetchsql))
+										{
+											$desc=$catfetch['brand'].",".$catfetch['type'].",".$catfetch['description'].".";
+											$count=$count+1;
+											$status=mysqli_query($conn,"SELECT * FROM status WHERE status_id={$catfetch['status']}");
+											$statusfetch=mysqli_fetch_assoc($status);
+											$output .='<tr>
+											<td>'.$cat['category'].'</td>
+											<td>'.$catfetch['componentid'].'</td>
+											<td>'.$desc.'</td>
+											<td>'.$statusfetch['status'].'</td>
+										</tr>';
+										}
+									}	
 	    						}
 	    					}
 	    					$output .='</table></div>';
