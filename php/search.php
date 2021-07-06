@@ -7,14 +7,14 @@
     $output.='  <div class="row">
     <div class="col-sm-offset-2 col-md-9 text-center">
     <br><br><br>';
-    $id =strtolower($id);
+    $id = strtoupper($id);
     $ids = substr($id, 0,3);
 
     if(!empty($id)){
         $checksql=mysqli_query($conn,"SELECT * FROM category where category_code like '$ids'");
         if(mysqli_num_rows($checksql)>0){
             
-            if($ids != "mac" and $ids != "cpu" and  $ids != "lap" and $ids != "ser"){
+            if($ids != "MAC" and $ids != "CPU" and  $ids != "LAP" and $ids != "SRV"){
                 
                 $sql = mysqli_query($conn,"SELECT * FROM components where componentid = '{$id}'");
                 
@@ -70,7 +70,7 @@
                             </tr>';
                     $output .='</table> <br><br><br>';
 
-                    $sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['componentid']}','Loaction of the Component - {$row2['lab_name']}.','Searched a Component with ComponentID.')");
+                    //$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['componentid']}','Loaction of the Component - {$row2['lab_name']}.','Searched a Component with ComponentID.')");
 
 
                 }
@@ -141,7 +141,7 @@
                             </tr>';
                     $output .='</table> <br><br><br>';
 
-                    $sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['cpu_id']}','Loaction of the system - {$row2['lab_name']}.','Searched a System with SystemID.')");
+                    //$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$row['cpu_id']}','Loaction of the system - {$row2['lab_name']}.','Searched a System with SystemID.')");
 
                 }
                 else{

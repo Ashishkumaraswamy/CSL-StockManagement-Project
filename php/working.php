@@ -12,7 +12,7 @@
         
         while($row = mysqli_fetch_array($locationsql)) 
         {
-            if($row['category_code']!= "mac" and $row['category_code']!= "cpu" and $row['category_code']!= "lap" and $row['category_code']!= "ser"){
+            if($row['category_code']!= "MAC" and $row['category_code']!= "CPU" and $row['category_code']!= "LAP" and $row['category_code']!= "SRV"){
                 $code = $row['category_code'];
                 $sql = mysqli_query($conn,"SELECT * FROM components where componentid like '$code%' and status = 1");
                 $idsql = mysqli_query($conn,"SELECT count(*) as count FROM components where componentid like '$code%' and status = 1");
@@ -92,7 +92,7 @@
 
         }
         
-        $sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'NA','NA','Generated a report for working components and systems.')");
+        //$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'NA','NA','Generated a report for working components and systems.')");
     }
     else{
         echo '<div class="alert alert-info">

@@ -128,7 +128,22 @@
                 </div>
                 <div class="form-group" id="okaybutton" hidden>
                     <div class="form-group" id="reportarea">
-                    
+                        <!-- <div class="container-fluid color_blue" id="logo" hidden>
+                            <div class="row text-center">
+                                <div class="col-md-2 pos">
+                                    <img src="images/psg_logo.png">
+                                </div>
+                                <div class="col-md-8">
+                                    <h2>PSG College of Technology</h2>
+                                    <h4>Applied Mathematics and Computational Sciences Laboratories</h4>
+                                    <h4>CSL Stock Manager</h4>
+                                </div>
+                                <div class="col-md-2">
+                                        <img src="images/csl_logo.png" width="150px" height="120px">
+                                </div>
+                            </div>
+                        </div> -->
+                        
                     </div>
                     <div class="col-md-5">
                     </div>
@@ -136,7 +151,7 @@
                         <button type="submit" class="btn btn-primary" id="okaybtn" name="goo">Okay</button>
                     </div>
                     <div class="col-md-1">
-                        <button type="submit" class="btn btn-primary" onclick="window.print()">Print this page</button>
+                        <button type="submit" class="btn btn-primary" id="btnExport">Download</button>
                     </div>
                     
                 </div>
@@ -147,7 +162,40 @@
 <?php
     include_once("footer.php");
 ?>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js""></script>
 <script>
+    // document.getElementById("btnExport").onclick=(e)=>{
+    // var pdf = new jsPDF('p', 'pt', 'letter');
+    // pdf.fromHTML(document.getElementById("main"));
+    // pdf.save('test.pdf');
+    // };
+    $("body").on("click", "#btnExport", function (event) {
+        // $("#logo").css("display", "block");
+            event.preventDefault();
+            html2canvas($('#reportarea') ,{
+                onrendered: function (canvas) {
+                    var data1 = canvas.toDataURL();
+                    var docDefinition = {
+                        pageSize: 'A4',
+                        margin:[ 10, 10, 10, 10 ],
+                        startPosition: {
+                            left: 5,
+                        },
+                        content: [
+                            {
+                            image: data1,
+                            width: 430,
+                        }]
+                    };
+                
+                    pdfMake.createPdf(docDefinition).download("report.pdf");
+                }
+            });
+    });
     const form= document.querySelector("#formassign");
 
     document.getElementById("overall").onclick=(e)=>{

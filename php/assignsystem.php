@@ -26,11 +26,11 @@
 					$updatecpu=mysqli_query($conn,"UPDATE cpu SET location={$locationid['lab_id']} WHERE cpu_id='{$system['cpu_id']}'");
 					if($updatesys and $updatecpu and $updatemon and $updatekey and $updatemou)
 					{
-						$sql5 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$i}','Loaction assigned is - {$location}','Assign location to System.')");
-						$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$system['mouse_id']}','Loaction assigned is - {$location}','Assign location to System - mouse')");
-						$sql7 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$system['keyboard_id']}','Loaction assigned is - {$location}','Assign location to System - keyboard')");
-						$sql8 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$system['monitor_id']}','Loaction assigned is - {$location}','Assign location to System - monitor')");
-						$sql9 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$system['cpu_id']}','Loaction assigned is - {$location}','Assign location to System - CPU')");
+						//$sql5 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$i}','Loaction assigned is - {$location}','Assign location to System.')");
+						//$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$system['mouse_id']}','Loaction assigned is - {$location}','Assign location to System - mouse')");
+						//$sql7 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$system['keyboard_id']}','Loaction assigned is - {$location}','Assign location to System - keyboard')");
+						//$sql8 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$system['monitor_id']}','Loaction assigned is - {$location}','Assign location to System - monitor')");
+						//$sql9 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$system['cpu_id']}','Loaction assigned is - {$location}','Assign location to System - CPU')");
 						echo "System ".$i." moved to ".$location."\n";
 					}
 					else
