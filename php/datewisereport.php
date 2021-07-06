@@ -21,6 +21,7 @@
 							    <th>Category</th>
 							    <th>Product Description</th>
 							    <th>ID range</th>
+								<th>Location</th>
 							    <th>Working</th>
 							    <th>Not Working</th>
 							    <th>Disposed</th>
@@ -51,11 +52,19 @@
 							$category_working_sql=mysqli_query($conn,"SELECT count(*) as categoryworkcnt FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.cpu_id LIKE '$category_code%' AND status=1");
 							$category_not_working_sql=mysqli_query($conn,"SELECT count(*) as categorynotworkcnt FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.cpu_id LIKE '$category_code%' AND status=2");
 							$categorydesc_sql=mysqli_query($conn,"SELECT * FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.cpu_id LIKE '$category_code%' ORDER BY id LIMIT 1");
-							if($category_count_sql and $category_working_sql and $category_not_working_sql and $categorydesc_sql)
+							$locationsql=mysqli_query($conn,"SELECT c.location,count(cpu_id) as cnt FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.cpu_id LIKE '$category_code%' group by(c.location)");
+							if($category_count_sql and $category_working_sql and $category_not_working_sql and $categorydesc_sql and $locationsql)
 							{
 								$categorycnt=mysqli_fetch_assoc($category_count_sql);
 								$category_working=mysqli_fetch_assoc($category_working_sql);
 								$category_not_working=mysqli_fetch_assoc($category_not_working_sql);
+								$locationratio="";
+								while($locationfetch=mysqli_fetch_assoc($locationsql))
+								{
+									$locationidsql=mysqli_query($conn,"SELECT * FROM location where lab_id={$locationfetch['location']}");
+									$locationid=mysqli_fetch_assoc($locationidsql);
+									$locationratio.=$locationid['lab_name'].':'.$locationfetch['cnt'].'</br>';
+								}
 								if(mysqli_num_rows($categorydesc_sql)>0)
 								{
 									$categorydescfetch=mysqli_fetch_assoc($categorydesc_sql);
@@ -69,6 +78,7 @@
 										    <td>'.$category['category'].'</td>
 										    <td>'.$categorydesc.'</td>
 										    <td>'.$categorydescfetch['cpu_id'].'-'.$categorylast['cpu_id'].'</td>
+											<td>'.$locationratio.'</td>
 										    <td>'.$category_working['categoryworkcnt'].'</td>
 										    <td>'.$category_not_working['categorynotworkcnt'].'</td>
 										    <td>'.($categorycnt['categorycnt']-$category_not_working['categorynotworkcnt']-$category_working['categoryworkcnt']).'</td>
@@ -89,11 +99,19 @@
 							$category_working_sql=mysqli_query($conn,"SELECT count(*) as categoryworkcnt FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.componentid LIKE '$category_code%' AND status=1");
 							$category_not_working_sql=mysqli_query($conn,"SELECT count(*) as categorynotworkcnt FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.componentid LIKE '$category_code%' AND status=2");
 							$categorydesc_sql=mysqli_query($conn,"SELECT * FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.componentid LIKE '$category_code%' ORDER BY id LIMIT 1");
-							if($category_count_sql and $category_working_sql and $category_not_working_sql and $categorydesc_sql)
+							$locationsql=mysqli_query($conn,"SELECT c.location,count(componentid) as cnt FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.componentid LIKE '$category_code%' group by(c.location)");
+							if($category_count_sql and $category_working_sql and $category_not_working_sql and $categorydesc_sql and $locationsql)
 							{
 								$categorycnt=mysqli_fetch_assoc($category_count_sql);
 								$category_working=mysqli_fetch_assoc($category_working_sql);
 								$category_not_working=mysqli_fetch_assoc($category_not_working_sql);
+								$locationratio="";
+								while($locationfetch=mysqli_fetch_assoc($locationsql))
+								{
+									$locationidsql=mysqli_query($conn,"SELECT * FROM location where lab_id={$locationfetch['location']}");
+									$locationid=mysqli_fetch_assoc($locationidsql);
+									$locationratio.=$locationid['lab_name'].':'.$locationfetch['cnt'].'</br>';
+								}
 								if(mysqli_num_rows($categorydesc_sql)>0)
 								{
 									$categorydescfetch=mysqli_fetch_assoc($categorydesc_sql);
@@ -104,6 +122,7 @@
 										    <td>'.$category['category'].'</td>
 										    <td>'.$categorydesc.'</td>
 										    <td>'.$categorydescfetch['componentid'].'-'.$categorylast['componentid'].'</td>
+											<td>'.$locationratio.'</td>
 										    <td>'.$category_working['categoryworkcnt'].'</td>
 										    <td>'.$category_not_working['categorynotworkcnt'].'</td>
 										    <td>'.($categorycnt['categorycnt']-$category_not_working['categorynotworkcnt']-$category_working['categoryworkcnt']).'</td>
