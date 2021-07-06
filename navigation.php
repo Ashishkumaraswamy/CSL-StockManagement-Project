@@ -74,7 +74,7 @@
 
 </style>
 </head>
-<body style="position:relative;width=100%;height:100%">
+<body style="position:relative;width:100%;height:100%">
     <div class="container-fluid color_blue" id="main">
         <div class="row text-center">
             <div class="col-md-2 pos">
