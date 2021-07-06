@@ -10,6 +10,7 @@
 	$inpcompcode=substr($compid,0,3);
 	$status=mysqli_real_escape_string($conn,$_POST['compstat']);
 	$description=mysqli_real_escape_string($conn,$_POST['description']);
+	$date=date('Y-m-d');
 	if(!empty($category) and !empty($compid) and !empty($status) and !empty($description))
 	{
 		$statsql=mysqli_query($conn,"SELECT * FROM status WHERE status='{$status}'");

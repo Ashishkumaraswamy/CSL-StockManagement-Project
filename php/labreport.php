@@ -51,8 +51,8 @@
 						  </tr>';
 					}
 					$output .='</table>';
-					$complocationcntsql=mysqli_query($conn,"SELECT count(*) as complocationcnt FROM components WHERE location={$location['lab_id']} AND componentid NOT LIKE 'MOU%' AND componentid NOT LIKE 'KBD%' AND componentid NOT LIKE 'MNT%'");
-					$cpulocationcntsql=mysqli_query($conn,"SELECT count(*) as cpulocationcnt FROM cpu WHERE location={$location['lab_id']} AND cpu_id NOT LIKE 'CPU%'");
+					$complocationcntsql=mysqli_query($conn,"SELECT  count(*) as complocationcnt  FROM components c WHERE location={$location['lab_id']} and not exists (select null from `system` sys where sys.keyboard_id=c.componentid or sys.mouse_id=c.componentid or sys.monitor_id=c.componentid)");
+					$cpulocationcntsql=mysqli_query($conn,"SELECT count(*) as cpulocationcnt FROM cpu c WHERE location={$location['lab_id']} and not exists (select null from `system` sys where sys.cpu_id=c.cpu_id)");
 					$complocationcnt=mysqli_fetch_assoc($complocationcntsql);
 					$cpulocationcnt=mysqli_fetch_assoc($cpulocationcntsql);
 					$othercnt=$cpulocationcnt['cpulocationcnt']+$complocationcnt['complocationcnt'];
@@ -90,13 +90,8 @@
 	    						{
 									if($cat['category_code']=='CPU')
 									{
-										$output.='Here';
 										$category_code=$cat['category_code'];
-										$catfetchsql=mysqli_query($conn,"select * from cpu c where cpu_id  LIKE 'CPU%'
-										and location={$location['lab_id']} and not exists (
-										  select null from `system` sys
-										  where sys.cpu_id=c.cpu_id
-										)");
+										$catfetchsql=mysqli_query($conn,"select * from cpu c where cpu_id  LIKE '$category_code%'and location={$location['lab_id']} and not exists (select null from `system` sys where sys.cpu_id=c.cpu_id)");
 										if(mysqli_num_rows($catfetchsql)>0)
 										{
 											while($catfetch=mysqli_fetch_assoc($catfetchsql))

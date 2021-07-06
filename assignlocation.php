@@ -48,9 +48,9 @@
 	        <br>
           <br>
 	        <div class="row">
-	        	<div class="col-md-4"></div>
+			<div class="col-md-5"></div>
 	        	<div class="col-md-1">
-	        		<button type="submit" class="btn btn-primary" id="assigncomponentbtn" name="add">Assign Location</button>
+	        		<button type="submit" class="btn btn-primary" id="assigncomponentbtn" name="add" style="margin-left:50px">Assign Location</button>
 	        	</div>
             </div>
           </div>
@@ -62,7 +62,7 @@
             <br>
             <br>
           	<div class="row">
-          		<div class="col-md-2">
+          		<div class="col-md-3">
               </div>
               <div class="col-md-2">
                 <input type="text" class="form-control" id="assignsystem" name="fromassignsystem" placeholder="From System ID" required>
@@ -92,9 +92,9 @@
           <br>
           <br>
 	        <div class="row">
-	        	<div class="col-md-4"></div>
+	        	<div class="col-md-5"></div>
 	        	<div class="col-md-1">
-	        		<button type="submit" class="btn btn-primary" id="assignsystembtn" name="add">Assign Location</button>
+	        		<button type="submit" class="btn btn-primary" id="assignsystembtn" name="add" style="margin-left:50px">Assign Location</button>
 	        	</div>
             </div>
           </div>

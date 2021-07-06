@@ -13,7 +13,9 @@
 	$repcompcode=substr($repcompid,0,3);
 	$status=mysqli_real_escape_string($conn,$_POST['compstat1']);
 	$description=mysqli_real_escape_string($conn,$_POST['description1']);
+	date_default_timezone_set("Asia/Kolkata");
 	$date=date('Y-m-d');
+	$datetime = date('Y-m-d H:i:s');
 	if(!empty($category) and !empty($compid) and !empty($status) and !empty($description) and !empty($repcompid))
 	{
 		$statsql=mysqli_query($conn,"SELECT * FROM status WHERE status='{$status}'");
@@ -57,7 +59,7 @@
 													$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$repcompfetch['cpu_id']} WHERE system_id={$sysfetch['system_id']}");
 													$updaterepcomp=mysqli_query($conn,"UPDATE cpu SET location={$sysfetch['location_id']} WHERE cpu_id='{$repcompid}'");
 
-													$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$sysfetch['system_id']}','Replaced ID - ".$repcompid.".".$compid." ','Assigned to system to replace,set to not working and moved to store.')");
+													$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,set to not working and moved to store.','{$datetime}')");
 
 
 													echo $compid." assigned to system ".$sysfetch['system_id']." replaced by ".$repcompid.".".$compid." set to not working and moved to store.";
@@ -81,7 +83,7 @@
 												$updatecpu=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location=1,problem_description='NA' WHERE cpu_id='{$compid}'");
 												$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$repcompfetch['cpu_id']} WHERE system_id={$sysfetch['system_id']}");
 												$updaterepcomp=mysqli_query($conn,"UPDATE cpu SET location={$sysfetch['location_id']} WHERE cpu_id='{$repcompid}'");
-												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$sysfetch['system_id']}','Replaced ID - ".$repcompid.".".$compid." ','Assigned to system to replace,moved to store.')");
+												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to store.','{$datetime}')");
 												echo $compid." assigned to system ".$sysfetch['system_id']." replaced by ".$repcompid.".".$compid." moved to store.";
 											}
 											else
@@ -92,7 +94,7 @@
 												$updaterepcomp=mysqli_query($conn,"UPDATE cpu SET location={$templocation} WHERE cpu_id='{$repcompid}'");
 												$updaterepsys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`='{$compfetch['cpu_id']}' WHERE system_id={$repsysfetch['system_id']}");
 												echo $compid." assigned to system ".$sysfetch['system_id']." replaced by ".$repcompid.".Locations of the two components and system swapped.";
-												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$sysfetch['system_id']}','Replaced ID - ".$repcompid.".".$compid." ','Assigned to system to replace,moved to store.')");
+												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to store.','{$datetime}')");
 											}
 										}
 										else
@@ -134,7 +136,7 @@
 												{
 													$updaterepcomp=mysqli_query($conn,"UPDATE cpu SET location={$compfetch['location']} WHERE cpu_id='{$repcompid}'");
 													$updatecpu=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE cpu_id='{$compid}'");
-													$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$repcompid}','Replaced ID - ".$repcompid.".".$compid." set to not working and moved to store.')");
+													$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." set to not working and moved to store.','{$datetime}')");
 
 
 													echo $compid." replaced by ".$repcompid.".".$compid." set to not working and moved to store.";
@@ -157,7 +159,7 @@
 												$templocation=$compfetch['location'];
 												$updatecpu=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location={$repcompfetch['location']},problem_description='NA' WHERE cpu_id='{$compid}'");
 												$updaterepcomp=mysqli_query($conn,"UPDATE cpu SET location={$templocation} WHERE cpu_id='{$repcompid}'");
-												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$sysfetch['system_id']}','Replaced ID - ".$repcompid.".".$compid." ','Assigned to system to replace,moved to store.')");
+												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to store.','{$datetime}')");
 												echo $compid." replaced by ".$repcompid.".".$compid." moved to store.";
 											}
 											else
@@ -166,7 +168,7 @@
 												$updatecpu=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location={$repcompfetch['location']},problem_description='NA' WHERE cpu_id='{$compid}'");
 												$updaterepcomp=mysqli_query($conn,"UPDATE cpu SET location={$templocation} WHERE cpu_id='{$repcompid}'");
 												echo $compid." replaced by ".$repcompid.".Locations of the components swapped";
-												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$sysfetch['system_id']}','Replaced ID - ".$repcompid.".".$compid." ','Assigned to system to replace,moved to store.')");
+												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to store.','{$datetime}')");
 												$updaterepsys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$comp['componentid']} WHERE system_id={$repsysfetch['system_id']}");	
 											}
 										}
@@ -243,7 +245,7 @@
 													$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`='{$repcompfetch['componentid']}' WHERE system_id={$sysfetch['system_id']}");
 													$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$sysfetch['location_id']} WHERE componentid='{$repcompid}'");
 
-													$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$sysfetch['system_id']}','Replaced ID - ".$repcompid.".".$compid." ','Assigned to system to replace,set to not working and moved to store.')");
+													$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,set to not working and moved to store.','{$datetime}')");
 
 
 													echo $compid." assigned to system ".$sysfetch['system_id']." replaced by ".$repcompid.".".$compid." set to not working and moved to store.";
@@ -267,7 +269,7 @@
 												$updatecpu=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='NA' WHERE componentid='{$compid}'");
 												$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`='{$repcompfetch['componentid']}' WHERE system_id={$sysfetch['system_id']}");
 												$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$sysfetch['location_id']} WHERE componentid='{$repcompid}'");
-												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$sysfetch['system_id']}','Replaced ID - ".$repcompid.".".$compid." ','Assigned to system to replace,moved to store.')");
+												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to store.','{$datetime}')");
 												echo $compid." assigned to system ".$sysfetch['system_id']." replaced by ".$repcompid.".".$compid." moved to store.";
 											}
 											else
@@ -278,7 +280,7 @@
 												$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$templocation} WHERE componentid='{$repcompid}'");
 												$updaterepsys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`='{$compfetch['componentid']}' WHERE system_id={$repsysfetch['system_id']}");
 												echo $compid." assigned to system ".$sysfetch['system_id']." replaced by ".$repcompid.".".$compid." moved to store.";
-												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to store.')");
+												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to store.','{$datetime}')");
 													
 											}
 										}
@@ -287,9 +289,9 @@
 											if($repcompfetch['status']==1)
 											{
 												$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$compfetch['location']} WHERE componentid='{$repcompid}'");
-												$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$repcom['componentid']} WHERE system_id={$sysfetch['system_id']}");
+												$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$repcompfetch['componentid']} WHERE system_id={$sysfetch['system_id']}");
 												$updatecpu=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
-												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to dump.')");
+												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to dump.','{$datetime}')");
 												echo $repcompid." replaced ".$compid.".".$compid." moved to dump.";
 											}
 											else
@@ -322,7 +324,7 @@
 												{
 													$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$compfetch['location_id']} WHERE componentid='{$repcompid}'");
 													$updatecpu=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
-													$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,set to not working and moved to store.')");
+													$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,set to not working and moved to store.','{$datetime}')");
 
 
 													echo $compid." replaced by ".$repcompid.".".$compid." set to not working and moved to store.";
@@ -345,7 +347,7 @@
 												$templocation=$compfetch['location'];
 												$updatecpu=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$repcompfetch['location']},problem_description='NA' WHERE componentid='{$compid}'");
 												$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$templocation} WHERE componentid='{$repcompid}'");
-												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to store.')");
+												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to store.','{$datetime}')");
 												echo $compid." replaced by ".$repcompid.".".$compid." moved to store.";
 											}
 											else
@@ -354,7 +356,7 @@
 												$updatecpu=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location={$repcompfetch['location']},problem_description='NA' WHERE cpu_id='{$compid}'");
 												$updaterepcomp=mysqli_query($conn,"UPDATE cpu SET location={$templocation} WHERE cpu_id='{$repcompid}'");
 												echo $compid." replaced by ".$repcompid.".Locations of the components swapped";
-												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid.", replaced by ".$repcompid.".Locations of the components swapped')");
+												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid.", replaced by ".$repcompid.".Locations of the components swapped','{$datetime}')");
 											}
 										}
 										else
@@ -364,7 +366,7 @@
 												$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$compfetch['location']} WHERE componentid='{$repcompid}'");	
 												$updatecpu=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
 												echo $repcompid." replaced ".$compid.".".$compid." moved to dump.";
-												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid.", replaced ".$compid.".".$compid." moved to dump.')");
+												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid.", replaced ".$compid.".".$compid." moved to dump.','{$datetime}')");
 											}
 											else
 											{

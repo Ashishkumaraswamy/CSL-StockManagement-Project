@@ -98,8 +98,8 @@ function dosecurity(){
                         <h3 class="text-center color_white">AMCS LAB</h3>
                     <form class="form-signin" action="php/login.php" method="post" id="loginform">
                         <div class="error-text"></div>
-                        <h4 class="text-left color_white">Roll No</h4>
-                        <input type="name" name="username" id="username" class="form-control" placeholder="Roll No" required autofocus>
+                        <h4 class="text-left color_white">User Name</h4>
+                        <input type="name" name="username" id="username" class="form-control" placeholder="User Name" required autofocus>
                         <h4 class="text-left color_white">Password</h4>
                         <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
                         <br>

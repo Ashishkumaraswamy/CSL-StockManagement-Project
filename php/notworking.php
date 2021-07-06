@@ -6,7 +6,7 @@
     $locationsql=mysqli_query($conn,"SELECT * FROM category");
     $output="";
     if(mysqli_num_rows($locationsql) > 0){
-        $output.='  <center><div class="row" style="position:relative;>
+        $output.='  <center><div class="row" style="position:relative;">
                         <div class="col-sm-offset-2 col-md-9 text-center">';
         
         

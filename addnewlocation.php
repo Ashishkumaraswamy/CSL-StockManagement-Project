@@ -50,21 +50,15 @@
                 </table>
 	            </div>	
             </div>
-                
-
-
-
     </div>
-</div>
-
-          
-			</form></center><br><br><br>
+</div>     
+</form></center>
 
 <?php
     include_once("footer.php");
 ?>
 <script>
-	const form=document.querySelector("#formpurchase"),
+	const form=document.querySelector("#formpurchase");
 	continueBtn1=form.querySelector("#addcomponent");
 	// errorText = form.querySelector(".error-text");
 
