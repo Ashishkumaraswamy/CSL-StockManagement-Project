@@ -6,7 +6,7 @@
     $locationsql=mysqli_query($conn,"SELECT * FROM category");
     $output="";
     if(mysqli_num_rows($locationsql) > 0){
-        $output.='  <div class="row">
+        $output.='  <center><div class="row" style="position:relative;>
                         <div class="col-sm-offset-2 col-md-9 text-center">';
         
         
@@ -20,7 +20,7 @@
                 if(mysqli_num_rows($sql)>0)
                 {
                     $output.='
-                            <table class="table table-hover">
+                            <table class="table table-condensed" border="1">
                             <caption><center><h4 class="text-center"><b>'.$row['category'].' not working count : '.$lab['count'].' </b></h4></center></caption>
                                 <tr>
                                 <th>Component ID</th>
@@ -52,7 +52,7 @@
                 {
                     
                     $output.=' 
-                            <table class="table table-hover">
+                            <table class="table table-condensed" border="1">
                             <caption><center><h4 class="text-center"><b>'.$row['category'].' not working count : '.$lab['count'].' </b></h4></center></caption>
                                 <tr>
                                 <th>Component ID</th>
@@ -87,7 +87,7 @@
         <strong>Category sql failure</strong> 
         </div>';
     }
-    $output .='</div>';
+    $output .='</div></center>';
     echo $output;
 	
 ?>

@@ -128,21 +128,7 @@
                 </div>
                 <div class="form-group" id="okaybutton" hidden>
                     <div class="form-group" id="reportarea">
-                        <!-- <div class="container-fluid color_blue" id="logo" hidden>
-                            <div class="row text-center">
-                                <div class="col-md-2 pos">
-                                    <img src="images/psg_logo.png">
-                                </div>
-                                <div class="col-md-8">
-                                    <h2>PSG College of Technology</h2>
-                                    <h4>Applied Mathematics and Computational Sciences Laboratories</h4>
-                                    <h4>CSL Stock Manager</h4>
-                                </div>
-                                <div class="col-md-2">
-                                        <img src="images/csl_logo.png" width="150px" height="120px">
-                                </div>
-                            </div>
-                        </div> -->
+                        
                         
                     </div>
                     <div class="col-md-5">
@@ -173,29 +159,40 @@
     // pdf.fromHTML(document.getElementById("main"));
     // pdf.save('test.pdf');
     // };
-    $("body").on("click", "#btnExport", function (event) {
-        // $("#logo").css("display", "block");
-            event.preventDefault();
-            html2canvas($('#reportarea') ,{
-                onrendered: function (canvas) {
-                    var data1 = canvas.toDataURL();
-                    var docDefinition = {
-                        pageSize: 'A4',
-                        margin:[ 10, 10, 10, 10 ],
-                        startPosition: {
-                            left: 5,
-                        },
-                        content: [
-                            {
-                            image: data1,
-                            width: 500,
-                        }]
-                    };
+    // $("body").on("click", "#btnExport", function (event) {
+    //     // $("#logo").css("display", "block");
+    //         event.preventDefault();
+    //         html2canvas($('#reportarea') ,{
+    //             onrendered: function (canvas) {
+    //                 var data1 = canvas.toDataURL();
+    //                 var docDefinition = {
+    //                     pageSize: 'A4',
+    //                     margin:[ 10, 10, 10, 10 ],
+    //                     startPosition: {
+    //                         left: 5,
+    //                     },
+    //                     content: [
+    //                         {
+    //                         image: data1,
+    //                         width: 500,
+    //                     }]
+    //                 };
                 
-                    pdfMake.createPdf(docDefinition).download("report.pdf");
-                }
-            });
-    });
+    //                 pdfMake.createPdf(docDefinition).download("report.pdf");
+    //             }
+    //         });
+    // });
+    document.getElementById("btnExport").onclick=(e)=>{
+            e.preventDefault();
+            var divContents = $("#reportarea").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title></title></head>');
+            printWindow.document.write('<body style="width:100%;position:relative"><center><div class="container-fluid color_blue" id="logo" style="position:relative;"><div class="row text-center"><div class="col-md-8"><h2>PSG College of Technology</h2><h4>Applied Mathematics and Computational Sciences Laboratories</h4><h4>CSL Stock Manager</h4></div></div></div></center><br><br>');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+    }
     const form= document.querySelector("#formassign");
 
     document.getElementById("overall").onclick=(e)=>{

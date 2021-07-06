@@ -22,7 +22,7 @@
                 if(mysqli_num_rows($sql)>0)
                 {
                     $output.='
-                    <table class="table table-hover">
+                    <table class="table table-condensed" border="1">
                     <caption><center><h4 class="text-center"><b>Search Results...</b></h4></center></caption>
                     <tr>
                     <th>Component ID</th>
@@ -92,7 +92,7 @@
                 if(mysqli_num_rows($sql)>0)
                 {
                     $output.='
-                    <table class="table table-hover">
+                    <table class="table table-condensed" border="1">
                     <caption><center><h4 class="text-center"><b>Search Results...</b></h4></center></caption>
                     <tr>
                     <th>Component ID</th>

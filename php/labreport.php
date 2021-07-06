@@ -19,7 +19,7 @@
 				$labsyssql=mysqli_query($conn,"SELECT * FROM `system` WHERE location_id={$location['lab_id']}");
 				if(mysqli_num_rows($labsyssql)+$cpucnt['cpucnt']+$compcnt['compcnt']>0)
 				{
-					 $output.='<div class="row">
+					 $output.='<center><div class="row">
 			          		<div class="col-md-4">
 			          		</div>
 			          		<h4>Location:'.$location['lab_name'].'</h4>
@@ -32,7 +32,7 @@
 			          	   </div>
 			          	   <br><br>
 			    			<div class="col-sm-offset-2 col-md-9 text-center">
-			    			<table class="table table-hover" border="1">
+			    			<table class="table table-condensed" border="1">
 							  <tr>
 							    <th>System_ID</th>
 							    <th>Mouse_ID</th>
@@ -73,7 +73,7 @@
 				          		<h4>Other Components</h4>
 				        </div>
 	    				<div class="col-sm-offset-2 col-md-9 text-center">
-				    			<table class="table table-hover">
+				    			<table class="table table-condensed" border="1">
 				    			<tr>
 								    <th>Category</th>
 								    <th>Component_ID</th>
@@ -164,6 +164,6 @@
 	else{
 		echo '<div class="alert alert-info">
  	 	<strong>All input fields required</strong> 
-		</div>';
+		</div></center>';
 	}
 ?>

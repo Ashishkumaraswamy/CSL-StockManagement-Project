@@ -9,9 +9,9 @@
 		if(mysqli_num_rows($invoicelistsql)>0)
 		{
 			$output .='
-				<div class="row">
+				<div class="row" style="position:relative;width:90%;>
           		<div class="col-sm-offset-2 col-md-9 text-center">
-    			<table class="table table-hover" border="1">
+    			<table class="table table-condensed" border="1">
     			<tr>
     				<th>S.No</th>
 				  	<th>Invoice ID</th>
@@ -30,11 +30,12 @@
 				$span=mysqli_num_rows($itemlistsql);
 				if($itemlistsql)
 				{
+					$invoiceDate = $invoicefetch['purchase_date'];
+					$invoiceDate = date("d-m-Y", strtotime($invoiceDate));
 					$output.='
-							  <tr>
 							  <th rowspan="'.($span+1).'">1</th>
 							  <th rowspan="'.($span+1).'">'.$invoicefetch['invoice_id'].'</th> 
-							  <th rowspan="'.($span+1).'">'.$invoicefetch['purchase_date'].'</th>
+							  <th rowspan="'.($span+1).'">'.$invoiceDate.'</th>
 							  ';
 					while($category=mysqli_fetch_assoc($itemlistsql))
 					{
