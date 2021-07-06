@@ -4,8 +4,8 @@
 	$category=mysqli_real_escape_string($conn,$_POST['compcat1']);
 	$inpcompid=mysqli_real_escape_string($conn,$_POST['compid1']);
 	$repcompid=mysqli_real_escape_string($conn,$_POST['repcompid']);
-	$repcompid=strtolower($repcompid);
-	$compid=strtolower($inpcompid);
+	$repcompid=strtoupper($repcompid);
+	$compid=strtoupper($inpcompid);
 	$inpcompcode=substr($inpcompid,0,3);
 	$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$category}'");
 	$categoryfetch=mysqli_fetch_assoc($categorysql);

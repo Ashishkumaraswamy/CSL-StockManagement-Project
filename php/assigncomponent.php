@@ -3,7 +3,7 @@
 	session_start();
 	$assigntype=mysqli_real_escape_string($conn,$_POST['radiovalue']);
 	$assignid=mysqli_real_escape_string($conn,$_POST['assigncomponent']);
-	$cat=strtolower($assignid);
+	$cat=strtoupper($assignid);
 	$cat=substr($cat,0,3);
 	$cat=(string)$cat;
 	$location=mysqli_real_escape_string($conn,$_POST['comploc']);

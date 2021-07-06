@@ -3,7 +3,7 @@
 	session_start();
 
 	$location = mysqli_real_escape_string($conn,$_POST['location']);
-	$location = strtolower($location);
+	$location = strtoupper($location);
 
 	$sql = mysqli_query($conn,"select * from location where lab_name = '{$location}'");
 	if(mysqli_num_rows($sql) > 0){  

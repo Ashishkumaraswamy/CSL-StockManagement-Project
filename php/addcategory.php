@@ -3,7 +3,7 @@
 	session_start();
 
     $cat = mysqli_real_escape_string($conn,$_POST['cat']);
-	$cat= strtolower($cat);
+	$cat= strtoupper($cat);
 	$catcode = mysqli_real_escape_string($conn,$_POST['catcode']);
 	$catcode = strtolower($catcode);
 

@@ -3,7 +3,7 @@
 	session_start();
 	$invoice_id=mysqli_real_escape_string($conn,$_POST['invoice']);
 	$cat=mysqli_real_escape_string($conn,$_POST['cpucat']);
-	$cpucat=strtolower($cat);
+	$cpucat=strtoupper($cat);
 	$cpucat= substr($cpucat, 0,3);
 	$date=mysqli_real_escape_string($conn,$_POST['date']);
 	$ram=mysqli_real_escape_string($conn,$_POST['ram']);

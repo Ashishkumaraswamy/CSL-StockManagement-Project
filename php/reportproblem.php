@@ -3,7 +3,7 @@
 	session_start();
 	$category=mysqli_real_escape_string($conn,$_POST['compcat']);
 	$compid=mysqli_real_escape_string($conn,$_POST['compid']);
-	$compid=strtolower($compid);
+	$compid=strtoupper($compid);
 	$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$category}'");
 	$categoryfetch=mysqli_fetch_assoc($categorysql);
 	$compcode=$categoryfetch['category_code'];
