@@ -19,7 +19,7 @@
 		$locationfetch=mysqli_fetch_assoc($locationsql);
 		if($compcode==$inpcompcode)
 		{
-			if($compcode=="cpu" or $compcode=="ser" or $compcode=="lap" or $compcode=="mac")
+			if($compcode=="CPU" or $compcode=="SRV" or $compcode=="LAP" or $compcode=="MAC")
 			{
 				$cpusql=mysqli_query($conn,"SELECT * FROM cpu WHERE cpu_id='{$compid}'");
 				$compfetch=mysqli_fetch_assoc($cpusql);
@@ -29,7 +29,7 @@
 					{
 						if($statusfetch['status_id']==2)
 						{
-							if($compcode=="cpu")
+							if($compcode=="CPU")
 							{
 								$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
 								$sysfetch=mysqli_fetch_assoc($syssql);
@@ -88,7 +88,7 @@
 						}
 						else
 						{
-							if($compcode=="cpu")
+							if($compcode=="CPU")
 							{
 								$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
 								$sysfetch=mysqli_fetch_assoc($syssql);
@@ -133,7 +133,7 @@
 					{
 						if($statusfetch['status_id']==2)
 						{
-							if($compcode=="mou" or $compcode=="mon" or $compcode=="key")
+							if($compcode=="MOU" or $compcode=="MNT" or $compcode=="KBD")
 							{	
 								$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
 								$sysfetch=mysqli_fetch_assoc($syssql);
@@ -186,7 +186,7 @@
 						}
 						else
 						{
-							if($compcode=="mou" or $compcode=="mon" or $compcode=="key")
+							if($compcode=="MOU" or $compcode=="MNT" or $compcode=="KBD")
 							{
 								$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
 								$sysfetch=mysqli_fetch_assoc($syssql);

@@ -14,7 +14,7 @@
         $checksql=mysqli_query($conn,"SELECT * FROM category where category_code like '$ids'");
         if(mysqli_num_rows($checksql)>0){
             
-            if($ids != "mac" and $ids != "cpu" and  $ids != "lap" and $ids != "ser"){
+            if($ids != "MAC" and $ids != "CPU" and  $ids != "LAP" and $ids != "SRV"){
                 
                 $sql = mysqli_query($conn,"SELECT * FROM components where componentid = '{$id}'");
                 

@@ -41,8 +41,8 @@
                     <?php
                         while($row = mysqli_fetch_array($sql))  
                         {
-							if($row['category_code'] == 'mou' || $row['category_code'] == 'mon' || $row['category_code'] == 'key' || $row['category_code'] == 'cpu' ||
-							$row['category_code'] == 'lap' || $row['category_code'] == 'mac' || $row['category_code'] == 'ser'){
+							if($row['category_code'] == 'MOU' || $row['category_code'] == 'MNT' || $row['category_code'] == 'KBD' || $row['category_code'] == 'CPU' ||
+							$row['category_code'] == 'LAP' || $row['category_code'] == 'MAC' || $row['category_code'] == 'SRV'){
 								$temp = '<button type="submit" class="btn btn-primary" id="delcomponent" disabled>Not Accessible</button>';
 							}else {
 								$temp = '<button type="submit" class="btn btn-danger" id="delcomponent" onclick="myFunction('.$row['category_id'].')">Delete</button>';

@@ -38,7 +38,7 @@
 						$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$category['category']}'");
 						$categoryfetch=mysqli_fetch_assoc($categorysql);
 						$category_code=$categoryfetch['category_code'];
-						if($category_code=="cpu" or $category_code=="ser" or $category_code=="mac" or $category_code=="lap")
+						if($category_code=="CPU" or $category_code=="SRV" or $category_code=="MAC" or $category_code=="LAP")
 						{
 							$category_count_sql=mysqli_query($conn,"SELECT count(*) as categorycnt FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.cpu_id LIKE '$category_code%'");
 							$category_working_sql=mysqli_query($conn,"SELECT count(*) as categoryworkcnt FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoicefetch['invoice_id']}' AND c.cpu_id LIKE '$category_code%' AND status=1");

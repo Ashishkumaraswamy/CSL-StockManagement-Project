@@ -35,7 +35,7 @@
                     <?php
                         while($row = mysqli_fetch_array($sql))  
                         { 
-                            if($row['lab_name'] == 'store' || $row['lab_name'] == 'disposed' ){
+                            if($row['lab_name'] == 'store' || $row['lab_name'] == 'disposed' || $row['lab_name'] == 'STORE' || $row['lab_name'] == 'DISPOSED' ){
 								$temp = '<button type="submit" class="btn btn-primary" id="delcomponent" disabled>Not Accessible</button>';
 							}else {
 								$temp = '<button type="submit" class="btn btn-danger" id="delcomponent" onclick="myFunction('.$row['lab_id'].')">Delete</button>';

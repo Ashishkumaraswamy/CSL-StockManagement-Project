@@ -86,7 +86,7 @@
 	    					$count=0;
 	    					while($cat=mysqli_fetch_assoc($catsql))
 	    					{
-	    						if($cat['category_code']=='ser' or $cat['category_code']=='mac' or $cat['category_code']=='lap')
+	    						if($cat['category_code']=='SRV' or $cat['category_code']=='MAC' or $cat['category_code']=='LAP')
 	    						{
 	    							$category_code=$cat['category_code'];
 	    							$catfetchsql=mysqli_query($conn,"SELECT * FROM cpu WHERE cpu_id LIKE '$category_code%' AND location={$location['lab_id']}");

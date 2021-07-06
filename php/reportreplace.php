@@ -25,7 +25,7 @@
 		$locationfetch=mysqli_fetch_assoc($locationsql);
 		if($cat['category_code']==$inpcompcode and $cat['category_code']==$repcompcode)
 		{
-			if($compcode=="cpu" or $compcode=="ser" or $compcode=="lap" or $compcode=="mac")
+			if($compcode=="CPU" or $compcode=="SRV" or $compcode=="LAP" or $compcode=="MAC")
 			{
 				$compsql=mysqli_query($conn,"SELECT * FROM cpu WHERE cpu_id='{$compid}'");
 				$repcompsql=mysqli_query($conn,"SELECT * FROM cpu WHERE cpu_id='{$repcompid}'");
@@ -37,7 +37,7 @@
 					{
 						if($compfetch['location']!=1 and $compfetch['location']!=$locationfetch['lab_id'])
 						{	
-							if($compcode=="cpu")
+							if($compcode=="CPU")
 							{
 								$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
 								$sysfetch=mysqli_fetch_assoc($syssql);	
@@ -223,7 +223,7 @@
 					{
 						if($compfetch['location']!=1 and $compfetch['location']!=$locationfetch['lab_id'])
 						{					
-							if($compcode=="mou" or $compcode=="mon" or $compcode=="key")
+							if($compcode=="MOU" or $compcode=="MNT" or $compcode=="KBD")
 							{
 								$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category."_id='{$compid}'");
 								$sysfetch=mysqli_fetch_assoc($syssql);	

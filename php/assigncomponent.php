@@ -18,7 +18,7 @@
 			$checkcpusql=mysqli_query($conn,"SELECT * FROM cpu WHERE cpu_id='{$assignid}'");
 			if(mysqli_num_rows($checkcpusql)>0 or mysqli_num_rows($checkscompql)>0)
 			{
-				if($cat=="cpu" or $cat=="lap" or $cat=="ser" or $cat=="mac")
+				if($cat=="CPU" or $cat=="LAP" or $cat=="SRV" or $cat=="MAC")
 				{
 					$category=mysqli_fetch_assoc($categorysql);
 					if($cat=="cpu")
@@ -77,7 +77,7 @@
 				else
 				{
 					$category=mysqli_fetch_assoc($categorysql);
-					if($cat=="mou" or $cat=="mon" or $cat=="key")
+					if($cat=="MOU" or $cat=="MNT" or $cat=="KBD")
 					{
 						$syssql=mysqli_query($conn,"SELECT * FROM `system` WHERE ".$category['category']."_id='{$assignid}'");
 						if(mysqli_num_rows($syssql)==0)
