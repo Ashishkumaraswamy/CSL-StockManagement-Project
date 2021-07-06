@@ -186,10 +186,16 @@
     // });
     document.getElementById("btnExport").onclick=(e)=>{
             e.preventDefault();
+            n =  new Date();
+            y = n.getFullYear();
+            m = n.getMonth() + 1;
+            d = n.getDate();
+            var dateprint = d + "/" + m + "/" + y;
             var divContents = $("#reportarea").html();
             var printWindow = window.open('', '', 'height=400,width=800');
             printWindow.document.write('<html><head><title></title></head>');
-            printWindow.document.write('<body style="width:100%;position:relative"><center><div class="container-fluid color_blue" id="logo" style="position:relative;"><div class="row text-center"><div class="col-md-8"><h2>PSG College of Technology</h2><h4>Applied Mathematics and Computational Sciences Laboratories</h4><h4>CSL Stock Manager</h4></div></div></div></center><br><br>');
+            printWindow.document.write('<body style="width:100%;position:relative"><center><div class="container-fluid color_blue" id="logo" style="position:relative;"><div class="row text-center"><div class="col-md-8"><h2>PSG College of Technology</h2><h4>Applied Mathematics and Computational Sciences Laboratories</h4><h4>CSL Stock Report</h4></div></div></div></center><br><br>');
+            printWindow.document.write('<h4>Date :'+dateprint+'</h4>');
             printWindow.document.write(divContents);
             printWindow.document.write('</body></html>');
             printWindow.document.close();
