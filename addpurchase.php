@@ -33,7 +33,7 @@
           		<div class="col-md-2">
       						<select id="compcat" class="dropdown" name="compcat" style="width:130px;height:30px">
       					      <?php
-      					      		$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category NOT IN ('cpu','server','laptop','mac-desktop')");
+      					      		$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category_code NOT IN ('CPU','SRV','LAP','MAC')");
       					      		$output ="";
       					      		while($category=mysqli_fetch_assoc($categorysql))
       					      		{
@@ -71,7 +71,7 @@
           		<div class="col-md-2">
 	            	<select id="cpucat" name="cpucat" class="dropdown" style="width:130px;height:30px">
 					      <?php
-					      		$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category IN ('cpu','server','laptop','mac-desktop')");
+					      		$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category_code IN ('CPU','SRV','LAP','MAC')");
 					      		$output ="";
 					      		while($category=mysqli_fetch_assoc($categorysql))
 					      		{
@@ -129,7 +129,7 @@
 	continueBtn2=form.querySelector("#addcpu");
   continuebtn3=form.querySelector("#assignsystem");
 	var count=0;
-	var comp=["cpu","mon","mou","key"];
+	var comp=["CPU","MNT","MOU","KBD"];
 	// errorText = form.querySelector(".error-text");
 
 	document.getElementById("systemcheck").onclick=()=>{
@@ -140,7 +140,7 @@
 			if(count==0)
 			{
 				document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 1: Enter Mouse details of the Systems Puchased.</strong></div>';
-				document.getElementById("compcat").value="mouse";
+				document.getElementById("compcat").value="Mouse";
         document.getElementById("cpucat").value="";
         $('#addcpu').prop("disabled",true);
 			}
@@ -192,18 +192,18 @@
                  	if(count==1)
                  	{
                  		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 2: Enter Monitor details of the Systems Puchased.</strong></div>';
-                 		document.getElementById("compcat").value="monitor";
+                 		document.getElementById("compcat").value="Monitor";
                  	}
                  	else if(count==2)
                  	{
                  		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 3: Enter KeyBoard details of the Systems Puchased.</strong></div>';
-                 		document.getElementById("compcat").value="keyboard";
+                 		document.getElementById("compcat").value="Keyboard";
                  	}
                  	else if(count==3)
                  	{
                  		document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 4: Enter CPU details of the Systems Puchased.</strong></div>';
                     document.getElementById("compcat").value="";
-                 		document.getElementById("cpucat").value="cpu";
+                 		document.getElementById("cpucat").value="CPU";
                  		document.getElementById("cpuquant").value=document.getElementById("compquant").value;
                     document.getElementById("compquant").value="";
                     $('#addcpu').prop("disabled",false);

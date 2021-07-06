@@ -188,7 +188,7 @@
                         content: [
                             {
                             image: data1,
-                            width: 430,
+                            width: 500,
                         }]
                     };
                 

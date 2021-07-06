@@ -257,6 +257,7 @@
     
     document.getElementById("reportproblembtn").onclick=(e)=>
     {
+        alert(document.getElementById("compid").value);
         e.preventDefault();
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "php/reportproblem.php", true);

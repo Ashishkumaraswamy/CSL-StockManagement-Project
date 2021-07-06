@@ -4,10 +4,10 @@
     $invoice_id=mysqli_real_escape_string($conn,$_POST['invoice_id']);
 	$date=mysqli_real_escape_string($conn,$_POST['date']);
     $quantity=mysqli_real_escape_string($conn,$_POST['quantity']);
-    $mousefetchsql=mysqli_query($conn,"SELECT * FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoice_id}' AND c.componentid LIKE 'mou%'");
-    $keyboardfetchsql=mysqli_query($conn,"SELECT * FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoice_id}' AND c.componentid LIKE 'key%'");
-    $monitorfetchsql=mysqli_query($conn,"SELECT * FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoice_id}' AND c.componentid LIKE 'mon%'");
-    $cpufetchsql=mysqli_query($conn,"SELECT * FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoice_id}' AND c.cpu_id LIKE 'cpu%'");
+    $mousefetchsql=mysqli_query($conn,"SELECT * FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoice_id}' AND c.componentid LIKE 'MOU%'");
+    $keyboardfetchsql=mysqli_query($conn,"SELECT * FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoice_id}' AND c.componentid LIKE 'KBD%'");
+    $monitorfetchsql=mysqli_query($conn,"SELECT * FROM components c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoice_id}' AND c.componentid LIKE 'MNT%'");
+    $cpufetchsql=mysqli_query($conn,"SELECT * FROM cpu c INNER JOIN purchase p ON p.purchaseid=c.purchaseid WHERE p.invoice_id='{$invoice_id}' AND c.cpu_id LIKE 'CPU%'");
     if($mousefetchsql and $monitorfetchsql and $keyboardfetchsql and $cpufetchsql)
     {
     	$i=0;

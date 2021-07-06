@@ -51,8 +51,8 @@
 						  </tr>';
 					}
 					$output .='</table>';
-					$complocationcntsql=mysqli_query($conn,"SELECT count(*) as complocationcnt FROM components WHERE location={$location['lab_id']} AND componentid NOT LIKE 'mou%' AND componentid NOT LIKE 'key%' AND componentid NOT LIKE 'mon%'");
-					$cpulocationcntsql=mysqli_query($conn,"SELECT count(*) as cpulocationcnt FROM cpu WHERE location={$location['lab_id']} AND cpu_id NOT LIKE 'cpu%'");
+					$complocationcntsql=mysqli_query($conn,"SELECT count(*) as complocationcnt FROM components WHERE location={$location['lab_id']} AND componentid NOT LIKE 'MOU%' AND componentid NOT LIKE 'KBD%' AND componentid NOT LIKE 'MNT%'");
+					$cpulocationcntsql=mysqli_query($conn,"SELECT count(*) as cpulocationcnt FROM cpu WHERE location={$location['lab_id']} AND cpu_id NOT LIKE 'CPU%'");
 					$complocationcnt=mysqli_fetch_assoc($complocationcntsql);
 					$cpulocationcnt=mysqli_fetch_assoc($cpulocationcntsql);
 					$othercnt=$cpulocationcnt['cpulocationcnt']+$complocationcnt['complocationcnt'];
@@ -80,7 +80,7 @@
 								    <th>Description</th>
 								    <th>Status</th>
 								  </tr>';
-	    				$catsql=mysqli_query($conn,"SELECT * FROM category WHERE category_code NOT IN ('cpu','mon','mou','key')");
+						$catsql=mysqli_query($conn,"SELECT * FROM category WHERE category_code NOT IN ('CPU','MNT','MOU','KBD')");
 	    				if($catsql)
 	    				{
 	    					$count=0;

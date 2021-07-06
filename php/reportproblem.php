@@ -3,6 +3,7 @@
 	session_start();
 	$category=mysqli_real_escape_string($conn,$_POST['compcat']);
 	$compid=mysqli_real_escape_string($conn,$_POST['compid']);
+	echo $compid;
 	$compid=strtoupper($compid);
 	$categorysql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$category}'");
 	$categoryfetch=mysqli_fetch_assoc($categorysql);
@@ -10,7 +11,6 @@
 	$inpcompcode=substr($compid,0,3);
 	$status=mysqli_real_escape_string($conn,$_POST['compstat']);
 	$description=mysqli_real_escape_string($conn,$_POST['description']);
-	$date=date('Y-m-d');
 	if(!empty($category) and !empty($compid) and !empty($status) and !empty($description))
 	{
 		$statsql=mysqli_query($conn,"SELECT * FROM status WHERE status='{$status}'");

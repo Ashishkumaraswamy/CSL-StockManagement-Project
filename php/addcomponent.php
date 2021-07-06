@@ -4,8 +4,9 @@
 	$invoice_id=mysqli_real_escape_string($conn,$_POST['invoice']);
 	$cat=mysqli_real_escape_string($conn,$_POST['compcat']);
 	$date=mysqli_real_escape_string($conn,$_POST['date']);
-	$compcat=strtolower($cat);
-	$compcat= substr($compcat, 0,3);
+	$compcatsql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$cat}'");
+	$compcatfecth=mysqli_fetch_assoc($compcatsql);
+	$compcat= $compcatfecth['category_code'];
 	$brand=mysqli_real_escape_string($conn,$_POST['brand']);
 	$type=mysqli_real_escape_string($conn,$_POST['type']);
 	$desc=mysqli_real_escape_string($conn,$_POST['compdesc']);
@@ -32,7 +33,7 @@
 					$i=1;
 					while($i<=$compquant)
 					{
-						$compid=$catfetch['category_code'].(string)($count+$i);
+						$compid=$catfetch['category_code'].'-'.(string)($count+$i);
 						$id=($count+$i);
 						$insertcomp=mysqli_query($conn,"INSERT INTO components VALUES('{$compid}',{$id},{$purchaseid['purchaseid']},'{$brand}','{$type}',1,1,'{$desc}','NA')");
 						//$sql1 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$compid}','Invoice ID - {$invoice_id} ,Purchase ID -{$purchaseid['purchaseid']} and Purchase date - {$date}.','New Components Added.')");

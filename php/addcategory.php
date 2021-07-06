@@ -3,9 +3,8 @@
 	session_start();
 
     $cat = mysqli_real_escape_string($conn,$_POST['cat']);
-	$cat= strtoupper($cat);
 	$catcode = mysqli_real_escape_string($conn,$_POST['catcode']);
-	$catcode = strtolower($catcode);
+	$catcode = strtoupper($catcode);
 
 	$sql = mysqli_query($conn,"select * from category where category = '{$cat}'");
 	if(mysqli_num_rows($sql) > 0){  

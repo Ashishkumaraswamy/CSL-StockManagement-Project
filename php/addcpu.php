@@ -3,8 +3,9 @@
 	session_start();
 	$invoice_id=mysqli_real_escape_string($conn,$_POST['invoice']);
 	$cat=mysqli_real_escape_string($conn,$_POST['cpucat']);
-	$cpucat=strtoupper($cat);
-	$cpucat= substr($cpucat, 0,3);
+	$cpucatsql=mysqli_query($conn,"SELECT * FROM category WHERE category='{$cat}'");
+	$cpucatfecth=mysqli_fetch_assoc($cpucatsql);
+	$cpucat= $cpucatfecth['category_code'];
 	$date=mysqli_real_escape_string($conn,$_POST['date']);
 	$ram=mysqli_real_escape_string($conn,$_POST['ram']);
 	$procseries=mysqli_real_escape_string($conn,$_POST['procseries']);
@@ -29,7 +30,7 @@
 					$i=1;
 					while($i<=$cpuquant)
 					{
-						$cpuid=$cpucat.(string)($count+$i);
+						$cpuid=$cpucat.'-'.(string)($count+$i);
 						$id=($count+$i);
 						$insertcomp=mysqli_query($conn,"INSERT INTO cpu VALUES('{$cpuid}',{$id},{$purchaseid['purchaseid']},'{$ram}','{$procseries}',{$storage},1,1,'{$desc}','NA')");
 						//$sql7 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose) VALUES({$_SESSION['unique_id']},'{$cpuid}','Invoice ID - {$invoice_id} ,Purchase ID -{$purchaseid['purchaseid']} and Purchase date - {$date}.','New Components Added.')");
