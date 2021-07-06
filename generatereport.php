@@ -155,6 +155,7 @@
                     </div>
                     
                 </div>
+                <div id="elementH"></div>
 
             </form></center><br><br><br>
 
@@ -163,39 +164,54 @@
     include_once("footer.php");
 ?>
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="js/jsPDF/dist/jspdf.min.js"></script>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js""></script>
 <script>
-    // document.getElementById("btnExport").onclick=(e)=>{
-    // var pdf = new jsPDF('p', 'pt', 'letter');
-    // pdf.fromHTML(document.getElementById("main"));
-    // pdf.save('test.pdf');
-    // };
-    $("body").on("click", "#btnExport", function (event) {
-        // $("#logo").css("display", "block");
-            event.preventDefault();
-            html2canvas($('#reportarea') ,{
-                onrendered: function (canvas) {
-                    var data1 = canvas.toDataURL();
-                    var docDefinition = {
-                        pageSize: 'A4',
-                        margin:[ 10, 10, 10, 10 ],
-                        startPosition: {
-                            left: 5,
-                        },
-                        content: [
-                            {
-                            image: data1,
-                            width: 500,
-                        }]
-                    };
+    document.getElementById("btnExport").onclick=(e)=>{
+        e.preventDefault();
+        var doc = new jsPDF('l', 'pt', 'a4', true);
+
+        var elementHTML = $('#reportarea').html();
+        var specialElementHandlers = {
+            '#elementH': function (element, renderer) {
+                return true;
+            }
+        };
+        doc.fromHTML(
+            elementHTML, 10,15, {
+            'width': 100,
+            'elementHandlers': specialElementHandlers
+        });
+        doc.save('report.pdf');
+    };
+    // $("body").on("click", "#btnExport", function (event) {
+    //     // $("#logo").css("display", "block");
+    //         event.preventDefault();
+    //         html2canvas($('#reportarea') ,{
+    //             onrendered: function (canvas) {
+    //                 var data1 = canvas.toDataURL();
+    //                 var docDefinition = {
+    //                     pageSize: 'A4',
+    //                     margin:[ 10, 10, 10, 10 ],
+    //                     startPosition: {
+    //                         left: 5,
+    //                     },
+    //                     canvas: '<as specified in doc definition>',
+    //                     content: [
+    //                         {
+    //                         image: data1,
+    //                         width: 400,
+    //                     }]
+    //                 };
+                    
                 
-                    pdfMake.createPdf(docDefinition).download("report.pdf");
-                }
-            });
-    });
+    //                 pdfMake.createPdf(docDefinition).download("report.pdf");
+    //             }
+    //         });
+    // });
     const form= document.querySelector("#formassign");
 
     document.getElementById("overall").onclick=(e)=>{
