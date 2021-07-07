@@ -18,7 +18,7 @@
                 <th>User Name</th>
                 <th>Component ID</th>
                 <th>Description</th>
-                <th>Purpose</th>
+                <th>Problem</th>
                 <th>Time</th>
                 </tr>';
 

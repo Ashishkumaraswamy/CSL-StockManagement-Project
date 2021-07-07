@@ -49,7 +49,7 @@
 
 										$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE cpu_id='{$compid}'");
 										
-										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.','{$datetime}')");
+										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','status updated to not working.','{$description}','{$datetime}')");
 
 										echo $compid." status updated to not working.Component already in store.";
 									}
@@ -67,7 +67,7 @@
 
 										$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
 										
-										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.','{$datetime}')");
+										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','status updated to not working.','{$description}','{$datetime}')");
 
 										echo $compid." status updated to not working.Component already in store.";
 									}	
@@ -83,7 +83,7 @@
 							{
 								$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location=1,problem_description='NA' WHERE cpu_id='{$compid}'");
 								
-								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','updated to working status.','{$datetime}')");
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','updated to working status.','{$description}','{$datetime}')");
 
 								echo $compid." updated to working status.Component present in store.";
 							}
@@ -102,7 +102,7 @@
 								{
 									$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE cpu_id='{$compid}'");
 									$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
-									$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.','{$datetime}')");
+									$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Disposed a Component.','{$description}','{$datetime}')");
 									echo $compid." disposed and component moved to dipsose area.";	
 								}
 							}
@@ -110,7 +110,7 @@
 							{
 								$updatecomp=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE cpu_id='{$compid}'");
 								$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
-								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.','{$datetime}')");
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Disposed a Component.','{$description}','{$datetime}')");
 								echo $compid." disposed and component moved to dipsose area.";	
 							}
 						}
@@ -152,7 +152,7 @@
 									else{
 
 										$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
-										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.','{$datetime}')");
+										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','status updated to not working.','{$description}','{$datetime}')");
 										echo $compid." status updated to not working.Component already in store.";
 									}
 								}
@@ -167,7 +167,7 @@
 
 										$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='{$description}' WHERE componentid='{$compid}'");
 										
-										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','status updated to not working.','{$datetime}')");
+										$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','status updated to not working.','{$description}','{$datetime}')");
 										echo $compid." status updated to not working.Component already in store.";
 									}
 							}
@@ -181,7 +181,7 @@
 							else{
 								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location=1,problem_description='NA' WHERE componentid='{$compid}'");
 								
-								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component already in store.','updated to working status.','{$datetime}')");
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','updated to working status.','{$description}','{$datetime}')");
 
 								echo $compid." updated to working status.Component present in store.";
 							}
@@ -200,14 +200,14 @@
 								{
 									$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
 									$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
-									$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.','{$datetime}')");
+									$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Disposed a Component.','{$description}','{$datetime}')");
 									echo $compid." disposed and component moved to dipsose area.";	
 								}
 							}
 							else{
 								$updatecomp=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
 								$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
-								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Component moved to dipsose area','Disposed a Component.','{$datetime}')");
+								$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Disposed a Component.','{$description}','{$datetime}')");
 								echo $compid." disposed and component moved to dipsose area.";		
 							}
 						}
