@@ -1,7 +1,7 @@
 <?php
     include_once("navigation.php");
 ?>
-<div class="container-fluid" style="position:relative;height:25%;width:100%">
+<div class="container-fluid">
   <center><h2>NEW PURCHASE ENTRY</h2></center>
 
   <center><form action="" class="form-horizontal" method="post" name="myForm" id="formpurchase">
@@ -132,12 +132,17 @@
 	var count=0;
 	var comp=["CPU","MNT","MOU","KBD"];
 	// errorText = form.querySelector(".error-text");
-
+  $('#finishbtn').prop("disabled",true);
 	document.getElementById("systemcheck").onclick=()=>{
 		if(document.getElementById("check").value=="uncheck")
 		{
       count=0;
 			document.getElementById("check").value="check";
+      document.getElementById("ram").value="";
+      document.getElementById("procseries").value="";
+      document.getElementById("storage").value="";
+      document.getElementById("cpudesc").value="";
+      document.getElementById("cpuquant").value="";
 			if(count==0)
 			{
 				document.getElementById("inputcompcheck").innerHTML='<div class="alert alert-info"><strong>Component 1: Enter Mouse details of the Systems Puchased.</strong></div>';
@@ -156,6 +161,11 @@
       $('#addcomponent').prop("disabled",false);
       document.getElementById("inputcompcheck").innerHTML='';
 			document.getElementById("check").value="uncheck";
+      document.getElementById("ram").value="";
+      document.getElementById("procseries").value="";
+      document.getElementById("storage").value="";
+      document.getElementById("cpudesc").value="";
+      document.getElementById("cpuquant").value="";
 			count=0;
 		}
 	}
@@ -185,9 +195,11 @@
                	document.getElementById("compquant").value="";
                 $('#addcpu').prop("disabled",false);
                 $('#addcomponent').prop("disabled",false);
+                $('#finishbtn').prop("disabled",false);
                }
                else
                {
+                  $('#finishbtn').prop("disabled",true);
                   $('#addcpu').prop("disabled",true);
                  	count=count+1;
                  	if(count==1)
@@ -251,12 +263,14 @@
                        $('#addcpu').prop("disabled",false);
                        $('#addcomponent').prop("disabled",false);
                        count=0;
+                       $('#finishbtn').prop("disabled",false);
                   }
                 }
                 else
                 {
                   $('#addcpu').prop("disabled",false);
                   $('#addcomponent').prop("disabled",false);
+                  $('#finishbtn').prop("disabled",false);
                 }
               }
               else
@@ -325,13 +339,6 @@ $(document).on('click','#okaybtn',function(e){
 window.onbeforeunload = function(){
             return 'Are you sure you want to leave?';
 };
-// window.onbeforeunload = confirmExit;
-//     function confirmExit() {
-//         return "You have attempted to leave this page. Are you sure?";
-// }
-// $(document).on('click','#okay',function(e){
-//     location.href="addpurchase.php";
-// });
 </script>	
 </body>
 </html>

@@ -310,6 +310,7 @@
     
     document.getElementById("alltype").onclick=(e)=>{
         document.getElementById("areabasedoncheck").innerHTML="";
+        document.getElementById("reportarea").innerHTML="";
         let xhr = new XMLHttpRequest();
         xhr.open("POST", "php/allinvoicereport.php", true);
         xhr.onload = ()=>{

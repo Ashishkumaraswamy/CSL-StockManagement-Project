@@ -104,6 +104,7 @@
 												$updaterepcomp=mysqli_query($conn,"UPDATE cpu SET location={$compfetch['location']} WHERE cpu_id='{$repcompid}'");
 												$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`='{$repcompfetch['cpu_id']}' WHERE system_id={$sysfetch['system_id']}");
 												$updatecpu=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE cpu_id='{$compid}'");
+												$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
 												echo $repcompid." replaced ".$compid.".".$compid." moved to dump.";
 											}
 											else
@@ -178,6 +179,7 @@
 											{
 												$updaterepcomp=mysqli_query($conn,"UPDATE cpu SET location={$compfetch['location']} WHERE cpu_id='{$repcompid}'");	
 												$updatecpu=mysqli_query($conn,"UPDATE cpu SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE cpu_id='{$compid}'");
+												$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
 												echo $repcompid." replaced ".$compid.".".$compid." moved to dump.";
 											}
 											else
@@ -279,8 +281,8 @@
 												$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`='{$repcompfetch['componentid']}' WHERE system_id={$sysfetch['system_id']}");
 												$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$templocation} WHERE componentid='{$repcompid}'");
 												$updaterepsys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`='{$compfetch['componentid']}' WHERE system_id={$repsysfetch['system_id']}");
-												echo $compid." assigned to system ".$sysfetch['system_id']." replaced by ".$repcompid.".".$compid." moved to store.";
-												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to store.','{$datetime}')");
+												echo $compid." assigned to system ".$sysfetch['system_id']." replaced by ".$repcompid.".Locations of the two components swapped";
+												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace.Locations of the two components swapped.','{$datetime}')");
 													
 											}
 										}
@@ -292,6 +294,7 @@
 												$updatesys=mysqli_query($conn,"UPDATE `system` SET `".$category."_id`={$repcompfetch['componentid']} WHERE system_id={$sysfetch['system_id']}");
 												$updatecpu=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
 												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid." ','Assigned to system to replace,moved to dump.','{$datetime}')");
+												$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
 												echo $repcompid." replaced ".$compid.".".$compid." moved to dump.";
 											}
 											else
@@ -365,6 +368,7 @@
 											{
 												$updaterepcomp=mysqli_query($conn,"UPDATE components SET location={$compfetch['location']} WHERE componentid='{$repcompid}'");	
 												$updatecpu=mysqli_query($conn,"UPDATE components SET status={$statusfetch['status_id']},location={$locationfetch['lab_id']},problem_description='{$description}' WHERE componentid='{$compid}'");
+												$insertdispose=mysqli_query($conn,"INSERT INTO `disposed`(`component_id`, `disposeddate`) VALUES ('{$compid}','{$date}')");
 												echo $repcompid." replaced ".$compid.".".$compid." moved to dump.";
 												$sql6 = mysqli_query($conn,"INSERT INTO log(user_id,id,description,purpose,time) VALUES({$_SESSION['unique_id']},'{$compid}','Replaced ID - ".$compid." to ".$repcompid.", replaced ".$compid.".".$compid." moved to dump.','{$datetime}')");
 											}

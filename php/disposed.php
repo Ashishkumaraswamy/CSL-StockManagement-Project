@@ -68,8 +68,9 @@
                                 </tr>';
                     while($labsys=mysqli_fetch_assoc($sql))
                     {
-                        $c = $labsys['componentid'];
-                        $loc = mysqli_query($conn,"SELECT * FROM disposed where component_id = '$c' ");
+                        $c = $labsys['cpu_id'];
+                        echo $c;
+                        $loc = mysqli_query($conn,"SELECT * FROM disposed where component_id ='{$c}'");
                         $date = mysqli_fetch_assoc($loc);
 
 

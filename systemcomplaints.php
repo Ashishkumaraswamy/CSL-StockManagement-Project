@@ -7,7 +7,7 @@
             </div>
             <div class="col-md-3">
             <div class="radio">
-              <label style="font-size: 15px"><input type="radio" name="reporttype" id="transfer">Transfer Component</label>
+              <label style="font-size: 15px"><input type="radio" name="reporttype" id="transfer">Transfer System</label>
             </div>
             </div>
             <div class="col-md-3">

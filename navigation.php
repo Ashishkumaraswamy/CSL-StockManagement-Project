@@ -74,7 +74,7 @@
 
 </style>
 </head>
-<body style="position:relative;width=100%;height:100%">
+<body>
     <div class="container-fluid color_blue" id="main">
         <div class="row text-center">
             <div class="col-md-2 pos">
@@ -86,7 +86,7 @@
                 <h4>CSL Stock Manager</h4>
             </div>
             <div class="col-md-2">
-                <img src="images/csl_logo.png" width="150px" height="120px">
+                <a href="mainpage.php" style="text-decoration:none;"><img src="images/csl_logo.png" width="150px" height="120px"></a>
             </div>
         </div>
     </div>

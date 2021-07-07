@@ -14,12 +14,14 @@
           		<div class="col-md-2">
 	            	
 	        	</div>
-	        	
-	        	<div class="col-md-4">
+	        	<div class="col-md-2">
+	            	
+	        	</div>
+	        	<div class="col-md-2">
 	        		<input type="password" class="form-control" id="password" name="password" placeholder="Password">
 	        	</div>
                 
-	        	<div class="col-md-3">
+	        	<div class="col-md-2">
 	        		<button type="submit" class="btn btn-primary" id="addcomponent" name="add">New Password</button>
 	        	</div>
             </div>
