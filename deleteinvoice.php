@@ -1,5 +1,12 @@
 <?php
-    include_once("navigation.php");
+	include_once "php/config.php";
+	$usersql=mysqli_query($conn,"SELECT * FROM users WHERE user_id={$_SESSION['unique_id']}");
+	$user=mysqli_fetch_assoc($usersql);
+	if($user['role']!=1)
+    {
+      header("location: mainpage.php");
+    }
+	include_once("navigation.php");
 ?>
 <br>
 <center><h2>Delete Invoice</h2></center>

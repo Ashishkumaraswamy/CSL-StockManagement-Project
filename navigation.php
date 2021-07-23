@@ -1,7 +1,11 @@
 <?php
-    session_start();
+    if (session_status() === PHP_SESSION_NONE) 
+    {
+        session_start();
+    }
     include_once("php/config.php");
-    if(!isset($_SESSION['unique_id'])){
+    if(!isset($_SESSION['unique_id']))
+    {
 		header("location: index.php");
 	}
     $usersql=mysqli_query($conn,"SELECT * FROM users WHERE user_id={$_SESSION['unique_id']}");

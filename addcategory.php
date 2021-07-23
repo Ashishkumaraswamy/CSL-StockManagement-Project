@@ -1,6 +1,13 @@
 <?php
+	session_start();
 	include_once "php/config.php";
-    include_once("navigation.php");
+	$usersql=mysqli_query($conn,"SELECT * FROM users WHERE user_id={$_SESSION['unique_id']}");
+    $user=mysqli_fetch_assoc($usersql);
+	if($user['role']!=1)
+    {
+      header("location: mainpage.php");
+    }
+	include_once("navigation.php");
     $sql = mysqli_query($conn, "select * from category");
 ?>
 <center><h2>ADD NEW CATEGORY</h2></center>
