@@ -1,6 +1,6 @@
 <?php
-    include_once("navigation.php");
 	include_once "php/config.php";
+    include_once("navigation.php");
     $sql = mysqli_query($conn, "select * from category");
 ?>
 <center><h2>ADD NEW CATEGORY</h2></center>

@@ -1,6 +1,9 @@
 <?php
     session_start();
     include_once("php/config.php");
+    if(!isset($_SESSION['unique_id'])){
+		header("location: index.php");
+	}
     $usersql=mysqli_query($conn,"SELECT * FROM users WHERE user_id={$_SESSION['unique_id']}");
     $user=mysqli_fetch_assoc($usersql);
 ?>
@@ -96,7 +99,7 @@
                 <h4 id="date"></h4>
             </div>
             <div class="col-md-6 text-right" id="border1">
-                <h4>Welcome : <?php echo ''.$user['user_name'].''?>| <a href="index.php"  style="color:white">SignOut</a></h4>
+                <h4>Welcome : <?php echo ''.$user['user_name'].''?>| <a href="php/logout.php"  style="color:white">SignOut</a></h4>
             </div>
         </div>
     </div>
